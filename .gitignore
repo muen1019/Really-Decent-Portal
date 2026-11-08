@@ -1,0 +1,20 @@
+# Build products and private local state do not belong in this repository.
+*.apk
+*.aab
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.key
+.env
+.env.*
+local.properties
+**/build/
+!SOURCE_OFFER/build/
+!SOURCE_OFFER/build/**
+**/.gradle/
+**/.cxx/
+__pycache__/
+artifacts/
+profiles/
+signing/

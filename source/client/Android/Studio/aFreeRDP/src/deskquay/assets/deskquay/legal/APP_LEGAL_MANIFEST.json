@@ -1,0 +1,377 @@
+{
+  "format": "deskquay-app-legal-assets-v1",
+  "reviewed_bundle_sha256": "d7b6ea476d56dbbf2a6e5a4711b191c7c524c6c90e13be512d65e6ead8a1924f",
+  "files": [
+    {
+      "path": "LICENSES/AOSP-cpufeatures-BSD-2-style.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1398,
+      "sha256": "4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1"
+    },
+    {
+      "path": "LICENSES/AOSP-cpufeatures-NOTICE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 577,
+      "sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49"
+    },
+    {
+      "path": "LICENSES/Apache-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/cJSON-1.7.19-MIT.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1084,
+      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+    },
+    {
+      "path": "LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 10175,
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "LICENSES/Kotlin-2.2.10-Apache-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-Guava-Apache-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-GWT-Apache-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-Math-Boost-1.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1337,
+      "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+    },
+    {
+      "path": "LICENSES/Kotlin-ThreeTen-BSD.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1520,
+      "sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331"
+    },
+    {
+      "path": "LICENSES/LibTomCrypt-476a957-LICENSE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 719,
+      "sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
+    },
+    {
+      "path": "LICENSES/MPL-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 16726,
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
+    },
+    {
+      "path": "LICENSES/OpenSSL-4.0.1-Apache-2.0.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 10175,
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "path": "LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 2569,
+      "sha256": "b83c94cedacb75139f80eef0908621c49081933f5b294d8f0d81434656452847"
+    },
+    {
+      "path": "LICENSES/Openwall-MD4-public-domain-fallback.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1626,
+      "sha256": "fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24"
+    },
+    {
+      "path": "LICENSES/Openwall-MD5-public-domain-fallback.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1626,
+      "sha256": "c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/LGPL-2.1.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 26435,
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 18412,
+      "sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 26435,
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "LICENSES/SQLCipher-core-v4.17.0-BSD.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1463,
+      "sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e"
+    },
+    {
+      "path": "LICENSES/SQLite-core-public-domain-notice.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 610,
+      "sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 2033,
+      "sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 209,
+      "sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c"
+    },
+    {
+      "path": "LICENSES/uriparser-1.0.2-BSD.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1734,
+      "sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
+    },
+    {
+      "path": "LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1557,
+      "sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 21854,
+      "sha256": "0e18932e98961355871098f697df9770fbe9eaa6f8e362f91e5518ccdacb78b4"
+    }
+  ],
+  "engineering_files_included": false,
+  "generated_metadata_license": "MPL-2.0",
+  "generated_metadata_license_scope": "Only this project-generated metadata compilation; quoted original notices, license texts and third-party data retain their original rights and terms. No third-party material is relicensed.",
+  "reviewed_bundle_sha256_scope": "Historical original-text origin bundle; not a digest of this newly updated asset collection.",
+  "rendered_files": [
+    {
+      "path": "LICENSES/AOSP-cpufeatures-BSD-2-style.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1823,
+      "sha256": "32bbed43ec618bb21a9ef7e454789855a6492906e67fb567f341cd3506853cef",
+      "original_text_path": "LICENSES/AOSP-cpufeatures-BSD-2-style.txt",
+      "original_text_sha256": "4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1"
+    },
+    {
+      "path": "LICENSES/AOSP-cpufeatures-NOTICE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1007,
+      "sha256": "0167d4c4e08a6e45046ae3aa7cf538eb3e86024152c7ff99b0bdd562ecbcde90",
+      "original_text_path": "LICENSES/AOSP-cpufeatures-NOTICE.txt",
+      "original_text_sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49"
+    },
+    {
+      "path": "LICENSES/Apache-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 11960,
+      "sha256": "b62bc90ee35cdda74cd5f0cf815c7da4888719eaa93eca97f320041e78cc468f",
+      "original_text_path": "LICENSES/Apache-2.0.txt",
+      "original_text_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 10795,
+      "sha256": "04560e476d73004f2540e42da468154fb597837f683de8a28b758392bc5f9c56",
+      "original_text_path": "LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+      "original_text_sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "LICENSES/Kotlin-2.2.10-Apache-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 11974,
+      "sha256": "6293d1cc05a1f540632e192b34459775534fe48aa4548a64eed5ec2a1a82b101",
+      "original_text_path": "LICENSES/Kotlin-2.2.10-Apache-2.0.txt",
+      "original_text_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-GWT-Apache-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 11971,
+      "sha256": "e699f1890926e5f652ddfa410499155c7ada55924f04da02eb8a491e5e1dd9ee",
+      "original_text_path": "LICENSES/Kotlin-GWT-Apache-2.0.txt",
+      "original_text_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-Guava-Apache-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 11973,
+      "sha256": "ae5e1e9729ebc053a8772476ed036079cac79c7b1f8097345693490ad8e8efff",
+      "original_text_path": "LICENSES/Kotlin-Guava-Apache-2.0.txt",
+      "original_text_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSES/Kotlin-Math-Boost-1.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1765,
+      "sha256": "af1e47256d15a41102a51b6d997239b340051afa75d1cdebb0291e237b1b2c0f",
+      "original_text_path": "LICENSES/Kotlin-Math-Boost-1.0.txt",
+      "original_text_sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+    },
+    {
+      "path": "LICENSES/Kotlin-ThreeTen-BSD.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1940,
+      "sha256": "d6a3c241cf44354da1f0ab918f7e3bb8bf9def5b54e4a0c11108a1d365d0b390",
+      "original_text_path": "LICENSES/Kotlin-ThreeTen-BSD.txt",
+      "original_text_sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331"
+    },
+    {
+      "path": "LICENSES/LibTomCrypt-476a957-LICENSE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1139,
+      "sha256": "7fede8c2084472afd63ffdc2967b49d496ea5cdebee841474d1957a95cafffbe",
+      "original_text_path": "LICENSES/LibTomCrypt-476a957-LICENSE.txt",
+      "original_text_sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
+    },
+    {
+      "path": "LICENSES/MPL-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 17350,
+      "sha256": "47a948e46e298ca430b381532d7bbb7e55126c2a92131439e5655b00c33276d4",
+      "original_text_path": "LICENSES/MPL-2.0.txt",
+      "original_text_sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
+    },
+    {
+      "path": "LICENSES/OpenSSL-4.0.1-Apache-2.0.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 10746,
+      "sha256": "8ce63b27cfec360881ae6fe916fba6a1e184167bb336c7b08886e492f2738934",
+      "original_text_path": "LICENSES/OpenSSL-4.0.1-Apache-2.0.txt",
+      "original_text_sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "path": "LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 3019,
+      "sha256": "80c665d1ad10b94cb2b129d5bebe17a5aacaa1d302657e61817dcee238b9857a",
+      "original_text_path": "LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt",
+      "original_text_sha256": "b83c94cedacb75139f80eef0908621c49081933f5b294d8f0d81434656452847"
+    },
+    {
+      "path": "LICENSES/Openwall-MD4-public-domain-fallback.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 2089,
+      "sha256": "dcedfa860b30c6cfd143030c770fa63c8035a712094d4fd21119c308eb547c29",
+      "original_text_path": "LICENSES/Openwall-MD4-public-domain-fallback.txt",
+      "original_text_sha256": "fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24"
+    },
+    {
+      "path": "LICENSES/Openwall-MD5-public-domain-fallback.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 2089,
+      "sha256": "5a9294af94ca88017a604215e95ee478a4f8ae02e81d0f5e8df66aa7e1b031b7",
+      "original_text_path": "LICENSES/Openwall-MD5-public-domain-fallback.txt",
+      "original_text_sha256": "c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/LGPL-2.1.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 27126,
+      "sha256": "99da80f152a99badc823b430203ea48abb9bf4abdc5b42039a95d5f7ae552ce7",
+      "original_text_path": "LICENSES/SOURCE_ONLY/LGPL-2.1.txt",
+      "original_text_sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 19106,
+      "sha256": "1be86466dc7b2a3ff1b4f6e0583deb0a7f1bf67ec7e46a2319fb1c9a3312dd01",
+      "original_text_path": "LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt",
+      "original_text_sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181"
+    },
+    {
+      "path": "LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 27140,
+      "sha256": "01e526ad18cab644ae25bcfeec3d29a4dfbae3350f354473d661484bec01de20",
+      "original_text_path": "LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt",
+      "original_text_sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "LICENSES/SQLCipher-core-v4.17.0-BSD.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1896,
+      "sha256": "5570c9ab4e57ec2ce559873b2641829f82c575c9c1b39c7bcf97cd64ebbb6e50",
+      "original_text_path": "LICENSES/SQLCipher-core-v4.17.0-BSD.txt",
+      "original_text_sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e"
+    },
+    {
+      "path": "LICENSES/SQLite-core-public-domain-notice.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1029,
+      "sha256": "e880d79e346552b843a69ec4686b582a1331e92b579f15a7fcb551313234ad10",
+      "original_text_path": "LICENSES/SQLite-core-public-domain-notice.txt",
+      "original_text_sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 2478,
+      "sha256": "7b0ca390e8e99dab674f8a4459b0686a867daf3458f729b75fb3699248c6c8b4",
+      "original_text_path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
+      "original_text_sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 634,
+      "sha256": "ea38647e9ba8e3d10cc2ba86c6349cb837c0d9e6c7500011dd2f8891a1e928d2",
+      "original_text_path": "LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt",
+      "original_text_sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c"
+    },
+    {
+      "path": "LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1999,
+      "sha256": "d0f83054a94572149cd06a556340b1bf0f1b5b6c4a2174f3ff1c18736f7d96d1",
+      "original_text_path": "LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt",
+      "original_text_sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412"
+    },
+    {
+      "path": "LICENSES/cJSON-1.7.19-MIT.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 1507,
+      "sha256": "3d708e4f847ed17f2a6f3fa8baae6557028a553a948d1fcab8c3f622f9d00184",
+      "original_text_path": "LICENSES/cJSON-1.7.19-MIT.txt",
+      "original_text_sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+    },
+    {
+      "path": "LICENSES/uriparser-1.0.2-BSD.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 2162,
+      "sha256": "c0dd98c6af98bead1e6ff1f8053ef63130b4e44219012ae3ba61176e601ac410",
+      "original_text_path": "LICENSES/uriparser-1.0.2-BSD.txt",
+      "original_text_sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 22267,
+      "sha256": "d7863a13176a03ef380ff79adf197131808470b3405a28c31bc784351c5bf5ae",
+      "original_text_path": "THIRD_PARTY_NOTICES.md",
+      "original_text_sha256": "0e18932e98961355871098f697df9770fbe9eaa6f8e362f91e5518ccdacb78b4"
+    }
+  ],
+  "self_digest_policy": "This JSON is hashed by the outer source plan and source provenance, not recursively by itself."
+}

@@ -1,0 +1,65 @@
+{
+  "format": "accessibility-repeat-source19-delta-v1",
+  "base_source17_archive_sha256": "585a5c98a4584a59bb5198ce007b4aaa46b95806728e487c5cb1e2e0895ca1c1",
+  "changes": [
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/KeyboardAccessibilityService.java",
+      "old_sha256": "46df49c26909ea4b8c86868eb7f4933ac08681d9bdd4bcae501891c66c5f6982",
+      "sha256": "71205548bde7ab02782094fe9c23854c38b201edcd2f764980ddb2aa37d44078",
+      "license": "MPL-2.0",
+      "source_asset": "source19/presentation/KeyboardAccessibilityService.java"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionActivity.java",
+      "old_sha256": "2eac4ef2aca42bc5aa7689cbe8212b54d644e03af45cfae52ef0a811ebc2ee0d",
+      "sha256": "fb3b4710bbc4a5b3021054efb27e4b203881a7db022dbe0c8f88e4c2ca040fc2",
+      "license": "MPL-2.0",
+      "source_asset": "source19/presentation/SessionActivity.java"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
+      "old_sha256": "852f29adaf2887da7dbd5862f5a1f192cdb5e6699ed7d130ca1e6908e3adb1d1",
+      "sha256": "2705014701882b446dc9847ce6e2768c7dbc6eff1cbfc341e983df6bc33345fc",
+      "license": "MPL-2.0",
+      "source_asset": "source19/presentation/SessionInputManager.java"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/KeyboardMapper.java",
+      "old_sha256": "ab1604bbc1305080597db3e4fb418fc288f2b17bedf445bf83ecd80aa115bf8b",
+      "sha256": "6b5bc8fe47ad522959aa5655c7f8bafcbcf4b62a27b297391009e0cfdb5c6f2b",
+      "license": "MPL-2.0",
+      "source_asset": "source19/utils/KeyboardMapper.java"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/PhysicalKeyState.java",
+      "old_sha256": "d6598c0b189ee0294899d02e3aacedb70b91ed87caa835c2e608873590d196dc",
+      "sha256": "df84c1acb88917cc68ad28c62a1dc0279fc0c6729c17a425d1db682185318470",
+      "license": "MPL-2.0",
+      "source_asset": "source19/utils/PhysicalKeyState.java"
+    }
+  ],
+  "native_recompiled": false,
+  "native_producer_apk_sha256": "447bae5b7ffc5ea21c2f98f6a9def86cce584ad9261c1366cd9bcbe768f6f4e0",
+  "native_source_member_hashes": {
+    "lib/x86_64/libfreerdp3.so": "e6d6ed2482b32a628fa1fb32986efbffff9339fc5453848efb72843454d23ecb",
+    "lib/x86_64/libcrypto.so": "288dddb4a4c149a0f97e17c0e1a1a79c92c5287426c61c7d00ce5ba2e6fdad6e",
+    "lib/x86_64/libwinpr3.so": "3495ac07296f1a31fe9750d08fa49be5a178e2aa0f41b450b4529b32e85dcbd2",
+    "lib/x86_64/libsqlcipher.so": "337ab86baae3d7b37d6f784773dc6cf036a6406f2b191a35c25b4493feddc9e2",
+    "lib/x86_64/libfreerdp-client3.so": "b02258555826444df71b4b46427897c7dc86ac773a2e5a6df114f119b8af961a",
+    "lib/x86_64/liburiparser.so": "0687886f23fe5290843c1b88ee38b15d98f6b22ad1d694d0a0931a74150aa7bb",
+    "lib/x86_64/libcjson.so": "0503d0ef8d6ac025cf934d13088667116254813e51f00c22b225f6666c399e8d",
+    "lib/x86_64/libssl.so": "679800f77914216c2997483e8659065db0b6e7b7d00dba80bbb9763b7dce0295",
+    "lib/x86_64/libfreerdp-android.so": "a69b15ddaa7cddb7546ae6583822d93a93710d9765145a9f1d3e616ddf4eb76b",
+    "lib/x86_64/legacy.so": "4221d10b6e1478d39280918c98bf5442002496c2a9019e1c4d5bcaca3c0e6858"
+  },
+  "test_identity": "io.github.muen1019.reallydecentportal.pc19",
+  "release_ready": false,
+  "hardware_test_state": "NOT_RUN",
+  "host_receipt_sha256": "d6be7db3630f4335f368b432eb417aaed655f0b10b98b340821fe89e189f0d8b",
+  "host_scope": "CAPTURED_CLIENT_TIMER_CONTRACT_TO_REAL_MANAGER_MAPPER_HELD_STATE_JNI_RECORDER_NOT_INPUTDISPATCHER",
+  "authoritative_for_current_java_changes": true,
+  "full_mpl_source_count": 5,
+  "baseline_provenance_asset": "../source-provenance.json",
+  "baseline_provenance_sha256": "bac04b900a7dfc8f76b5263f073d89699d370fe068bf435425f79105e32b01d3",
+  "note": "This source19 delta is authoritative for all five Java replacements in this test APK. The unchanged source-provenance.json is the historical source17 baseline, not current-build verification."
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<!-- Original DeskQuay review mark: a quay, two mooring posts, and a small beacon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#123F4A" android:pathData="M8,0H40Q48,0 48,8V40Q48,48 40,48H8Q0,48 0,40V8Q0,0 8,0Z" />
+    <path android:fillColor="#F4F8F9" android:pathData="M9,29H39V34H9ZM13,16H18V29H13ZM29,20H34V29H29Z" />
+    <path android:fillColor="#52B6AD" android:pathData="M9,38H39V40H9Z" />
+    <path android:fillColor="#EEB85F" android:pathData="M32,9a4,4 0,1 1,0,8a4,4 0,1 1,0,-8" />
+</vector>

@@ -1,0 +1,43 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ * Modified for the DeskQuay Android client; see the versioned source and change history.
+ * Distribution change notice: 2026-10-29.
+ * Upstream basis: FreeRDP 3.32.2 commit 97eff6ddfbbfaa8e42a126d362686bd001ff8bdc.
+ * Existing copyright and attribution notices are retained.
+ */
+
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion = rootProject.ext.compileApi
+    buildToolsVersion = rootProject.ext.toolsVersion
+    defaultConfig {
+        applicationId 'io.github.muen1019.reallydecentportal'
+        minSdkVersion rootProject.ext.minApi
+        targetSdkVersion rootProject.ext.targetApi
+        ndk { abiFilters rootProject.ext.abiFilters }
+        versionName rootProject.ext.versionName
+        versionCode rootProject.ext.versionCode
+    }
+    flavorDimensions 'distribution'
+    productFlavors { deskquay { dimension 'distribution' } }
+    buildTypes {
+        release {
+            debuggable false
+            jniDebuggable false
+            minifyEnabled false
+            // Deliberately unsigned. Formal signing is a separate user-controlled step.
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+            jniDebuggable true
+        }
+    }
+    packaging { jniLibs { useLegacyPackaging false } }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+dependencies { implementation project(':freeRDPCore') }

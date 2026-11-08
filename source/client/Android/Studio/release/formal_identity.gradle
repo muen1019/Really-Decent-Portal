@@ -1,0 +1,75 @@
+// SPDX-License-Identifier: Apache-2.0
+// Formal candidate overlay only; frozen Source23 remains byte-for-byte intact.
+def required = { String name ->
+    def value = gradle.startParameter.projectProperties[name]
+    if (!value) throw new GradleException('Required formal23 property: ' + name)
+    value
+}
+def hash = { File file -> java.security.MessageDigest.getInstance('SHA-256').digest(file.bytes).encodeHex().toString() }
+def stage = new File(required('lab23Stage')).canonicalFile
+def owner = new File(stage, 'owner.json')
+def packaging = new File(stage, '.lab23-packaging').canonicalFile
+def packOwner = new File(packaging, 'owner.json')
+def nativeRoot = new File(packaging, 'native')
+def abiRoot = new File(nativeRoot, 'arm64-v8a')
+def graphReceipt = new File(required('lab23TaskReceipt')).canonicalFile
+if (stage.parentFile != new File(required('formal23StageParent')).canonicalFile ||
+    stage.name != 'rdp23-formal-package-arm64' || !owner.isFile() || !packOwner.isFile() ||
+    hash(owner) != required('lab23NativeOwnerSha256') || hash(packOwner) != required('lab23PackagingOwnerSha256') ||
+    gradle.startParameter.projectDir.canonicalFile != new File(stage, 'source20/client/Android/Studio').canonicalFile ||
+    required('deskquayAbi') != 'arm64-v8a' || graphReceipt.exists())
+    throw new GradleException('Exact fresh owned formal23 assembly required.')
+def nativeOwnership = new groovy.json.JsonSlurper().parse(owner)
+def packagingOwnership = new groovy.json.JsonSlurper().parse(packOwner)
+if (nativeOwnership.format != 'lab23-package-stage-owner-v1' ||
+    packagingOwnership.format != 'source20-lab23-packaging-owner-v1' ||
+    packagingOwnership.native_summary_sha256 != required('lab23NativeSummarySha256') ||
+    packagingOwnership.package != 'io.github.muen1019.reallydecentportal')
+    throw new GradleException('Same proven native closure and new formal identity required.')
+def names = ['legacy.so','libcjson.so','libcrypto.so','libfreerdp-android.so','libfreerdp-client3.so',
+    'libfreerdp3.so','libssl.so','liburiparser.so','libwinpr3.so'] as Set
+if (!abiRoot.isDirectory() || abiRoot.listFiles().collect { it.name }.toSet() != names ||
+    nativeRoot.listFiles().collect { it.name } != ['arm64-v8a'])
+    throw new GradleException('Nine exact ARM producers; SQLCipher only from its pinned AAR.')
+def configured = false
+gradle.beforeProject { p ->
+    p.plugins.withId('com.android.library') {
+        if (p.path != ':freeRDPCore') throw new GradleException('Full original core required.')
+        p.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+            dsl.externalNativeBuild.cmake.path = null
+            dsl.sourceSets.getByName('main').jniLibs.setSrcDirs([nativeRoot])
+        }
+    }
+    p.plugins.withId('com.android.application') {
+        if (p.path != ':aFreeRDP') throw new GradleException('Full original client required.')
+        p.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+            if (dsl.defaultConfig.applicationId != 'io.github.muen1019.reallydecentportal' ||
+                dsl.productFlavors.collect { it.name } != ['deskquay'] ||
+                dsl.buildTypes.getByName('release').debuggable || dsl.buildTypes.getByName('release').jniDebuggable)
+                throw new GradleException('Unsigned nondebug formal namespace required.')
+            def flavor = dsl.productFlavors.getByName('deskquay')
+            if (flavor.applicationId || flavor.applicationIdSuffix)
+                throw new GradleException('No inherited test identity override allowed.')
+            dsl.defaultConfig.versionName = '0.1.0'
+            dsl.defaultConfig.versionCode = 1
+            dsl.sourceSets.getByName('release').res.setSrcDirs([new File(packaging, 'res')])
+            dsl.sourceSets.getByName('release').assets.setSrcDirs([new File(packaging, 'assets')])
+            configured = true
+        }
+    }
+}
+gradle.taskGraph.whenReady { graph ->
+    def paths = graph.allTasks.collect { it.path }
+    if (!configured || !paths.contains(':aFreeRDP:assembleDeskquayRelease') ||
+        !paths.contains(':freeRDPCore:extractReleaseAnnotations') ||
+        !paths.contains(':freeRDPCore:compileReleaseJavaWithJavac') ||
+        !paths.contains(':aFreeRDP:compileDeskquayReleaseJavaWithJavac') ||
+        graph.allTasks.any { it.name ==~ /(?i).*(configureCMake|buildCMake|externalNativeBuild|configureNdkBuild|generateJsonModel|prefab|connectedAndroidTest|install.*).*/ })
+        throw new GradleException('Full Java assembly only; no native rebuild/install/test.')
+    graphReceipt.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson([
+        format:'source20-lab23-task-graph-v1',state:'PASS_GRAPH_ONLY',task_paths:paths,
+        native_recompiled_during_assembly:false,normal_release_strip:true,lint_disabled:false,
+        package:'io.github.muen1019.reallydecentportal',
+        java_compile_task_paths:paths.findAll { it.endsWith('JavaWithJavac') },
+        java_manifest_hash_scope:'MANIFEST_ALL_JAVA_NOT_COMPILE_COVERAGE'])) + '\n'
+}

@@ -1,0 +1,99 @@
+# SPDX-License-Identifier: Apache-2.0
+# Modified for the DeskQuay Android distribution, 2026-10-29.
+# Existing upstream copyright and attribution notices are retained.
+
+include(ExternalProject)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
+find_package(PkgConfig REQUIRED)
+
+set(FREERDP_PREFIX_PATH
+    "${DEPS_INSTALL_DIR};${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake;${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR};${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/pkgconfig;${DEPS_INSTALL_DIR};${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_DATAROOTDIR}"
+)
+
+string(REPLACE ";" "|" FREERDP_PREFIX_PATH "${FREERDP_PREFIX_PATH}")
+
+set(FREERDP_EXTRA_CMAKE_ARGS
+    -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON
+    -DWITHOUT_WINPR_3x_DEPRECATED:BOOL=ON
+    -DWITHOUT_FREERDP_3x_DEPRECATED:BOOL=ON
+    -DWITH_CLIENT_SDL:BOOL=OFF
+    -DWITH_SAMPLE:BOOL=OFF
+    -DWITH_SERVER:BOOL=OFF
+    -DWITH_MANPAGES:BOOL=OFF
+    -DWITH_SYSTEMD:BOOL=OFF
+    # Toolchain
+    -DPKG_CONFIG_EXECUTABLE:FILEPATH=${PKG_CONFIG_EXECUTABLE}
+    # Internal crypto
+    -DWITH_INTERNAL_RC4:BOOL=ON
+    -DWITH_INTERNAL_MD4:BOOL=ON
+    -DWITH_INTERNAL_MD5:BOOL=ON
+    # SSL backend
+    -DWITH_OPENSSL:BOOL=${WITH_OPENSSL}
+    # Codecs
+    -DWITH_MEDIACODEC:BOOL=${WITH_MEDIACODEC}
+    -DWITH_FFMPEG:BOOL=${WITH_FFMPEG}
+    -DWITH_SWSCALE:BOOL=${WITH_FFMPEG}
+    -DWITH_OPENH264:BOOL=${WITH_OPENH264}
+    -DWITH_VAAPI_H264_ENCODING:BOOL=OFF
+    # Image formats
+    -DWINPR_UTILS_IMAGE_PNG:BOOL=${WITH_PNG}
+    -DWINPR_UTILS_IMAGE_WEBP:BOOL=${WITH_WEBP}
+    -DWINPR_UTILS_IMAGE_JPEG:BOOL=${WITH_JPEG}
+    # Audio
+    -DWITH_OPUS:BOOL=${WITH_OPUS}
+    # JSON
+    -DWITH_CJSON_REQUIRED:BOOL=${WITH_CJSON}
+    # Printer channel
+    -DCHANNEL_PRINTER_CLIENT:BOOL=ON
+    # Camera redirection (Android NDK Camera2 HAL)
+    -DCHANNEL_RDPECAM_CLIENT:BOOL=ON
+    -DWITH_VERBOSE_WINPR_ASSERT:BOOL=OFF
+)
+
+ExternalProject_Add(
+  freerdp
+  DOWNLOAD_EXTRACT_TIMESTAMP OFF
+  SOURCE_DIR ${FREERDP_SOURCE_DIR}
+  LIST_SEPARATOR |
+  CMAKE_ARGS ${ANDROID_CMAKE_ARGS} -DCMAKE_PREFIX_PATH:PATH=${FREERDP_PREFIX_PATH} ${FREERDP_EXTRA_CMAKE_ARGS}
+  DEPENDS ${ANDROID_NATIVE_DEPS}
+  # Source templates remain unchanged; only confined generated metadata/layout is public.
+  BUILD_COMMAND
+    "${Python3_EXECUTABLE}" "${FREERDP_SOURCE_DIR}/client/Android/tools/public_native_metadata.py"
+    --kind freerdp --root "${FREERDP_SOURCE_DIR}" --build-root "${CMAKE_BINARY_DIR}"
+    --binary <BINARY_DIR> --prefix "${DEPS_INSTALL_DIR}" --abi "${CMAKE_ANDROID_ARCH_ABI}"
+    --cmake "${CMAKE_COMMAND}" --config "${CMAKE_BUILD_TYPE}"
+  # Tell Ninja these files are produced by this ExternalProject so it
+  # doesn't complain about missing inputs when linking freerdp-android.so
+  BUILD_BYPRODUCTS
+    ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libfreerdp3.so
+    ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libfreerdp-client3.so
+    ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libwinpr3.so
+)
+
+file(MAKE_DIRECTORY ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}
+     ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/freerdp3 ${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/winpr3
+)
+
+add_library(freerdp3-lib SHARED IMPORTED GLOBAL)
+set_target_properties(
+  freerdp3-lib PROPERTIES IMPORTED_LOCATION "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libfreerdp3.so"
+                          INTERFACE_INCLUDE_DIRECTORIES "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/freerdp3"
+)
+add_dependencies(freerdp3-lib freerdp)
+
+add_library(freerdp-client3-lib SHARED IMPORTED GLOBAL)
+set_target_properties(
+  freerdp-client3-lib
+  PROPERTIES IMPORTED_LOCATION "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libfreerdp-client3.so"
+             INTERFACE_INCLUDE_DIRECTORIES "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/freerdp3"
+)
+add_dependencies(freerdp-client3-lib freerdp)
+
+add_library(winpr3-lib SHARED IMPORTED GLOBAL)
+set_target_properties(
+  winpr3-lib PROPERTIES IMPORTED_LOCATION "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/libwinpr3.so"
+                        INTERFACE_INCLUDE_DIRECTORIES "${DEPS_INSTALL_DIR}/${CMAKE_INSTALL_INCLUDEDIR}/winpr3"
+)
+add_dependencies(winpr3-lib freerdp)

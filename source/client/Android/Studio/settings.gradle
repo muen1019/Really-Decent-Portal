@@ -1,0 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Distribution modification: project display name selected on 2026-10-30.
+rootProject.name = 'Really Decent Portal'
+include ':freeRDPCore'
+include ':aFreeRDP'

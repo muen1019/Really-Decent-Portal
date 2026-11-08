@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<!-- Original DeskQuay resources. -->
+<resources>
+    <string name="app_title" translatable="false">Really Decent Portal</string>
+    <string name="accessibility_keyboard_label">Really Decent Portal keyboard shortcuts</string>
+</resources>

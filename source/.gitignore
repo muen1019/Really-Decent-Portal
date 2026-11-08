@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: Apache-2.0
+# Modified for the DeskQuay Android distribution, 2026-10-29.
+# Existing upstream copyright and attribution notices are retained.
+
+**/CMakeCache.txt
+**/CMakeFiles
+build
+checker
+abi-checker
+
+# Local credentials, signing material and private investigation outputs
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pfx
+/artifacts/
+/builds/
+/lab/

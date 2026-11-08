@@ -1,0 +1,477 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+# Modified 2026-11-05: validate 3.33 locale template and retain public /share/locale layout.
+# DeskQuay distribution: reproducible public metadata/layout recipe, 2026-10-29.
+"""Confined generated-header recipe; never change algorithms or verification flags.
+
+The Android lookup policy is explicit: WinPR / and /etc; OpenSSL prefix /,
+libdir lib, openssldir /usr/local/ssl. These are runtime defaults requiring
+provider and certificate regression, not a claim of metadata-only equivalence.
+"""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+import uuid
+
+FLAGS_TEXT = "See DESKQUAY_BUILD.md for actual compiler options; private build prefixes omitted."
+OPENSSL_FLAGS_TEXT = "compiler: " + FLAGS_TEXT
+POLICY = {"winpr_install_prefix": "/", "winpr_sysconfdir": "/etc",
+          "winpr_install_localedir": "/share/locale",
+          "openssl_prefix": "/", "openssl_libdir": "lib", "openssl_openssldir": "/usr/local/ssl"}
+TEMPLATES = {
+    "include/config/buildflags.h.in": "88bc1d26c6a20866dc36e2248886be366a8824d576f5ed05aac2f8b1bce6370d",
+    "winpr/include/config/buildflags.h.in": "865b8974b59b0d2780f1c872e8bd2692cc29a57743d3a61de84f4431df839329",
+    "winpr/include/config/build-config.h.in": "d2bb1952704ce4af9cd4ab53254da70710731ec48bf3bceebf2c92c39b09150b"}
+OSSL_SOURCES = {"util/mkbuildinf.pl": "71449df12e0bb956cb8785bb370489a5d7fbce4b1b786980585244d6faef51a4",
+                "crypto/build.info": "02eddc9b0ba6bbddc9748b2dd0d166639eaf90ca57a4b1f34c6635bbf721e907"}
+ABI = {"android-arm64": "arm64-v8a", "android-x86_64": "x86_64", "android-arm": "armeabi-v7a",
+       "android-x86": "x86", "android-riscv64": "riscv64"}
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def ordinary(path, *, exists=True):
+    path = Path(path)
+    if not path.is_absolute() or path.anchor == str(path):
+        raise ValueError("ABSOLUTE_NONROOT_BUILD_PATH_REQUIRED")
+    for node in (path, *path.parents):
+        if node.exists() and (node.is_symlink() or getattr(node.lstat(), "st_file_attributes", 0) & 0x400):
+            raise ValueError("NO_BUILD_REPARSE_OR_SYMLINK_COMPONENT")
+    if exists and not path.exists():
+        raise ValueError("EXISTING_REVIEWED_BUILD_PATH_REQUIRED")
+    return path.resolve()
+
+
+def context(root, build_root, binary, prefix, abi):
+    root, build_root = ordinary(root), ordinary(build_root)
+    binary, prefix = ordinary(binary), ordinary(prefix, exists=False)
+    core = root / "client/Android/Studio/freeRDPCore"
+    if not (root / "CMakeLists.txt").is_file() or not (core / "src/main/cpp/CMakeLists.txt").is_file():
+        raise ValueError("EXACT_SOURCE_LAYOUT_REQUIRED")
+    if not build_root.is_relative_to(core / ".cxx"):
+        raise ValueError("OWN_CXX_BUILD_REQUIRED")
+    parts = build_root.relative_to(core / ".cxx").parts
+    if (len(parts) != 3 or parts[0] not in ("Debug", "Release", "RelWithDebInfo", "MinSizeRel")
+            or not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", parts[1]) or parts[2] != abi or abi not in ABI.values()):
+        raise ValueError("EXACT_CXX_CONFIGURATION_HASH_ABI_REQUIRED")
+    if prefix != core / "src/main/jniLibs" / abi:
+        raise ValueError("EXACT_ABI_DEPS_INSTALL_PREFIX_REQUIRED")
+    allowed = (build_root / "external/openssl", build_root / "freerdp-prefix/src/freerdp-build")
+    if binary not in allowed:
+        raise ValueError("EXACT_OWN_EXTERNAL_BINARY_REQUIRED")
+    return {"root": root, "build_root": build_root, "binary": binary, "prefix": prefix, "abi": abi}
+
+
+def refresh_context(ctx):
+    if set(ctx) != {"root", "build_root", "binary", "prefix", "abi"} or context(
+            ctx["root"], ctx["build_root"], ctx["binary"], ctx["prefix"], ctx["abi"]) != ctx:
+        raise ValueError("ORIGINAL_BUILD_CONTEXT_REQUIRED")
+
+
+def no_host_path(data):
+    if re.search(rb"(?<![A-Za-z0-9_])[A-Za-z]:[/\\]|/(?:Users|home)/|rdp-inputlab-builds|LocalCache[/\\]Local", data, re.I):
+        raise ValueError("PRIVATE_HOST_PATH_REMAINS_IN_PUBLIC_METADATA")
+
+
+def macro(data, name, value):
+    pattern = rb'(?m)^(#define[ \t]+' + name.encode() + rb'[ \t]+)"(?:\\.|[^"\\\r\n])*"([ \t]*\r?$)'
+    if len(re.findall(pattern, data)) != 1:
+        raise ValueError("EXACT_GENERATED_STRING_MACRO_SCHEMA_REQUIRED")
+    return re.sub(pattern, lambda m: m[1] + b'"' + value.encode("ascii") + b'"' + m[2], data)
+
+
+def transform_cmake(data, template, replacements):
+    names = lambda b: re.findall(rb"(?m)^#define[ \t]+([A-Za-z0-9_]+)", b)
+    actual, expected = names(data), names(template)
+    if set(actual) != set(expected) or len(actual) != len(set(actual)) or len(data) > 262144:
+        raise ValueError("EXACT_GENERATED_HEADER_DEFINE_SET_REQUIRED")
+    after = data
+    for name, value in replacements.items():
+        after = macro(after, name, value)
+    no_host_path(after)
+    return after
+
+
+def transform_openssl(data):
+    if len(data) > 262144 or b"Generated by util/mkbuildinf.pl" not in data:
+        raise ValueError("EXACT_OPENSSL_GENERATED_BUILDINFO_REQUIRED")
+    for key in (b"PLATFORM", b"DATE"):
+        if len(re.findall(rb"(?m)^#define " + key + rb' "[^\r\n]*"\r?$', data)) != 1:
+            raise ValueError("PLATFORM_AND_DATE_MUST_BE_RETAINED")
+    pattern = rb"static const char compiler_flags\[\] = \{\r?\n(.*?)\r?\n\};"
+    matches = list(re.finditer(pattern, data, re.S))
+    if len(matches) != 1:
+        raise ValueError("ONE_COMPILER_FLAGS_ARRAY_REQUIRED")
+    match = matches[0]
+    outside = data[:match.start()] + data[match.end():]
+    outside = re.sub(rb"/\*.*?\*/", b"", outside, flags=re.S)
+    for key in (b"PLATFORM", b"DATE"):
+        outside = re.sub(rb'(?m)^#define ' + key + rb' "[^\r\n]*"\r?$', b"", outside)
+    if outside.strip():
+        raise ValueError("NO_UNKNOWN_CODE_OUTSIDE_BUILDINFO_ARRAY")
+    values = ",".join(str(b) for b in OPENSSL_FLAGS_TEXT.encode("ascii") + b"\0").encode()
+    canonical = b"static const char compiler_flags[] = {\n    " + values + b"\n};"
+    if data[match.start():match.end()] != canonical:
+        tokens = re.findall(rb"'(?:\\[\\'0]|[^\\'\r\n])'", match[1])
+        rest = re.sub(rb"'(?:\\[\\'0]|[^\\'\r\n])'", b"", match[1])
+        if not tokens or tokens[-1] != b"'\\0'" or re.search(rb"[^,\s]", rest):
+            raise ValueError("UPSTREAM_CHAR_ARRAY_SCHEMA_REQUIRED_NO_ARBITRARY_CODE")
+    after = data[:match.start()] + canonical + data[match.end():]
+    no_host_path(after)
+    return after
+
+
+def save_updates(ctx, updates, kind):
+    # Validate all targets and transformations before the first generated-file write.
+    rows = []
+    for path, before, after in updates:
+        ordinary(path)
+        if not path.is_relative_to(ctx["binary"]) or path.read_bytes() != before:
+            raise ValueError("GENERATED_HEADER_OWNER_OR_BYTES_CHANGED")
+        rows.append({"file": path.relative_to(ctx["binary"]).as_posix(), "before_sha256": digest(before),
+                     "after_sha256": digest(after)})
+    for path, _, after in updates:
+        path.write_bytes(after)
+    receipt = {"format": "deskquay-public-generated-metadata-v1", "kind": kind, "policy": POLICY,
+               "recipe_sha256": digest(Path(__file__).read_bytes()),
+               "actual_flags_not_claimed_by_display_string": True, "runtime_lookup_regression": "NOT_RUN", "headers": rows}
+    (ctx["binary"] / ("deskquay-" + kind + "-metadata.json")).write_text(json.dumps(receipt, indent=2) + "\n", "utf-8")
+    return rows
+
+
+def verify_updates(ctx, rows):
+    for row in rows:
+        path = ordinary(ctx["binary"] / row["file"])
+        if digest(path.read_bytes()) != row["after_sha256"]:
+            raise ValueError("BUILD_REGENERATED_UNREVIEWED_METADATA")
+
+
+def transform_windows_crypto_link(data):
+    """Only move libcrypto's relative object argv into an NDK response file.
+
+    Keep flags outside the response file: MSYS must still convert their paths.
+    No source, object order, archive, linker flag, algorithm, or target changes.
+    """
+    if len(data) > 16777216 or b"\r" in data or b"\nVERSION=4.0.1\n" not in data:
+        raise ValueError("EXACT_OPENSSL_GENERATED_MAKEFILE_REQUIRED")
+    start = (b"\t$(CC) $(LIB_CFLAGS) $(LIB_LDFLAGS) -Wl,-soname=libcrypto.so \\\n"
+             b"\t\t-o libcrypto.so -Wl,--version-script=libcrypto.ld \\\n")
+    if data.count(start) != 1:
+        raise ValueError("ONE_UPSTREAM_LIBCRYPTO_LINK_RECIPE_REQUIRED")
+    offset = data.index(start) + len(start)
+    tails = list(re.finditer(rb"(?m)^\t\tproviders/libdefault\.a providers/libcommon\.a[ \t]+\$\(LIB_EX_LIBS\)\n", data[offset:]))
+    if len(tails) != 1:
+        raise ValueError("EXACT_UPSTREAM_LIBCRYPTO_ARCHIVES_REQUIRED")
+    end = offset + tails[0].start()
+    body = data[offset:end]
+    tokens = body.replace(b"\\\n", b" ").split()
+    if not 1 <= len(tokens) <= 4096 or len(set(tokens)) != len(tokens):
+        raise ValueError("BOUNDED_UNIQUE_RELATIVE_CRYPTO_OBJECTS_REQUIRED")
+    for token in tokens:
+        if (not re.fullmatch(rb"[A-Za-z0-9_.+-]+(?:/[A-Za-z0-9_.+-]+)*\.o", token)
+                or b".." in token.split(b"/") or token.startswith(b"/")):
+            raise ValueError("RELATIVE_OBJECTS_ONLY_NO_FLAGS_OR_SHELL_REQUIRED")
+    response = b"\n".join(tokens) + b"\n"
+    after = data[:offset] + b"\t\t@deskquay-libcrypto-objects.rsp \\\n" + data[end:]
+    return after, response
+
+
+def openssl_makefile_definition(data):
+    """Keep every recipe/flag byte exact; allow only make depend's appended rules."""
+    marker = b"# DO NOT DELETE THIS LINE -- make depend depends on it.\n"
+    if marker not in data:
+        return data
+    if len(data) > 16777216 or data.count(marker) != 1:
+        raise ValueError("ONE_BOUNDED_OPENSSL_DEPENDENCY_SECTION_REQUIRED")
+    offset = data.index(marker)
+    if offset == 0 or data[offset - 1:offset] != b"\n":
+        raise ValueError("DEPENDENCY_MARKER_MUST_START_ITS_OWN_LINE")
+    dependencies = data[offset + len(marker):]
+    if not dependencies or dependencies.endswith(b"\\\n"):
+        raise ValueError("COMPLETE_GENERATED_DEPENDENCY_RULES_REQUIRED")
+    rules = dependencies.replace(b"\\\n", b" ").splitlines()
+    if not 1 <= len(rules) <= 8192:
+        raise ValueError("BOUNDED_OPENSSL_DEPENDENCY_RULES_REQUIRED")
+    for rule in rules:
+        if not re.fullmatch(rb"(?:crypto|ssl|providers)/[A-Za-z0-9_./+-]+\.o : +[A-Za-z0-9_./+ -]+", rule):
+            raise ValueError("DEPENDENCY_RULES_ONLY_NO_RECIPE_FLAGS_OR_MAKE_EXPANSIONS")
+    return data[:offset]
+
+
+def verify_windows_crypto_link(ctx):
+    refresh_context(ctx)
+    receipt_path = ordinary(ctx["binary"] / "deskquay-openssl-link-response.json")
+    receipt = json.loads(receipt_path.read_bytes())
+    make = ordinary(ctx["binary"] / "Makefile").read_bytes()
+    response = ordinary(ctx["binary"] / "deskquay-libcrypto-objects.rsp").read_bytes()
+    if (set(receipt) != {"format", "recipe_sha256", "original_makefile_sha256",
+                         "makefile_sha256", "response_sha256", "object_count"}
+            or receipt["format"] != "deskquay-windows-link-response-v1"
+            or receipt["recipe_sha256"] != digest(Path(__file__).read_bytes())
+            or receipt["makefile_sha256"] != digest(openssl_makefile_definition(make))
+            or receipt["response_sha256"] != digest(response)
+            or type(receipt["object_count"]) is not int
+            or not 1 <= receipt["object_count"] <= 4096
+            or receipt["object_count"] != len(response.splitlines())
+            or not re.fullmatch(r"[0-9a-f]{64}", receipt["original_makefile_sha256"])):
+        raise ValueError("OWN_GENERATED_LINK_RESPONSE_RECEIPT_REQUIRED")
+    return receipt
+
+
+def prepare_windows_crypto_link(ctx):
+    refresh_context(ctx)
+    if ctx["binary"] != ctx["build_root"] / "external/openssl":
+        raise ValueError("EXACT_OPENSSL_BINARY_REQUIRED")
+    make_path = ordinary(ctx["binary"] / "Makefile")
+    response_path = ctx["binary"] / "deskquay-libcrypto-objects.rsp"
+    receipt_path = ctx["binary"] / "deskquay-openssl-link-response.json"
+    if receipt_path.exists():
+        return verify_windows_crypto_link(ctx)
+    if response_path.exists():
+        raise ValueError("UNKNOWN_EXISTING_LINK_RESPONSE_NO_OVERWRITE")
+    before = make_path.read_bytes()
+    after, response = transform_windows_crypto_link(before)
+    # Validate paths and the whole transformation before changing generated files.
+    ordinary(response_path, exists=False)
+    ordinary(receipt_path, exists=False)
+    receipt = {"format": "deskquay-windows-link-response-v1",
+               "recipe_sha256": digest(Path(__file__).read_bytes()),
+               "original_makefile_sha256": digest(before),
+               "makefile_sha256": digest(openssl_makefile_definition(after)), "response_sha256": digest(response),
+               "object_count": len(response.splitlines())}
+    with response_path.open("xb") as stream:
+        stream.write(response)
+    make_path.write_bytes(after)
+    with receipt_path.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(receipt, indent=2) + "\n")
+    return verify_windows_crypto_link(ctx)
+
+
+def prepare_freerdp(ctx):
+    specs = [("include/freerdp/buildflags.h", "include/config/buildflags.h.in", {"FREERDP_CFLAGS": FLAGS_TEXT}),
+             ("winpr/include/winpr/buildflags.h", "winpr/include/config/buildflags.h.in", {"WINPR_CFLAGS": FLAGS_TEXT}),
+             ("winpr/include/winpr/build-config.h", "winpr/include/config/build-config.h.in",
+              {"WINPR_INSTALL_PREFIX": "/", "WINPR_INSTALL_SYSCONFDIR": "/etc",
+               "WINPR_INSTALL_LOCALEDIR": "/share/locale"})]
+    updates = []
+    for generated, template, replacements in specs:
+        source = (ctx["root"] / template).read_bytes().replace(b"\r\n", b"\n")
+        if digest(source) != TEMPLATES[template]:
+            raise ValueError("PINNED_UPSTREAM_TEMPLATE_CHANGED")
+        path = ordinary(ctx["binary"] / generated)
+        before = path.read_bytes()
+        updates.append((path, before, transform_cmake(before, source, replacements)))
+    return save_updates(ctx, updates, "freerdp")
+
+
+def prepare_openssl(ctx, source):
+    source = ordinary(source)
+    if source != ctx["root"] / "client/Android/Studio/freeRDPCore/src/main/cpp/external/openssl":
+        raise ValueError("EXACT_OPENSSL_SOURCE_LOCATION_REQUIRED")
+    for name, expected in OSSL_SOURCES.items():
+        if digest((source / name).read_bytes()) != expected:
+            raise ValueError("EXACT_OPENSSL_4_0_1_METADATA_GENERATOR_REQUIRED")
+    path = ordinary(ctx["binary"] / "crypto/buildinf.h")
+    before = path.read_bytes()
+    return save_updates(ctx, [(path, before, transform_openssl(before))], "openssl")
+
+
+def install_destination(ctx, requested):
+    refresh_context(ctx)
+    requested = Path(requested)
+    if not requested.is_absolute() or str(requested).strip() == "":
+        raise ValueError("EXPLICIT_ABSOLUTE_DESTDIR_REQUIRED_BEFORE_INSTALL")
+    dest = ordinary(requested, exists=False)
+    if (dest != ctx["binary"] / "deskquay-install-stage" or not dest.is_relative_to(ctx["build_root"])
+            or ctx["binary"] != ctx["build_root"] / "external/openssl" or dest.exists()):
+        raise ValueError("FRESH_EXACT_OWN_CXX_DESTDIR_REQUIRED_NO_INSTALL_SPAWN")
+    return dest
+
+
+def create_destination(ctx, requested):
+    dest = install_destination(ctx, requested)
+    owner = uuid.uuid4().hex
+    dest.mkdir()
+    with (dest / "deskquay-destdir-owner.json").open("x", encoding="utf-8") as stream:
+        json.dump({"format": "deskquay-own-destdir-v1", "owner": owner,
+                   "recipe_sha256": digest(Path(__file__).read_bytes())}, stream)
+    return dest, owner
+
+
+def install_copy(ctx, dest, owner):
+    refresh_context(ctx)
+    dest = ordinary(dest)
+    if dest != ctx["binary"] / "deskquay-install-stage":
+        raise ValueError("EXACT_COMPLETED_DESTDIR_REQUIRED")
+    marker = json.loads((dest / "deskquay-destdir-owner.json").read_bytes())
+    if (not re.fullmatch("[0-9a-f]{32}", owner) or marker != {"format": "deskquay-own-destdir-v1",
+            "owner": owner, "recipe_sha256": digest(Path(__file__).read_bytes())}):
+        raise ValueError("ORIGINAL_DESTDIR_OWNERSHIP_REQUIRED")
+    # Prefix=/ and libdir=lib mean DESTDIR/include and DESTDIR/lib; never install globally.
+    files = []
+    for directory in ("include", "lib"):
+        base = ordinary(dest / directory)
+        for path in sorted(base.rglob("*")):
+            if path.is_dir():
+                if path.is_symlink() or getattr(path.lstat(), "st_file_attributes", 0) & 0x400:
+                    raise ValueError("NO_INSTALL_DIRECTORY_REPARSE")
+                continue
+            resolved = path.resolve()
+            if not resolved.is_relative_to(dest) or not resolved.is_file():
+                raise ValueError("INSTALL_SOURCE_ESCAPED_OWN_DESTDIR")
+            relative = path.relative_to(dest)
+            target = ordinary(ctx["prefix"] / relative, exists=False)
+            if not target.is_relative_to(ctx["prefix"]):
+                raise ValueError("INSTALL_COPY_ESCAPED_EXACT_DEPS_PREFIX")
+            data = resolved.read_bytes()
+            if relative.as_posix() in ("lib/pkgconfig/openssl.pc", "lib/pkgconfig/libcrypto.pc", "lib/pkgconfig/libssl.pc"):
+                # Build-only .pc metadata must remain relocatable after DESTDIR installation.
+                for key, value in ((b"prefix", b"${pcfiledir}/../.."), (b"exec_prefix", b"${prefix}"),
+                                   (b"libdir", b"${exec_prefix}/lib"), (b"includedir", b"${prefix}/include")):
+                    pattern = rb"(?m)^" + key + rb"=[^\r\n]*"
+                    if len(re.findall(pattern, data)) != 1:
+                        raise ValueError("EXACT_STAGED_PKGCONFIG_SCHEMA_REQUIRED")
+                    data = re.sub(pattern, lambda _: key + b"=" + value, data)
+                no_host_path(data)
+            if target.exists() and target.read_bytes() != data:
+                raise ValueError("UNKNOWN_EXISTING_INSTALL_TARGET_NO_OVERWRITE")
+            files.append((target, data))
+    if not files or not any(p.name == "libcrypto.so" for p, _ in files) or not any(p.name == "libssl.so" for p, _ in files):
+        raise ValueError("COMPLETE_STAGED_OPENSSL_LAYOUT_REQUIRED")
+    modules = dest / "lib/ossl-modules"
+    if modules.is_dir():
+        for path in modules.iterdir():
+            if not path.is_file() or path.is_symlink():
+                raise ValueError("ORDINARY_INSTALLED_PROVIDER_MODULE_REQUIRED")
+            target = ordinary(ctx["prefix"] / "lib" / path.name, exists=False)
+            data = path.read_bytes()
+            if target.exists() and target.read_bytes() != data:
+                raise ValueError("UNKNOWN_EXISTING_PROVIDER_COPY_NO_OVERWRITE")
+            files.append((target, data))
+    # No copy occurs until every normal/provider target has passed its ownership guard.
+    for target, data in files:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists():
+            with target.open("xb") as stream:
+                stream.write(data)
+
+
+def openssl_stage(ctx, source, stage, arch, api, jobs, run, convert=str, make="make",
+                  windows_response=False):
+    """run receives argv, with no global install possible: install always has owned DESTDIR."""
+    refresh_context(ctx)
+    if ctx["binary"] != ctx["build_root"] / "external/openssl" or ABI.get(arch) != ctx["abi"]:
+        raise ValueError("EXACT_OPENSSL_ABI_BINARY_REQUIRED")
+    source = ordinary(source)
+    if source != ctx["root"] / "client/Android/Studio/freeRDPCore/src/main/cpp/external/openssl":
+        raise ValueError("EXACT_OPENSSL_SOURCE_LOCATION_REQUIRED")
+    for name, expected in OSSL_SOURCES.items():
+        if digest((source / name).read_bytes()) != expected:
+            raise ValueError("PINNED_OPENSSL_METADATA_SOURCE_REQUIRED")
+    if type(api) is not int or not 21 <= api <= 99 or type(jobs) is not int or not 1 <= jobs <= 64:
+        raise ValueError("BOUNDED_PUBLIC_OPENSSL_PARAMETERS_REQUIRED")
+    if stage == "configure":
+        run(["perl", convert(source / "Configure"), arch, "shared", "no-tests", "no-apps", "no-docs",
+             "-U__ANDROID_API__", "-D__ANDROID_API__=" + str(api), "--prefix=/", "--libdir=lib",
+             "--openssldir=/usr/local/ssl"])
+        return
+    make_command = [str(make), "-j" + str(jobs), "SHLIB_EXT=.so"]
+    if stage == "build":
+        run(make_command + ["crypto/buildinf.h"])
+        rows = prepare_openssl(ctx, source)
+        if windows_response:
+            prepare_windows_crypto_link(ctx)
+        run(make_command + ["build_libs"])
+        verify_updates(ctx, rows)
+        if windows_response:
+            verify_windows_crypto_link(ctx)
+        return
+    if stage != "install":
+        raise ValueError("EXACT_OPENSSL_STAGE_REQUIRED")
+    receipt = json.loads((ctx["binary"] / "deskquay-openssl-metadata.json").read_bytes())
+    if (receipt.get("format") != "deskquay-public-generated-metadata-v1" or receipt.get("kind") != "openssl"
+            or receipt.get("policy") != POLICY or receipt.get("recipe_sha256") != digest(Path(__file__).read_bytes())):
+        raise ValueError("PREVIOUS_PUBLIC_METADATA_BUILD_RECEIPT_REQUIRED_BEFORE_INSTALL")
+    rows = receipt["headers"]
+    if len(rows) != 1 or rows[0].get("file") != "crypto/buildinf.h":
+        raise ValueError("EXACT_OPENSSL_GENERATED_HEADER_RECEIPT_REQUIRED")
+    verify_updates(ctx, rows)
+    if windows_response:
+        verify_windows_crypto_link(ctx)
+    # Fresh, confined CXX stage; never use DESTDIR=/, an empty DESTDIR, or MSYS /lib.
+    dest, owner = create_destination(ctx, ctx["binary"] / "deskquay-install-stage")
+    run(make_command + ["DESTDIR=" + convert(dest), "install_sw"])
+    verify_updates(ctx, rows)
+    if windows_response:
+        verify_windows_crypto_link(ctx)
+    install_copy(ctx, dest, owner)
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--kind", choices=("freerdp", "openssl"), required=True)
+    p.add_argument("--root", type=Path, required=True)
+    p.add_argument("--build-root", type=Path, required=True)
+    p.add_argument("--binary", type=Path, required=True)
+    p.add_argument("--prefix", type=Path, required=True)
+    p.add_argument("--abi", required=True, choices=tuple(ABI.values()))
+    p.add_argument("--cmake", type=Path)
+    p.add_argument("--config", choices=("Debug", "Release", "RelWithDebInfo", "MinSizeRel"))
+    p.add_argument("--source", type=Path)
+    p.add_argument("--stage", choices=("configure", "build", "install"))
+    p.add_argument("--arch", choices=tuple(ABI))
+    p.add_argument("--api", type=int)
+    p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--ndk-bin", type=Path)
+    p.add_argument("--ndk", type=Path)
+    p.add_argument("--make", type=Path)
+    a = p.parse_args()
+    if ordinary(a.root) != Path(__file__).resolve().parents[3]:
+        raise ValueError("RECIPE_MUST_BELONG_TO_THE_SOURCE_BEING_BUILT")
+    ctx = context(a.root, a.build_root, a.binary, a.prefix, a.abi)
+    if a.kind == "openssl":
+        if not all((a.source, a.stage, a.arch, a.api, a.ndk, a.ndk_bin, a.make)):
+            raise ValueError("ALL_OPENSSL_RECIPE_PARAMETERS_REQUIRED")
+        ndk, ndk_bin, make = ordinary(a.ndk), ordinary(a.ndk_bin), ordinary(a.make)
+        if (not (ndk / "source.properties").is_file()
+                or ndk_bin.parent.parent.parent != ndk / "toolchains/llvm"
+                or ndk_bin.parent.parent.name != "prebuilt"
+                or ndk_bin.parent.name not in ("linux-x86_64", "darwin-x86_64") or ndk_bin.name != "bin"
+                or not ndk_bin.is_dir() or not make.is_file() or make.name not in ("make", "gmake")):
+            raise ValueError("EXISTING_POSIX_OPENSSL_TOOLS_REQUIRED")
+        env = os.environ.copy()
+        env.update(PATH=str(ndk_bin) + os.pathsep + env.get("PATH", ""), CC="clang",
+                   ANDROID_NDK=str(ndk), ANDROID_NDK_ROOT=str(ndk), ANDROID_NDK_HOME=str(ndk))
+        def run(argv):
+            subprocess.run(argv, cwd=ctx["binary"], env=env, check=True)
+        openssl_stage(ctx, a.source, a.stage, a.arch, a.api, a.jobs, run, make=make)
+        print("DESKQUAY_PUBLIC_OPENSSL_RECIPE_VERIFIED")
+        return
+    if ctx["binary"] != ctx["build_root"] / "freerdp-prefix/src/freerdp-build":
+        raise ValueError("FREERDP_BUILD_ENTRY_ONLY")
+    if not a.cmake or not a.config:
+        raise ValueError("FREERDP_BUILD_PARAMETERS_REQUIRED")
+    cmake = ordinary(a.cmake)
+    if not cmake.is_file() or cmake.name not in ("cmake", "cmake.exe"):
+        raise ValueError("EXISTING_CMAKE_TOOL_REQUIRED")
+    rows = prepare_freerdp(ctx)
+    done = subprocess.run([str(cmake), "--build", str(ctx["binary"]), "--config", a.config], check=False)
+    verify_updates(ctx, rows)
+    if done.returncode:
+        raise ValueError("FREERDP_NATIVE_BUILD_FAILED")
+    print("DESKQUAY_PUBLIC_GENERATED_METADATA_VERIFIED")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        print("DESKQUAY_PUBLIC_METADATA_BLOCKED", file=sys.stderr)
+        raise SystemExit(2)

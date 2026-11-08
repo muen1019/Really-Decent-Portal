@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+// Portable packaging of this source copy's newly rebuilt native output only.
+def root = new File(gradle.startParameter.projectProperties['rdpRebuiltNativeRoot'] ?: '').canonicalFile
+def names = ['legacy.so','libcjson.so','libcrypto.so','libfreerdp-android.so','libfreerdp-client3.so','libfreerdp3.so','libssl.so','liburiparser.so','libwinpr3.so'] as Set
+if (!root.isDirectory() || root.listFiles().collect { it.name } != ['arm64-v8a'] ||
+    new File(root,'arm64-v8a').listFiles().collect { it.name }.toSet() != names)
+    throw new GradleException('Nine freshly rebuilt ARM64 inputs required.')
+gradle.beforeProject { p ->
+ p.plugins.withId('com.android.library') { p.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+  dsl.externalNativeBuild.cmake.path=null; dsl.sourceSets.getByName('main').jniLibs.setSrcDirs([root])
+ } }
+ p.plugins.withId('com.android.application') { p.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+  if(dsl.defaultConfig.applicationId != 'io.github.muen1019.reallydecentportal') throw new GradleException('Source identity changed.')
+  dsl.defaultConfig.versionName='0.1.0'; dsl.defaultConfig.versionCode=1
+ } }
+}

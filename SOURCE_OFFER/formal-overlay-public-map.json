@@ -1,0 +1,293 @@
+{
+  "format": "formal23-public-overlay-map-v1",
+  "files": [
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/about.html",
+      "bytes": 428,
+      "sha256": "fe2b381ffa287cf537d40a4e52415a2492144b04692d4cb7b2016a9e1c6f06b6",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "968f58ae3bbb37dd5185a737605604d770f84daf2716fc24ee7f3eb1a5cfb84e"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/CURRENT_RUNTIME_LICENSE_MAP.json",
+      "bytes": 2912059,
+      "sha256": "9e44c992a2fe98ca37607524c8ce6b0f941486db2f69365f95fd43017508caaf",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-BSD-2-style.txt",
+      "bytes": 1398,
+      "sha256": "4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-NOTICE.txt",
+      "bytes": 577,
+      "sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Android-NDK29-NOTICE.txt",
+      "bytes": 516438,
+      "sha256": "faf0dc52cf6ce9ab09a04b0c074a378dd2565ee1ed9bc1179d83793bcdba012e",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+      "bytes": 10175,
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-2.2.10-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-GWT-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Guava-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Math-Boost-1.0.txt",
+      "bytes": 1337,
+      "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-ThreeTen-BSD.txt",
+      "bytes": 1520,
+      "sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/LLVM-NDK29-runtime-NOTICE.txt",
+      "bytes": 130424,
+      "sha256": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/LibTomCrypt-476a957-LICENSE.txt",
+      "bytes": 719,
+      "sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/MPL-2.0.txt",
+      "bytes": 16726,
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-4.0.1-Apache-2.0.txt",
+      "bytes": 10175,
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt",
+      "bytes": 2569,
+      "sha256": "b83c94cedacb75139f80eef0908621c49081933f5b294d8f0d81434656452847",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "b83c94cedacb75139f80eef0908621c49081933f5b294d8f0d81434656452847"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD4-public-domain-fallback.txt",
+      "bytes": 1626,
+      "sha256": "fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD5-public-domain-fallback.txt",
+      "bytes": 1626,
+      "sha256": "c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/LGPL-2.1.txt",
+      "bytes": 26435,
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt",
+      "bytes": 18412,
+      "sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt",
+      "bytes": 26435,
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLCipher-core-v4.17.0-BSD.txt",
+      "bytes": 1463,
+      "sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLite-core-public-domain-notice.txt",
+      "bytes": 610,
+      "sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
+      "bytes": 2033,
+      "sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt",
+      "bytes": 209,
+      "sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt",
+      "bytes": 1557,
+      "sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/cJSON-1.7.19-MIT.txt",
+      "bytes": 1084,
+      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/uriparser-1.0.2-BSD.txt",
+      "bytes": 1734,
+      "sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.html",
+      "bytes": 23584,
+      "sha256": "ba6cc05a633bce9c31d9918cbeebd5a302fe40f1e27cf6aeb93b41551157c592",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md",
+      "bytes": 23400,
+      "sha256": "80cea8895a93cfee7aba06f5d9c7f7de6304f64d729e75add172b9bf3be4de1c",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": true,
+      "base_sha256": "0e18932e98961355871098f697df9770fbe9eaa6f8e362f91e5518ccdacb78b4"
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/index.html",
+      "bytes": 2730,
+      "sha256": "c1d68a9eade74a5bf2e57949147c00919457dd840f5fadb3946c261c335d8701",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/source23/index.html",
+      "bytes": 1183,
+      "sha256": "0061705000cd7a027a4dd4597ad066a4c0d051f335134a21726b655720655652",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/source23/provenance.json",
+      "bytes": 567,
+      "sha256": "90057e6d4b5cec6325f0de60622beb9693d26298c29aafe856965cbf2b52b368",
+      "purpose": "CURRENT_ABOUT_LEGAL_SOURCE_NOTICE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/aFreeRDP/src/release/res/values/strings.xml",
+      "bytes": 79,
+      "sha256": "e63404ca6b77a8c37d6622280fad8aa4a73ea334b161e4d43bfe614ffbc821ee",
+      "purpose": "FORMAL_LOCALE_TITLE",
+      "replaces_source23": false,
+      "base_sha256": null
+    },
+    {
+      "destination": "client/Android/Studio/release/formal_identity.gradle",
+      "bytes": 5049,
+      "sha256": "e43b4b9bb97b2e3566e702e3f71ea6f98db26df77daa94a8ef9b4099158363d1",
+      "purpose": "FORMAL_IDENTITY",
+      "replaces_source23": false,
+      "base_sha256": null
+    }
+  ]
+}

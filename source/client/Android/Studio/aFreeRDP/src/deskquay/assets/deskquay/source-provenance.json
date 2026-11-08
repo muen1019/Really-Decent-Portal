@@ -1,0 +1,1559 @@
+{
+  "format": "deskquay-source-offer-review-v1",
+  "state": "PENDING_PUBLICATION_REVIEW",
+  "upstream_commit": "97eff6ddfbbfaa8e42a126d362686bd001ff8bdc",
+  "tested_input_manifest_sha256": "ffcdc4b3800e8b984b71ad91e1a3781ed472550c1d6011e85aa1fa2ee94b8b50",
+  "application_id_proposed": "io.github.muen1019.reallydecentportal",
+  "label_proposed": "Really Decent Portal",
+  "exact_public_source_url": null,
+  "exact_public_source_archive_sha256": null,
+  "user_review_before_publication_required": true,
+  "legal_bundle_sha256": "d7b6ea476d56dbbf2a6e5a4711b191c7c524c6c90e13be512d65e6ead8a1924f",
+  "header_plan_sha256": "460b6a81429d19981ca603ceda5ca805c080b402851c4199cd32cb58939002f8",
+  "legal_header_layers": [
+    {
+      "path": "channels/rdpei/client/rdpei_main.c",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "48e461cb8299ec44bd170b8688eb68d915a64d3b4aed2d095f5787f7dfc2ffe4",
+      "prefix_sha256": "b214733b8b3bd5d934ea1c969b3fd4bcc6ac86da0d1a7773191e0749ad576659",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "9e33abc669ad639eab7086a30ea21adcff5ebee4ddf061b9e9737ad9bd796a59",
+      "production_body_before_legal_sha256": "4aa87f928e1fed38d0d3b5a3490b75b5127fc8242daf22ee987b0ff9dea0dfee",
+      "production_after_legal_sha256": "6d789dcce989edae109573c699fa8bc4680c5d6ed8c7eca4ce942cc88d19bd5c",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": true
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/build.gradle",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "59dcaf59644034deaa107716120ff1d04767e52d469c2ce2de76747292878156",
+      "prefix_sha256": "b214733b8b3bd5d934ea1c969b3fd4bcc6ac86da0d1a7773191e0749ad576659",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "7b275c6229b60e564ad32589dbb42dfe213e6d2de1dda7611e8e74a3483f35ad",
+      "production_body_before_legal_sha256": "80d34fbafe6a6c893b01c81ce51bc5aecabdaeba6109ee75814f4fb7d6d23bd9",
+      "production_after_legal_sha256": "ded1de814717193c7a97480e80a3611b8e9b8f3799dcccfcc7ec7c71fdb408ff",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": true,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/build.gradle",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "811eaf75187fa4bd7f82745fa88afd6f7b0429aaeaff9f48ec6dbcac689b9c77",
+      "prefix_sha256": "b214733b8b3bd5d934ea1c969b3fd4bcc6ac86da0d1a7773191e0749ad576659",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "fcef5d1eabc3c498baf61c9ef4a4fcae721487ce4a1bc715220d6ce0d6822f13",
+      "production_body_before_legal_sha256": "072f3e3a6c8c642403f35da5c30c4bc18fa52790100f49671119a1ff4265bbd3",
+      "production_after_legal_sha256": "bcea8c69f34ca7ee03b3665e2486b6f7247bb0bc62d8660297c2a89b212875a2",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": true,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/CMakeLists.txt",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "59f720dcd765653aa8500f36b4762597c9f4a4d5cbd011b99621d1d9568b1633",
+      "prefix_sha256": "a11e79d2736e0362243f5c52bf3b0a4abb89162b291d61ec7ab5e20f9ba50c0c",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "5fe371017d562e3b2b26786abdc1da0ec4e59200d1ad9378314743258e1f68e4",
+      "production_body_before_legal_sha256": "59f720dcd765653aa8500f36b4762597c9f4a4d5cbd011b99621d1d9568b1633",
+      "production_after_legal_sha256": "5fe371017d562e3b2b26786abdc1da0ec4e59200d1ad9378314743258e1f68e4",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": true
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/ScrollView2D.java",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "58b0e804d2209871724159d155a9109129160c7add6e95eee9933a62d17ffad3",
+      "prefix_sha256": "b214733b8b3bd5d934ea1c969b3fd4bcc6ac86da0d1a7773191e0749ad576659",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "c81cbbca98ef4ba83a8ab57a80bdb38042ee40840e92b9111e32c6f75ce0c105",
+      "production_body_before_legal_sha256": "a3d9a2d0b47a15d226742a6ff6d89b5780e7d35b0644aa948cdcf7a67a567e9d",
+      "production_after_legal_sha256": "7e0b019eb7b24e097c0eaf0e71b8cda4cb4ca9daf28283afba43c01027071bcf",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/bg_floating_toolbar.xml",
+      "license_identifier": "MPL-2.0",
+      "frozen_raw_sha256": "092c835e5e796d1112064cc4cdf2db59a08cfdd42f1132d103d0aee502446779",
+      "prefix_sha256": "58f32fb5e42c12158c3effb4028d0111753d7e8bf96ec7d2dd04e227d4bf3ce4",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "4ccc7512737d103a3e03e5f297ff7a15ae37f1ab0c21c101109c3ac354e95186",
+      "production_body_before_legal_sha256": "741224ac8c0c3347a82b5e1950838c2b24122eba31b7a2b6896cdb7adc1abc43",
+      "production_after_legal_sha256": "4914bc2a79b7e5314b4020f0b939f6a70dd50f459693548992cddea6ce615941",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/bg_floating_toolbar_button.xml",
+      "license_identifier": "MPL-2.0",
+      "frozen_raw_sha256": "e2926b8f17e8d34df18d69f042ee9932635cb76cc98968851f70e9cbddae1f8d",
+      "prefix_sha256": "58f32fb5e42c12158c3effb4028d0111753d7e8bf96ec7d2dd04e227d4bf3ce4",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "83a029ae7701851dafc3ba113c2955b2a54cc5ac5d8f29d5f9b3509371870428",
+      "production_body_before_legal_sha256": "b4e334b48611392543872f86e6c36d739d45fcd7abdd61be7e368491f71c6b67",
+      "production_after_legal_sha256": "e5eb43bcf220d8f96bc5e6fc2f7d19b902e40a191cf1be17af61d7bd7771917a",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/ic_screen_touch.xml",
+      "license_identifier": "MPL-2.0",
+      "frozen_raw_sha256": "10a4c5fb0996aefb4f5295f86b239d213ec90bb121a0ffebafd3c1f4fa55165d",
+      "prefix_sha256": "58f32fb5e42c12158c3effb4028d0111753d7e8bf96ec7d2dd04e227d4bf3ce4",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "938da5cb045db818e18e9e83fdee1526ba583c7a1caf500fae12ef3d9be8232b",
+      "production_body_before_legal_sha256": "10a4c5fb0996aefb4f5295f86b239d213ec90bb121a0ffebafd3c1f4fa55165d",
+      "production_after_legal_sha256": "938da5cb045db818e18e9e83fdee1526ba583c7a1caf500fae12ef3d9be8232b",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/layout/floating_toolbar.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "d904652371432b123517883f38a675b0571f6744f0090557a4e655e24691de0f",
+      "prefix_sha256": "4521d7bf5da01d979c3be49abf47f06742a939e0d115cf540bbde6bd23ee67e9",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "f51900f3cd6974b3a7a53c94ca1bdbd33976ed59eeb9d7f169323702c591868c",
+      "production_body_before_legal_sha256": "20f7a9a254b9c7c41ff9ce0373abf5e5df717f8700fc9905c57440bb1a3e0284",
+      "production_after_legal_sha256": "5493736ed81557b31237209a4b6d890c7f7d18e3d2148060332a581c28ca184a",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values-zh-rTW/strings.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "3dc007d0474374e88ad48b1324673cd921b93a87212e75e6fc3eee50361461e5",
+      "prefix_sha256": "4521d7bf5da01d979c3be49abf47f06742a939e0d115cf540bbde6bd23ee67e9",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "48c07ac618b8fef9b94b54fc76428689a2309262cfe81d614005d1e50a90aaca",
+      "production_body_before_legal_sha256": "d2db06c210c3283f12b6836f8b411e966afcda18e86482fadb56401830631e4a",
+      "production_after_legal_sha256": "38632bc4f6d21a1be87b5673d6da267b663f2558388c887f693590e9e7e03aa2",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values/strings.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "5dae660f7890290e990f359f9dc8b6efe5cfd8d3167f26f1e4a3bbe77e0411bc",
+      "prefix_sha256": "4521d7bf5da01d979c3be49abf47f06742a939e0d115cf540bbde6bd23ee67e9",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "79f38ba740ebf56036882222085eb57d099999e2ac144ad770319f9531253b73",
+      "production_body_before_legal_sha256": "bb66e95b52a96b91f14eb87fc08bfb54028f430bd4e1be4bef261a1c6127f64f",
+      "production_after_legal_sha256": "377c8a35c2336819ee31545d09e779dde74039597560d31fa5612ce8beef051b",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values/toolbar_styles.xml",
+      "license_identifier": "MPL-2.0",
+      "frozen_raw_sha256": "56ae86ad08997a53e9967bfaa242aa10780d1f5c4a8d7e5ee9c7070196ff09d1",
+      "prefix_sha256": "58f32fb5e42c12158c3effb4028d0111753d7e8bf96ec7d2dd04e227d4bf3ce4",
+      "raw_insertion_offset": 39,
+      "raw_legal_layer_sha256": "7df30534b56ba907fd3b9e2faa52a2838fea9706348666cd9b87de254cb2718b",
+      "production_body_before_legal_sha256": "56ae86ad08997a53e9967bfaa242aa10780d1f5c4a8d7e5ee9c7070196ff09d1",
+      "production_after_legal_sha256": "7df30534b56ba907fd3b9e2faa52a2838fea9706348666cd9b87de254cb2718b",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/xml/settings_app_ui.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "cb6989f3f69dec9b344525939b5cb0c856dafe974947e16174f2fa9e1d7cc93e",
+      "prefix_sha256": "4521d7bf5da01d979c3be49abf47f06742a939e0d115cf540bbde6bd23ee67e9",
+      "raw_insertion_offset": 40,
+      "raw_legal_layer_sha256": "02178cd7fad78a2e3b1312b1ac36a84c3dd1958ccabd9a8f23819a3f1265daa0",
+      "production_body_before_legal_sha256": "6fcaf6c5ec9cb7c3e7ada3329daece0098881a314b5a9e737ab096da30db63c5",
+      "production_after_legal_sha256": "d6630098dcf25f692f32fff44f19540adae0bf60bfc44b1b8f120afdd21fdd49",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/test/java/com/freerdp/freerdpcore/utils/ScreenInputControllerTest.java",
+      "license_identifier": "MPL-2.0",
+      "frozen_raw_sha256": "970b4629866dca5cda4d7c365eec9daedc874500a476049c146682b7b01ac1c8",
+      "prefix_sha256": "6d6985196643ab8e2b4e74b7fc07a14d3b7cc6c46912e6f103f8cbb12d51b0c9",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "05de06af166cc00d127383ae54415308ab7b2f263ecbce0e5a9d49cfa2e76c2b",
+      "production_body_before_legal_sha256": "c4421de990c87631178abc6de49cf90060c243a18321cfc3f5965b2a5e9b033a",
+      "production_after_legal_sha256": "5b5d1e5df541d97a13625b09b78b94a450d23934302bc11f37292fce729be7bb",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/Studio/gradle.properties",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "e7307599c9f9ac787d87c162605d678e8fc141042c6a2c592a9c70d3a7f4399b",
+      "prefix_sha256": "a11e79d2736e0362243f5c52bf3b0a4abb89162b291d61ec7ab5e20f9ba50c0c",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "a560f97aca4118e6e610e3c7df53702d522cbe8c3fb6eb57ef08d5c15eacdf8c",
+      "production_body_before_legal_sha256": "f0eacf258390a0c467faf205b3e31cffad772b60825990b6031341da68bc0665",
+      "production_after_legal_sha256": "49b2b717c136a6a94a1f84193c33fd6fbd405bc16cdbcede05777d5da3498971",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": false
+    },
+    {
+      "path": "client/Android/cmake/ExternalOpenSSL.cmake",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "8f687682bac62dc64131dc14486fec5dc2e69e73f33d2d02efb1a24abb22f4d0",
+      "prefix_sha256": "a11e79d2736e0362243f5c52bf3b0a4abb89162b291d61ec7ab5e20f9ba50c0c",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "d64a684d61bd40f0a76fb1c8d0be07c8368ebdb1c44e148e974d675a1d0e759f",
+      "production_body_before_legal_sha256": "fe5e05736055c8def14a3493b994ee3e642bc6992417c630b9d74cf2bd76d3ed",
+      "production_after_legal_sha256": "10de0f409d2534e6abba2836a6aa5214329dfc03417786e9e9740665cfff2b60",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": true,
+      "native_legal_exception": true
+    },
+    {
+      "path": "include/freerdp/client/rdpei.h",
+      "license_identifier": "Apache-2.0",
+      "frozen_raw_sha256": "706b51ac4e9c5d3598c6c8565a2b6373b0b0fe14facf639c04aa70ce864afe99",
+      "prefix_sha256": "b214733b8b3bd5d934ea1c969b3fd4bcc6ac86da0d1a7773191e0749ad576659",
+      "raw_insertion_offset": 0,
+      "raw_legal_layer_sha256": "a8150acd2329903c686bb0ec903b710c6e704e1c47f3870f6a6ba600abfda57a",
+      "production_body_before_legal_sha256": "b924d35e4bffcba45b0b02368287cfa9f81950f23e084b112e85bad4abf22f81",
+      "production_after_legal_sha256": "e520d62b120a26a0d73aba48f13098b6b3c0dab2a726ac60ba2ef738cfadfaca",
+      "body_unchanged_by_legal_layer": true,
+      "body_already_reworked_for_build": false,
+      "native_legal_exception": true
+    }
+  ],
+  "release_native_source_byteexact_to_old_build": false,
+  "additional_distribution_notice_layers": [
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/main/AndroidManifest.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_source_sha256": "f7a3fa892970855e11cdb91f601ad26c228b5427098cb6a1f2663f21906f4570",
+      "production_body_before_notice_sha256": "3eedbd20edb7dc6b77341b16c7d2c5413841744a8675dc90a7148e4fc3a68293",
+      "notice_sha256": "b6325017f7bcf4081246325ff353d03821d073a5bb2463a651bc7d111f4088d4",
+      "notice_utf8": "<!--\n SPDX-License-Identifier: Apache-2.0\n Modified for the DeskQuay Android distribution, 2026-10-29.\n Existing upstream copyright and attribution notices are retained.\n-->\n",
+      "insertion_offset": 39,
+      "production_after_notice_sha256": "2afb8c2454acaaa8367ecda9efd78efe0bd140f5144e693692ff42df5ba153ec",
+      "body_unchanged_by_notice_layer": true,
+      "body_already_reworked_for_distribution": true,
+      "additional_native_cmake_delta": false,
+      "part_of_original_seventeen_header_plan": false
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/AndroidManifest.xml",
+      "license_identifier": "Apache-2.0",
+      "frozen_source_sha256": "d525081502767370ba8498151cba09c4941c968461a190446495dd7ebdc66e91",
+      "production_body_before_notice_sha256": "e6e06034922f3e77d6b7e3a9ed82d50321face19514b0e60b7552072802e1c2f",
+      "notice_sha256": "b6325017f7bcf4081246325ff353d03821d073a5bb2463a651bc7d111f4088d4",
+      "notice_utf8": "<!--\n SPDX-License-Identifier: Apache-2.0\n Modified for the DeskQuay Android distribution, 2026-10-29.\n Existing upstream copyright and attribution notices are retained.\n-->\n",
+      "insertion_offset": 39,
+      "production_after_notice_sha256": "f266296b40b98abe854c8baa74d4f473920fdc9305e123d63ad8683b42d93c2b",
+      "body_unchanged_by_notice_layer": true,
+      "body_already_reworked_for_distribution": true,
+      "additional_native_cmake_delta": false,
+      "part_of_original_seventeen_header_plan": false
+    },
+    {
+      "path": "client/Android/cmake/ExternalFreeRDP.cmake",
+      "license_identifier": "Apache-2.0",
+      "frozen_source_sha256": "008faff0004314b1190d24de57ca3cb8c8177315b6a66ab558867f024bf289e7",
+      "production_body_before_notice_sha256": "071fb4d5742c53a28028b96a2e25e2d148180c6f4f7de0d5e18966d367ee2c88",
+      "notice_sha256": "33a5cf9785a735a9b52bc44cd3da900e4b618c2e97431e34d488090740a00b25",
+      "notice_utf8": "# SPDX-License-Identifier: Apache-2.0\n# Modified for the DeskQuay Android distribution, 2026-10-29.\n# Existing upstream copyright and attribution notices are retained.\n\n",
+      "insertion_offset": 0,
+      "production_after_notice_sha256": "add70defecbf53a89cf2a34e4b7ee1c7668b4ef8e021fd198b9c1f981a8a6f67",
+      "body_unchanged_by_notice_layer": true,
+      "body_already_reworked_for_distribution": true,
+      "additional_native_cmake_delta": true,
+      "part_of_original_seventeen_header_plan": false
+    },
+    {
+      "path": ".gitignore",
+      "license_identifier": "Apache-2.0",
+      "frozen_source_sha256": "1c70ecea38db205dbffe81675f0530fe7a05b4f685c4e430482520809c8915bd",
+      "production_body_before_notice_sha256": "5346b36a9a2aee99cdf50d14df1425c74cb803ba445b51d17e9428835d97a56e",
+      "notice_sha256": "33a5cf9785a735a9b52bc44cd3da900e4b618c2e97431e34d488090740a00b25",
+      "notice_utf8": "# SPDX-License-Identifier: Apache-2.0\n# Modified for the DeskQuay Android distribution, 2026-10-29.\n# Existing upstream copyright and attribution notices are retained.\n\n",
+      "insertion_offset": 0,
+      "production_after_notice_sha256": "cc3a9480c35c0bbef484457f97dc9469ea9c9c2cca7cbbf9d832ddb8ae66ea04",
+      "body_unchanged_by_notice_layer": true,
+      "body_already_reworked_for_distribution": true,
+      "additional_native_cmake_delta": false,
+      "part_of_original_seventeen_header_plan": false
+    }
+  ],
+  "native_cmake_distribution_delta_count": 5,
+  "new_saved_connection_display_layer": {
+    "manifest_sha256": "f3379db8db6767458d3c5f5354f9d50c76705efcea98f92b0b8cb33250c07a79",
+    "files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/data/BookmarkEntity.java",
+        "base_sha256": "6e254f0490ba224750606dc970133d53f4b4402a48795b9723b40f0b7a9992ae",
+        "overlay_sha256": "94d2abbc1a512fb70ad50086626819ae59986514c5724294f110af3c71567e88",
+        "production_lf_sha256": "584bc00ee1455dc566ac951374f860da12cc25e687787cdaea1b2f63e227334c",
+        "license_identifier": "MPL-2.0"
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/domain/BookmarkBase.java",
+        "base_sha256": "037021d710d147015b949b1e71bcb4a24097271adad0d4e011b4a6180550c0c5",
+        "overlay_sha256": "efeb882744232e9aa2014073e305a56b02f4b377204e8b4c31f3b02658507d86",
+        "production_lf_sha256": "db99ccce2e6ed959b3cc10900d3c3e88958218409936cadc18fca78b71df718a",
+        "license_identifier": "MPL-2.0"
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/BookmarkViewModel.java",
+        "base_sha256": "99bf9656417ec13f17a0597d2bdf25f1996bdbbe3f79cbcd80cb0d02c8f38c81",
+        "overlay_sha256": "27687c1ad4557eb3cfa7c6270bf563242426cf253124bd7d06c6be72e7da768c",
+        "production_lf_sha256": "cc61ef2a6de6d6fe1b92a79d513b88ba706d702a67cd960f1662a7c35298dbad",
+        "license_identifier": "MPL-2.0"
+      }
+    ],
+    "new_saved_profile": {
+      "scale_mode": "custom",
+      "scale_desktop": 200,
+      "scale_device": 100
+    },
+    "legacy_missing_keys_fallback": {
+      "scale_mode": "100",
+      "scale_desktop": 100,
+      "scale_device": 100
+    },
+    "room_schema_changed": false,
+    "existing_profiles_migrated": false,
+    "prior_overlay_cpu_and_static_proof": "PASS",
+    "actual_production_worktree_cpu_state": "NOT_RUN",
+    "android_ui_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN"
+  },
+  "full_new_native_rebuild_required": false,
+  "modified_files": [
+    {
+      "path": ".gitignore",
+      "sha256": "cc3a9480c35c0bbef484457f97dc9469ea9c9c2cca7cbbf9d832ddb8ae66ea04"
+    },
+    {
+      "path": "RDP_BUILD.md",
+      "sha256": "5fbca6aa1a6ce2bcb1ab355cf8caf51bfe56060d89f20277442e24fbe522af5d"
+    },
+    {
+      "path": "RDP_CHANGES.md",
+      "sha256": "99aa2c75fc1e2cc3c35a250f6f76a189c4166c2cb37eebe71828b826a5278c91"
+    },
+    {
+      "path": "channels/rdpei/client/rdpei_main.c",
+      "sha256": "6d789dcce989edae109573c699fa8bc4680c5d6ed8c7eca4ce942cc88d19bd5c"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/build.gradle",
+      "sha256": "e04a4973fabaf2d9961cc496184ae8ced2ee8577674cb0a0136104d7c2a38282"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/about.html",
+      "sha256": "c183e47ce2939f9d8b51c0b96cf265cf154704243bf3a7d0fc09448028c19e68"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/APP_LEGAL_MANIFEST.json",
+      "sha256": "558d4b3ee473519e5dcb334b6aafbbf00fad35576132e13314a03b22aa79a582"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-BSD-2-style.txt",
+      "sha256": "4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-BSD-2-style.txt.html",
+      "sha256": "32bbed43ec618bb21a9ef7e454789855a6492906e67fb567f341cd3506853cef"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-NOTICE.txt",
+      "sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/AOSP-cpufeatures-NOTICE.txt.html",
+      "sha256": "0167d4c4e08a6e45046ae3aa7cf538eb3e86024152c7ff99b0bdd562ecbcde90"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Apache-2.0.txt.html",
+      "sha256": "b62bc90ee35cdda74cd5f0cf815c7da4888719eaa93eca97f320041e78cc468f"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt.html",
+      "sha256": "04560e476d73004f2540e42da468154fb597837f683de8a28b758392bc5f9c56"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-2.2.10-Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-2.2.10-Apache-2.0.txt.html",
+      "sha256": "6293d1cc05a1f540632e192b34459775534fe48aa4548a64eed5ec2a1a82b101"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-GWT-Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-GWT-Apache-2.0.txt.html",
+      "sha256": "e699f1890926e5f652ddfa410499155c7ada55924f04da02eb8a491e5e1dd9ee"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Guava-Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Guava-Apache-2.0.txt.html",
+      "sha256": "ae5e1e9729ebc053a8772476ed036079cac79c7b1f8097345693490ad8e8efff"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Math-Boost-1.0.txt",
+      "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-Math-Boost-1.0.txt.html",
+      "sha256": "af1e47256d15a41102a51b6d997239b340051afa75d1cdebb0291e237b1b2c0f"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-ThreeTen-BSD.txt",
+      "sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Kotlin-ThreeTen-BSD.txt.html",
+      "sha256": "d6a3c241cf44354da1f0ab918f7e3bb8bf9def5b54e4a0c11108a1d365d0b390"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/LibTomCrypt-476a957-LICENSE.txt",
+      "sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/LibTomCrypt-476a957-LICENSE.txt.html",
+      "sha256": "7fede8c2084472afd63ffdc2967b49d496ea5cdebee841474d1957a95cafffbe"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/MPL-2.0.txt",
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/MPL-2.0.txt.html",
+      "sha256": "47a948e46e298ca430b381532d7bbb7e55126c2a92131439e5655b00c33276d4"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-4.0.1-Apache-2.0.txt",
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-4.0.1-Apache-2.0.txt.html",
+      "sha256": "8ce63b27cfec360881ae6fe916fba6a1e184167bb336c7b08886e492f2738934"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt",
+      "sha256": "b83c94cedacb75139f80eef0908621c49081933f5b294d8f0d81434656452847"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt.html",
+      "sha256": "80c665d1ad10b94cb2b129d5bebe17a5aacaa1d302657e61817dcee238b9857a"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD4-public-domain-fallback.txt",
+      "sha256": "fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD4-public-domain-fallback.txt.html",
+      "sha256": "dcedfa860b30c6cfd143030c770fa63c8035a712094d4fd21119c308eb547c29"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD5-public-domain-fallback.txt",
+      "sha256": "c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Openwall-MD5-public-domain-fallback.txt.html",
+      "sha256": "5a9294af94ca88017a604215e95ee478a4f8ae02e81d0f5e8df66aa7e1b031b7"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/LGPL-2.1.txt",
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/LGPL-2.1.txt.html",
+      "sha256": "99da80f152a99badc823b430203ea48abb9bf4abdc5b42039a95d5f7ae552ce7"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt",
+      "sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt.html",
+      "sha256": "1be86466dc7b2a3ff1b4f6e0583deb0a7f1bf67ec7e46a2319fb1c9a3312dd01"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt",
+      "sha256": "278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt.html",
+      "sha256": "01e526ad18cab644ae25bcfeec3d29a4dfbae3350f354473d661484bec01de20"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLCipher-core-v4.17.0-BSD.txt",
+      "sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLCipher-core-v4.17.0-BSD.txt.html",
+      "sha256": "5570c9ab4e57ec2ce559873b2641829f82c575c9c1b39c7bcf97cd64ebbb6e50"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLite-core-public-domain-notice.txt",
+      "sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/SQLite-core-public-domain-notice.txt.html",
+      "sha256": "e880d79e346552b843a69ec4686b582a1331e92b579f15a7fcb551313234ad10"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
+      "sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt.html",
+      "sha256": "7b0ca390e8e99dab674f8a4459b0686a867daf3458f729b75fb3699248c6c8b4"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt",
+      "sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt.html",
+      "sha256": "ea38647e9ba8e3d10cc2ba86c6349cb837c0d9e6c7500011dd2f8891a1e928d2"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt",
+      "sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt.html",
+      "sha256": "d0f83054a94572149cd06a556340b1bf0f1b5b6c4a2174f3ff1c18736f7d96d1"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/cJSON-1.7.19-MIT.txt",
+      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/cJSON-1.7.19-MIT.txt.html",
+      "sha256": "3d708e4f847ed17f2a6f3fa8baae6557028a553a948d1fcab8c3f622f9d00184"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/uriparser-1.0.2-BSD.txt",
+      "sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/uriparser-1.0.2-BSD.txt.html",
+      "sha256": "c0dd98c6af98bead1e6ff1f8053ef63130b4e44219012ae3ba61176e601ac410"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md",
+      "sha256": "0e18932e98961355871098f697df9770fbe9eaa6f8e362f91e5518ccdacb78b4"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md.html",
+      "sha256": "d7863a13176a03ef380ff79adf197131808470b3405a28c31bc784351c5bf5ae"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/res/drawable/deskquay_launcher.xml",
+      "sha256": "6b863c9de06dc18d9ccd127effed77bbc0f5da6a7e554356fea58ac9f5ee5ad6"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/res/values-sv/strings.xml",
+      "sha256": "78c0ddd223214964a7bce3b96cd92ab751892bc4db311d3afa9597001992a7b2"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/res/values/strings.xml",
+      "sha256": "e1c87e03e75acf9c4a636638f05186ea0e2b151a46613468152fd24672057885"
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/main/AndroidManifest.xml",
+      "sha256": "2afb8c2454acaaa8367ecda9efd78efe0bd140f5144e693692ff42df5ba153ec"
+    },
+    {
+      "path": "client/Android/Studio/build.gradle",
+      "sha256": "bb1b2800865fccc134d3aaf5272b74c756d3fa86a61084516d78c11ed802950e"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/build.gradle",
+      "sha256": "bcea8c69f34ca7ee03b3665e2486b6f7247bb0bc62d8660297c2a89b212875a2"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/AndroidManifest.xml",
+      "sha256": "f266296b40b98abe854c8baa74d4f473920fdc9305e123d63ad8683b42d93c2b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/CMakeLists.txt",
+      "sha256": "5fe371017d562e3b2b26786abdc1da0ec4e59200d1ad9378314743258e1f68e4"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_event.c",
+      "sha256": "a0366aac18371dc73ed53af10666853f50059e900a9088f7b1bab37bdf390fb6"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_event.h",
+      "sha256": "2911b26ab9b9f72d21c646784f8aeee4b97e9363b587fa6336c3d02ef57e50a2"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_freerdp.c",
+      "sha256": "019fd7ff22e963b2897694c4a17089869cc5c9afaa2cf0b1c7a553065da71aad"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_freerdp.h",
+      "sha256": "49686d2d65ee43105a4f55fa2ef004a8edd7dbe8c961ce3fb18349025476cc9b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_pen.c",
+      "sha256": "fe1980e26403e6031cffa71ca6032de73369d9a51977e2ddb37d5eb6dd635869"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_pen.h",
+      "sha256": "b51e961a6ac1a0922dfc4a4d7118225665122716bdd8100cbac3230152f2c140"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_touch.c",
+      "sha256": "e74241e5d3935553ee0603c9138737a84f4b4e8a26ecceea3eba019df4a52cb6"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_touch.h",
+      "sha256": "e28c305e29da6e757922a8c807315a0b041260fc1c87bf78fb96ebddc88c247b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/application/GlobalApp.java",
+      "sha256": "123fb13ad3fc2f1517921bf632899ebafc5ad2cd89cb625bc12d5dd905796d37"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/data/AppDatabase.java",
+      "sha256": "4d3db2f1a6fbb8c559ecb30b568a213105a44bb27088463e9f57bc4103332258"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/data/BookmarkEntity.java",
+      "sha256": "584bc00ee1455dc566ac951374f860da12cc25e687787cdaea1b2f63e227334c"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/domain/BookmarkBase.java",
+      "sha256": "db99ccce2e6ed959b3cc10900d3c3e88958218409936cadc18fca78b71df718a"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/AboutActivity.java",
+      "sha256": "172f7f05b029cacafb192940bb2b8711d1d2181cb4d2eea7a6307967c016e1bd"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/ApplicationSettingsActivity.java",
+      "sha256": "701bb3c39d805292b6da525ec6010ee1cf7d304f8b6a749a877342155fecda28"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/BookmarkActivity.java",
+      "sha256": "5b37a47499733a70d0f3512b774472ec780b77cc898ccc988684920d88355057"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/BookmarkViewModel.java",
+      "sha256": "cc61ef2a6de6d6fe1b92a79d513b88ba706d702a67cd960f1662a7c35298dbad"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/FloatingToolbar.java",
+      "sha256": "0dfbce36bbfe9961c2c0d92c1f077cb2a529dbfb11c78bbda7900ce6d4680742"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/HomeActivity.java",
+      "sha256": "ee971f9b84dc626c18dc82d4498a17d74e6040a67b76233ac62803177feb242c"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/KeyboardAccessibilityService.java",
+      "sha256": "46df49c26909ea4b8c86868eb7f4933ac08681d9bdd4bcae501891c66c5f6982"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/MouseButtonOwnership.java",
+      "sha256": "a54eb2230b9c714f36f10b621a55ae904d5955c2083186ee569f0c6cedb91892"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/PrintNotificationHelper.java",
+      "sha256": "8a0008b570a3ae780da804448072a4fd5b88fdc4e18be7eed6c64bf6afde1fd7"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/ScreenInputMode.java",
+      "sha256": "629e1f1c95df571f27678859435f59b0ebdfdbe2180597362a69c74567bda562"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/ScrollView2D.java",
+      "sha256": "7e0b019eb7b24e097c0eaf0e71b8cda4cb4ca9daf28283afba43c01027071bcf"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionActivity.java",
+      "sha256": "2eac4ef2aca42bc5aa7689cbe8212b54d644e03af45cfae52ef0a811ebc2ee0d"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionDisplayDimensions.java",
+      "sha256": "2d08cd268f1d7ae90cf8e302ad7860035223478157a84b74a85136fc00a21069"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
+      "sha256": "852f29adaf2887da7dbd5862f5a1f192cdb5e6699ed7d130ca1e6908e3adb1d1"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionKeyboardController.java",
+      "sha256": "d6aa8e13ad05c68c3e2f8501910cd5946dcb0d672a47ab86df3095c29eac8f44"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java",
+      "sha256": "762e9afcf900a26617e071e3ed285f2aa9cd53c5af5f15e423f85258c07fd77f"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/services/LibFreeRDP.java",
+      "sha256": "c4bc5e95945348b54984e9580b5d1bdb7b739d6877ae16f33deb89c255925473"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/ClipboardImageProvider.java",
+      "sha256": "19a19f65f5b56555ab8d0267a46084e89cf59a69d1a413f5820d61a6a9d3eb52"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/ClipboardManagerProxy.java",
+      "sha256": "8f1012546198e5f52f87959ab9759509d534b78e8a0ec3c91244fce962af89bb"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/KeyboardMapper.java",
+      "sha256": "ab1604bbc1305080597db3e4fb418fc288f2b17bedf445bf83ecd80aa115bf8b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/Mouse.java",
+      "sha256": "ff2da1ecb58b6fbeb1913e6bc4d9d30937f366c7c85914d5a5c26ccb2e8171a5"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/PenInputController.java",
+      "sha256": "31cecf5ffca5bb9594ea33bbc0cb2069b82765ddd7bbd9665d234cc8a0b0d27f"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/PhysicalKeyState.java",
+      "sha256": "d6598c0b189ee0294899d02e3aacedb70b91ed87caa835c2e608873590d196dc"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/ScreenInputController.java",
+      "sha256": "16b044467f6d06a1680b0bb6adbb2f850b3fec28011ffeb53cba0e7dfce8c2bb"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/TouchpadWheelAccumulator.java",
+      "sha256": "b431efc8508d4ac035906e5b7441e6698ec9ec07693af90d88b16d19bc641ac1"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/bg_floating_toolbar.xml",
+      "sha256": "4914bc2a79b7e5314b4020f0b939f6a70dd50f459693548992cddea6ce615941"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/bg_floating_toolbar_button.xml",
+      "sha256": "e5eb43bcf220d8f96bc5e6fc2f7d19b902e40a191cf1be17af61d7bd7771917a"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/drawable/ic_screen_touch.xml",
+      "sha256": "938da5cb045db818e18e9e83fdee1526ba583c7a1caf500fae12ef3d9be8232b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/layout/floating_toolbar.xml",
+      "sha256": "5493736ed81557b31237209a4b6d890c7f7d18e3d2148060332a581c28ca184a"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values-zh-rTW/strings.xml",
+      "sha256": "52b8a0acb63739a7803a759ffadad9dff23cc63a3291b51f9bacd417caf6a446"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values/strings.xml",
+      "sha256": "438c43725112a100574f807096dc02fb40d01d8c495ee702cbf099dfafa7e692"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/values/toolbar_styles.xml",
+      "sha256": "7df30534b56ba907fd3b9e2faa52a2838fea9706348666cd9b87de254cb2718b"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/res/xml/settings_app_ui.xml",
+      "sha256": "9d3b5990c94fa93553878a99ecc2c97133ff274f0b79a42c488354d59580b795"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/test/java/com/freerdp/freerdpcore/utils/KeyboardMapperTest.java",
+      "sha256": "ebc278e89796b743f3cc1eadd7b1424d785983f1bd6b21398f3bae093d9bba3e"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/test/java/com/freerdp/freerdpcore/utils/PhysicalKeyStateTest.java",
+      "sha256": "570782f7c4ce306aef8e94a5478082372ad184908054cd21f3a7b52000580fad"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/test/java/com/freerdp/freerdpcore/utils/ScreenInputControllerTest.java",
+      "sha256": "5b5d1e5df541d97a13625b09b78b94a450d23934302bc11f37292fce729be7bb"
+    },
+    {
+      "path": "client/Android/Studio/gradle.properties",
+      "sha256": "49b2b717c136a6a94a1f84193c33fd6fbd405bc16cdbcede05777d5da3498971"
+    },
+    {
+      "path": "client/Android/Studio/settings.gradle",
+      "sha256": "1a02b8199f9eb46d4a25746aca9276d801ec9f6b75ec9292d8f7cafd48cecdca"
+    },
+    {
+      "path": "client/Android/cmake/ExternalDeps.cmake",
+      "sha256": "80d1484ccacda6de98693bf9df9033f65f2df778e2e0d36c8d699e08db75fd82"
+    },
+    {
+      "path": "client/Android/cmake/ExternalFreeRDP.cmake",
+      "sha256": "8d8b795cf91956de45e6537314f3fb17aebc7ae5996b1a619faa08448a729860"
+    },
+    {
+      "path": "client/Android/cmake/ExternalOpenSSL.cmake",
+      "sha256": "7b8cec7cc355681f819ae44e9a7515788f047defd2fc2b57979b8f4b5c58da15"
+    },
+    {
+      "path": "client/Android/tools/openssl_windows_host.py",
+      "sha256": "65b6927edb82c8fe6243c1669f0bc1678d065eeafd601b95a64fb748c2c1cc7d"
+    },
+    {
+      "path": "client/Android/tools/public_native_metadata.py",
+      "sha256": "ee0c3522d1d1041f875d6054af428cdd11ad84b19c8d997c35dd4a58f7ca6f98"
+    },
+    {
+      "path": "include/freerdp/client/rdpei.h",
+      "sha256": "e520d62b120a26a0d73aba48f13098b6b3c0dab2a726ac60ba2ef738cfadfaca"
+    },
+    {
+      "path": "winpr/CMakeLists.txt",
+      "sha256": "24d8c6a20b92db69cf9a873e5dda2d66ff351eb14f90ba4722aa87462208e48d"
+    }
+  ],
+  "public_native_producer_layer": {
+    "files": [
+      {
+        "path": "client/Android/cmake/ExternalFreeRDP.cmake",
+        "sha256": "8d8b795cf91956de45e6537314f3fb17aebc7ae5996b1a619faa08448a729860"
+      },
+      {
+        "path": "client/Android/cmake/ExternalOpenSSL.cmake",
+        "sha256": "7b8cec7cc355681f819ae44e9a7515788f047defd2fc2b57979b8f4b5c58da15"
+      },
+      {
+        "path": "client/Android/tools/openssl_windows_host.py",
+        "sha256": "65b6927edb82c8fe6243c1669f0bc1678d065eeafd601b95a64fb748c2c1cc7d"
+      },
+      {
+        "path": "client/Android/tools/public_native_metadata.py",
+        "sha256": "ee0c3522d1d1041f875d6054af428cdd11ad84b19c8d997c35dd4a58f7ca6f98"
+      }
+    ],
+    "policy": {
+      "winpr_install_prefix": "/",
+      "winpr_sysconfdir": "/etc",
+      "openssl_prefix": "/",
+      "openssl_libdir": "lib",
+      "openssl_openssldir": "/usr/local/ssl"
+    },
+    "source_templates_and_archives": "UNCHANGED",
+    "crypto_algorithms_and_verification_flags": "UNCHANGED",
+    "runtime_lookup_defaults_changed": true,
+    "native_build_state": "PASS",
+    "certificate_provider_policy_regression": "NOT_RUN",
+    "source_plan_reference_sha256": "d336f6fe9f935241de36f7f48e0df9e525f29e556ae106334d1570ede7c12f08",
+    "native_build_state_scope": "Approved source10 owned compile evidence only; not a new source12 rebuild.",
+    "source12_native_recompiled": false,
+    "certificate_provider_policy_regression_scope": "New source12 App and RDP policy; primitive diagnostic results must not be treated as App identity verification."
+  },
+  "product_name_user_selected": true,
+  "product_name_selected_date": "2026-10-30",
+  "suggested_repository_name": "Really-Decent-Portal",
+  "product_naming_layer": {
+    "format": "really-decent-portal-name-layer-v1",
+    "parent_plan_sha256": "d336f6fe9f935241de36f7f48e0df9e525f29e556ae106334d1570ede7c12f08",
+    "name": "Really Decent Portal",
+    "abbreviation": "RDP",
+    "application_id": "io.github.muen1019.reallydecentportal",
+    "internal_flavor": "deskquay",
+    "upstream_java_jni_namespaces_changed": false,
+    "native_source_changed": false,
+    "signing_identity_changed": false,
+    "historical_certificate_subject": "CN=DeskQuay",
+    "certificate_sha256": "51cf6d51e0f5e97c9c482a5afab7e314bf7bfbf67347bc9857f284c732621216",
+    "settings_tracked_upstream_base_sha256": "db8b9fe3ac1288e5662dc54a651da67dd0114dc39b1e72ffa22c2f5e5e1e3ce7",
+    "renamed_paths": {
+      "DESKQUAY_BUILD.md": "RDP_BUILD.md",
+      "DESKQUAY_CHANGES.md": "RDP_CHANGES.md"
+    },
+    "runtime_state": "NOT_RUN",
+    "tablet_state": "NOT_RUN"
+  },
+  "generated_metadata_license": "MPL-2.0",
+  "generated_metadata_license_scope": "Only this project-generated metadata compilation; quoted original notices, license texts and third-party data retain their original rights and terms. No third-party material is relicensed.",
+  "historical_pre_source10_build_metadata": {
+    "release_native_source_byteexact_to_old_build": false,
+    "full_new_native_rebuild_required": true,
+    "public_native_producer_layer": {
+      "manifest_sha256": "6a43314b58c80224fb161802559c25c4479e092591d45ee97d07f87f0f217a2e",
+      "files": [
+        {
+          "path": "client/Android/cmake/ExternalFreeRDP.cmake",
+          "sha256": "8d8b795cf91956de45e6537314f3fb17aebc7ae5996b1a619faa08448a729860"
+        },
+        {
+          "path": "client/Android/cmake/ExternalOpenSSL.cmake",
+          "sha256": "7b8cec7cc355681f819ae44e9a7515788f047defd2fc2b57979b8f4b5c58da15"
+        },
+        {
+          "path": "client/Android/tools/openssl_windows_host.py",
+          "sha256": "16e0209e114d6abd955486f8d95bf2071a25e78ec4c45d782dc2fb20454f3b79"
+        },
+        {
+          "path": "client/Android/tools/public_native_metadata.py",
+          "sha256": "d8b9a31cd532d999d76cb5a8f9ac6372465e23e703035d5444ef489aa3b40b10"
+        }
+      ],
+      "policy": {
+        "winpr_install_prefix": "/",
+        "winpr_sysconfdir": "/etc",
+        "openssl_prefix": "/",
+        "openssl_libdir": "lib",
+        "openssl_openssldir": "/usr/local/ssl"
+      },
+      "source_templates_and_archives": "UNCHANGED",
+      "crypto_algorithms_and_verification_flags": "UNCHANGED",
+      "runtime_lookup_defaults_changed": true,
+      "native_build_state": "NOT_RUN",
+      "certificate_provider_policy_regression": "NOT_RUN"
+    }
+  },
+  "historical_pre_source10_build_metadata_scope": "Preserved initial prebuild statements and producer-layer hashes; not current source12 packaging claims.",
+  "release_native_source_byteexact_to_old_build_scope": "Historical earlier Input Lab build; not the approved source10 producer.",
+  "release_native_source_byteexact_to_source10": true,
+  "full_new_native_rebuild_required_scope": "Only for the planned exact-input naming/assets-only source12 repackage. Normal full-source builds remain supported; changed native inputs require new evidence.",
+  "native_reuse_policy": {
+    "format": "really-decent-portal-native-reuse-policy-v1",
+    "kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+    "state": "NOT_RUN",
+    "execution_state": "PLANNED_NOT_EXECUTED",
+    "native_recompiled": false,
+    "source10_plan_sha256": "d336f6fe9f935241de36f7f48e0df9e525f29e556ae106334d1570ede7c12f08",
+    "upstream_commit": "97eff6ddfbbfaa8e42a126d362686bd001ff8bdc",
+    "normal_full_source_build_recipe_retained": true,
+    "native_input_change_requires_new_native_proof": true,
+    "old_input_lab_native_libraries_allowed": false,
+    "binary_byte_patching_allowed": false,
+    "prior_owned_source10_producers": {
+      "x86_64": {
+        "approved_source10_apk_sha256": "64d2e9d7170e331e6a38d2450f524a899d735a70feeeab0621f26e76523691c1",
+        "approved_source10_apk_bytes": 53167756,
+        "static_receipt_sha256": "fdcc570017b9b3e99540493fd040ffdef8fa8eb419f539094ac21bb41c00f7b7",
+        "static_state": "PASS",
+        "members": [
+          {
+            "path": "lib/x86_64/legacy.so",
+            "sha256": "4221d10b6e1478d39280918c98bf5442002496c2a9019e1c4d5bcaca3c0e6858",
+            "bytes": 205568,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libcjson.so",
+            "sha256": "0503d0ef8d6ac025cf934d13088667116254813e51f00c22b225f6666c399e8d",
+            "bytes": 132640,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libcrypto.so",
+            "sha256": "288dddb4a4c149a0f97e17c0e1a1a79c92c5287426c61c7d00ce5ba2e6fdad6e",
+            "bytes": 7948328,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libfreerdp-android.so",
+            "sha256": "a69b15ddaa7cddb7546ae6583822d93a93710d9765145a9f1d3e616ddf4eb76b",
+            "bytes": 565392,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libfreerdp-client3.so",
+            "sha256": "b02258555826444df71b4b46427897c7dc86ac773a2e5a6df114f119b8af961a",
+            "bytes": 3497376,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libfreerdp3.so",
+            "sha256": "e6d6ed2482b32a628fa1fb32986efbffff9339fc5453848efb72843454d23ecb",
+            "bytes": 19953232,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libsqlcipher.so",
+            "sha256": "337ab86baae3d7b37d6f784773dc6cf036a6406f2b191a35c25b4493feddc9e2",
+            "bytes": 2231416,
+            "source10_origin_kind": "TRUSTED_SQLCIPHER_AAR",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": "SQLCipher Android 4.17.0"
+          },
+          {
+            "path": "lib/x86_64/libssl.so",
+            "sha256": "679800f77914216c2997483e8659065db0b6e7b7d00dba80bbb9763b7dce0295",
+            "bytes": 1648568,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/liburiparser.so",
+            "sha256": "0687886f23fe5290843c1b88ee38b15d98f6b22ad1d694d0a0931a74150aa7bb",
+            "bytes": 555688,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/x86_64/libwinpr3.so",
+            "sha256": "3495ac07296f1a31fe9750d08fa49be5a178e2aa0f41b450b4529b32e85dcbd2",
+            "bytes": 5681680,
+            "source10_origin_kind": "REUSED_EXACT_SOURCE10_NATIVE_PASS_WITHOUT_RECOMPILATION",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          }
+        ],
+        "compile_evidence": {
+          "receipt_sha256": "a0d874019619eee115e9a8e7bc4b3b9cf49747a95b81340a92b3b379793ac200",
+          "receipt_overall_state": "BLOCKED",
+          "receipt_overall_failure": "UNSIGNED_REVIEW_ASSEMBLE_FAILED",
+          "native_command_state": "PASS",
+          "native_command_exit_code": 0,
+          "fresh_clean_build": false,
+          "unchanged_source09_partial_objects_reused": true,
+          "source09_and_source10_c_h_bytes_unchanged": true,
+          "explanation": "Owned native configure/build completed; its receipt was blocked later by APK assembly. Separate source10 post-assembly static gate passed. This is not a claim of a fresh clean x86 native build."
+        }
+      },
+      "arm64-v8a": {
+        "approved_source10_apk_sha256": "537c7fb5a57b9e8c53f7a53f4cbd5f6a3435362172007e04c54a11bdf20f62fb",
+        "approved_source10_apk_bytes": 53839026,
+        "static_receipt_sha256": "ee862eb64a7b09a1067511acef6cb5947aa9998b83e38ec7bc82e9a5aab02703",
+        "static_state": "PASS",
+        "members": [
+          {
+            "path": "lib/arm64-v8a/legacy.so",
+            "sha256": "55f9177e38bf17d8a90b9d65c6310d3880a1e18b718f2d31d653096d4cbdb77a",
+            "bytes": 207936,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libcjson.so",
+            "sha256": "c54204f7a0a21180c7f079895ab2b3d67d44ed15c65a73592ff7580bc50a1a6e",
+            "bytes": 134600,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libcrypto.so",
+            "sha256": "ed8290ba7f6712de4f06fd25aacd30dd5c563bfe093022eb92cc7d039fde6e17",
+            "bytes": 8015624,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libfreerdp-android.so",
+            "sha256": "41a2b305abf891d20ad723829b49a3281a6db9341007f23d5987aff2cf62ec3e",
+            "bytes": 573128,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libfreerdp-client3.so",
+            "sha256": "dac5361bb32b961efd9f58ce20c3868e2c1e024597c947865e3c379f9447253a",
+            "bytes": 3576896,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libfreerdp3.so",
+            "sha256": "e41810545040c2c62e8a44ca45c99213f44fdca4cc7e0bb88688efcbf76be3bd",
+            "bytes": 20302808,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libsqlcipher.so",
+            "sha256": "bc018e5d323751c91aec7fca6189d9760060ac0b3f1044dca4c3cf4894310ed0",
+            "bytes": 2100040,
+            "source10_origin_kind": "TRUSTED_SQLCIPHER_AAR",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": "SQLCipher Android 4.17.0"
+          },
+          {
+            "path": "lib/arm64-v8a/libssl.so",
+            "sha256": "bf59a0df7882852c0e8b0745ff65d6acb73b8064af7b9773e4fd6ad3c3785c1c",
+            "bytes": 1743960,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/liburiparser.so",
+            "sha256": "f291a004ddb3266116cb520e533ff7f7019609fdb57ef1d4bbaef89c58df829b",
+            "bytes": 537000,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          },
+          {
+            "path": "lib/arm64-v8a/libwinpr3.so",
+            "sha256": "eeaa0901a9e32195323e6b24f5dc3c37df282fa13bdbe106c280ad0a0a5ed90c",
+            "bytes": 5894168,
+            "source10_origin_kind": "REBUILT_FROM_REVIEW_SOURCE",
+            "planned_source12_kind": "REUSED_APPROVED_SOURCE10_PACKAGED_BYTES",
+            "vendor_component": null
+          }
+        ],
+        "compile_evidence": {
+          "receipt_sha256": "ee862eb64a7b09a1067511acef6cb5947aa9998b83e38ec7bc82e9a5aab02703",
+          "receipt_overall_state": "PASS",
+          "native_command_state": "PASS",
+          "fresh_native_build": true,
+          "first_abi_objects_or_libraries_reused": false
+        }
+      }
+    },
+    "new_source12_app_runtime_state": "NOT_RUN",
+    "new_source12_hardware_state": "NOT_RUN"
+  },
+  "source13_database_preservation_layer": {
+    "format": "really-decent-portal-db-preservation-source13-v1",
+    "parent_source12_plan_sha256": "4cf48744f4cca2c313c779015184e883d66b05de78d8ca29b695a9326c5c163d",
+    "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/data/AppDatabase.java",
+    "canonical_before_sha256": "667a18391c6206ad3bd7b0995c75a3ea9ed72a1093018b3e0b749030170d3e2e",
+    "candidate_sha256": "4d3db2f1a6fbb8c559ecb30b568a213105a44bb27088463e9f57bc4103332258",
+    "original_mpl_header_retained": true,
+    "observed_red_receipt_sha256": "7bc3ffed3ddee761c088245bff2bbb0e7762f39193f92ad9d823bd30d8982ef8",
+    "observed_red_receipt_overall_state": "BLOCKED",
+    "observed_red_scope": "ISOLATED_ANDROID_ACTUAL_ORIGINAL_COMPILED_PRIVATE_METHOD_OWN_TEST_FILES_ONLY",
+    "observed_red_product_case_states": {
+      "ENC_WAL_CLOSED": "PASS",
+      "ENC_WRONG_KEY": "FAIL",
+      "CORRUPT_SCHEMA_BYTES": "FAIL",
+      "PLAIN_SQLITE_MIGRATE": "PASS"
+    },
+    "vendor_characterization_oracle_not_reclassified": true,
+    "green_evidence_status": "PENDING",
+    "green_runtime_state": "NOT_RUN",
+    "whole_app_runtime_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN",
+    "production_user_database_or_key_or_prefs_read": false,
+    "actual_real_empty_bookmark_root_cause_confirmed": false,
+    "other_java_input_sources_unchanged": true,
+    "native_c_h_jni_cmake_config_unchanged": true,
+    "approved_source10_native_reuse_eligible": true,
+    "native_recompiled": false,
+    "successful_plaintext_export_tmp_swap_changed": false,
+    "room_schema_or_key_creation_changed": false,
+    "java59_reference": {
+      "previous_sha256": "290272036b5101e33df46176f1740743e36e57081110dbe30c3b446035267e76",
+      "updated_sha256": "2625be087cad61c6b0d22324db3ecb7fc7b5ce3c0b37723113990133f95fa17a",
+      "row_count": 59,
+      "only_changed_row": "com/freerdp/freerdpcore/data/AppDatabase.java",
+      "previous_crlf_worktree_row_sha256": "15e317ecb2cbb676dd87f96ca538369f99b721060d5dab0b01d91aed4a25d1b5",
+      "canonical_source12_lf_sha256": "667a18391c6206ad3bd7b0995c75a3ea9ed72a1093018b3e0b749030170d3e2e",
+      "candidate_row_sha256": "4d3db2f1a6fbb8c559ecb30b568a213105a44bb27088463e9f57bc4103332258",
+      "scope": "HISTORICAL_WORKTREE_REFERENCE_WITH_ONLY_DB_ROW_UPDATED_NOT_A_FULL_RAW_SOURCE13_STAGE_MAP",
+      "unchanged_input_host193_art28_scope": "INPUT_TARGET_BYTES_ONLY_NOT_DB_REGRESSION"
+    }
+  },
+  "current_source13_java_unchanged_claim": false,
+  "current_source13_native_reuse_eligible": true,
+  "current_source13_runtime_state": "NOT_RUN",
+  "native_reuse_policy_historical_field_scope": "Policy fields named source12 describe the predecessor packaging intent. The exact same approved native bytes remain eligible for the source13 Java-only safety change; no new native compile or App runtime is claimed.",
+  "source14_connection_defaults_and_certificate_layer": {
+    "format": "really-decent-portal-connection-defaults-source14-v1",
+    "parent_source13_plan_sha256": "f7135cd616e0b6718ecb10c158b9644a02c3ab0429ccf9a2523f86f575ada6c6",
+    "quick_candidate_sha256": "8924bf1df53e2605e1ae2ce94e2cefc44c91bc4375a64a0e00b55aa7ee9dd7bc",
+    "certificate_candidate_plan_sha256": "84744c821891247e98dd4f9c77430bb7b8af1997b42d21a851c7961a6eeca85f",
+    "certificate_patch_sha256": "a9d017b8a2118bb715bc6873a8f0d19774e716850afc6b23af8368aac8f96bd0",
+    "changed_java_files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionActivity.java",
+        "before_sha256": "47bb5ee15135ddb700e4eeaa99c31133da7f83e4377fd1e3862598a987bd3725",
+        "after_sha256": "2eac4ef2aca42bc5aa7689cbe8212b54d644e03af45cfae52ef0a811ebc2ee0d"
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/services/LibFreeRDP.java",
+        "before_sha256": "95ffed793e406a736f49be0b6d6ed62ec1f58d64946eec053ee185513e666203",
+        "after_sha256": "c4bc5e95945348b54984e9580b5d1bdb7b739d6877ae16f33deb89c255925473"
+      }
+    ],
+    "session_behavior_hunks": 3,
+    "lib_behavior_hunks": 1,
+    "original_license_lines_retained": true,
+    "session_whole_file_changed": true,
+    "input_dispatch_method_bodies_unchanged": [
+      {
+        "method": "onWindowFocusChanged",
+        "overload": 1,
+        "body_sha256": "e747b15dc0d6ca3a4206389b7b348658b06ab109d6193c39bd7da2226fd4e0ec",
+        "body_bytes": 224
+      },
+      {
+        "method": "onResume",
+        "overload": 1,
+        "body_sha256": "4ce5c88514954da9c9038515d8c2fcc5c2e0b63bfff0bd6ba84961a212d92cc7",
+        "body_bytes": 152
+      },
+      {
+        "method": "onPause",
+        "overload": 1,
+        "body_sha256": "1b83dffa550559a08a125aa0d5afd76b64c0ff9ab3fc294695e50f12d6fd17ac",
+        "body_bytes": 181
+      },
+      {
+        "method": "hasOwnedKey",
+        "overload": 1,
+        "body_sha256": "e4f7fe2db3aedccb6ae59238042ec6eb7ef6c15b0b0926f399573fb8ce85df2c",
+        "body_bytes": 70
+      },
+      {
+        "method": "onKeyLongPress",
+        "overload": 1,
+        "body_sha256": "691bb08f1786126c439209a48774e5d108ed4d22c7e668c8f7b6bc7e5a003101",
+        "body_bytes": 178
+      },
+      {
+        "method": "handleKeyEvent",
+        "overload": 1,
+        "body_sha256": "39079e50bf8228a4973419143b2116ef19006c1c7f3a981c1bb81957df2d7aa1",
+        "body_bytes": 76
+      },
+      {
+        "method": "handleMouseNavigationKeyEvent",
+        "overload": 1,
+        "body_sha256": "243ea2d98a391a62f539e8ebd1666939d028923f089c4cb92592a4dc6ff3f1b8",
+        "body_bytes": 84
+      },
+      {
+        "method": "handleKeyEvent",
+        "overload": 2,
+        "body_sha256": "5a37071cf493d33fc8f5a3f33a0d3d7036db5291276a8a7fcb4e72fa4294ef1c",
+        "body_bytes": 84
+      },
+      {
+        "method": "onKeyDown",
+        "overload": 1,
+        "body_sha256": "35afdc5a1611d7c3bcdd55b5db0c140289a61ff03c9d817062de14a38544b4fd",
+        "body_bytes": 179
+      },
+      {
+        "method": "onKeyUp",
+        "overload": 1,
+        "body_sha256": "bf63975293a563e7de31272a04c237889b6a5384b4ddab12afcd1735d23b96f4",
+        "body_bytes": 510
+      },
+      {
+        "method": "onKeyMultiple",
+        "overload": 1,
+        "body_sha256": "cd4672befdcd094ec07747b04b52696d0cfc1f3f1ed7bae607c2b826dab2da16",
+        "body_bytes": 36
+      },
+      {
+        "method": "onGenericMotionEvent",
+        "overload": 1,
+        "body_sha256": "aff9af650795bd3a2e328753416bb6beeae14c949b28802ba708130627c412bf",
+        "body_bytes": 108
+      }
+    ],
+    "method_digest_scope": "TWELVE_EXISTING_KEYBOARD_MOUSE_NAVIGATION_GENERIC_MOTION_LIFECYCLE_DISPATCH_BODIES_ONLY_NOT_RUNTIME",
+    "historical_input_tests_inherited_as_source14_acceptance": false,
+    "hostname_quick_connect_factory": "BookmarkBase.createNewConnection",
+    "hostname_quick_connect_scale_default": 200,
+    "accept_all_preference_scope": "GLOBAL_APP_NOT_PER_HOST_OR_BOOKMARK",
+    "accept_all_preference_default": false,
+    "explicit_global_true_certificate_result": 2,
+    "certificate_result_two": "TEMPORARY_ACCEPT_NO_NEW_PERSISTENT_PIN",
+    "global_false_dialog_yes_result": 1,
+    "global_false_dialog_no_result": 0,
+    "explicit_uri_cert_ignore_override_remaining": true,
+    "new_ui_or_preference_added": false,
+    "settings_changed_during_preparation": false,
+    "version_brand_namespace_changed": false,
+    "source13_appdatabase_bytes_unchanged": true,
+    "native_c_h_jni_cmake_config_manifest_bytes_unchanged": true,
+    "native_recompiled": false,
+    "approved_source10_native_reuse_eligible": true,
+    "java59_reference": {
+      "parent_sha256": "2625be087cad61c6b0d22324db3ecb7fc7b5ce3c0b37723113990133f95fa17a",
+      "updated_sha256": "f162b71816287f07aaf752c1e4e23e58645e74d9bed0abeb966265e2880c68e2",
+      "row_count": 59,
+      "changed_rows": [
+        "com/freerdp/freerdpcore/presentation/SessionActivity.java",
+        "com/freerdp/freerdpcore/services/LibFreeRDP.java"
+      ],
+      "other_historical_rows_unchanged": 57,
+      "two_previous_rows_equal_canonical_lf_source13": true,
+      "scope": "HISTORICAL_MIXED_REFERENCE_NOT_RAW_SOURCE14_STAGE_MAP"
+    },
+    "compile_state": "NOT_RUN",
+    "quickconnect_gui_state": "NOT_RUN",
+    "certificate_ui_state": "NOT_RUN",
+    "rdp_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN"
+  },
+  "source14_historical_metadata_scope": "Fields named source10/source12/source13 describe frozen predecessor layers, not source14 validation.",
+  "current_source14_runtime_state": "NOT_RUN",
+  "source15_physical_input_layer": {
+    "format": "really-decent-portal-input-source15-v1",
+    "parent_source14_plan_sha256": "5b4961cd258fb48073a4d16a6432cad23681eed1f8fa7f0bcfe502155dbfb21c",
+    "merged_java_receipt_sha256": "f139a5d45743e973daeb7d738684fd6d9fae66bc68b70ccc30074da0384faea0",
+    "host97_final_readback_sha256": "5cacb3627940fe15d89d3ac683f2064dea645146e6bf582d92ceb11e356bb7b5",
+    "host97_run_sha256": "601689b2e971f12926509b0f92ae0c8a21da8c1a64a9ce36e95dc25be8551ffb",
+    "changed_java_files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java",
+        "before_sha256": "7f9e8f9225ca793de04a15dc0d03e99c48edb01c7b9cea71a0931ede30af2db2",
+        "after_sha256": "51edfd57dd146444e25b0a65117b40e09a6d8c804da46daca71f8560954c4626",
+        "new_file": false,
+        "license": "MPL-2.0"
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
+        "before_sha256": "9970611b10aababbd57b61eaec2f2a327a884726cb8a5416b4f46774990372f5",
+        "after_sha256": "bb6ef4ce0d219cf3c65703a20397865855e510b6e3332ac94a789e38bd701850",
+        "new_file": false,
+        "license": "MPL-2.0"
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/TouchpadWheelAccumulator.java",
+        "before_sha256": null,
+        "after_sha256": "b431efc8508d4ac035906e5b7441e6698ec9ec07693af90d88b16d19bc641ac1",
+        "new_file": true,
+        "license": "MPL-2.0"
+      }
+    ],
+    "host_target_state": "PASS",
+    "host_target_case_count": 97,
+    "host_target_scope": "THREE_EXACT_MERGED_JAVA_FILES_WITH_ANDROID_ROBOLECTRIC_AND_JNI_BOUNDARY_FIXTURES_NOT_WHOLE_APP_OR_HARDWARE",
+    "raw_original92_state": "85_PASS_7_FAIL_PRESERVED_SEPARATELY",
+    "test_adaptation_scope": "INDEPENDENT_RENAMED_PUBLIC_SIGNED_SINK_ADAPTERS_LITERAL_VECTORS_INDEPENDENT_TIMESTAMPS_AND_1875_VERTICAL_TOTAL; ORIGINAL_TESTS_UNCHANGED",
+    "classified_distance_units": "DISPLAY_PIXELS_TO_SIGNED_WHEEL_UNITS_WITH_OS_FACTORS",
+    "generic_scroll_units": "HSCROLL_TIMES120_AND_VSCROLL_TIMES120",
+    "fraction_threshold_units": 1,
+    "adjacent_axis_packets": "SEPARATE_H_AND_V_FLAGS",
+    "chunk_range": [
+      -255,
+      255
+    ],
+    "maximum_chunk_pairs_per_callback": 64,
+    "physical_wheel_independent_of_screen_finger_gate": true,
+    "classified_os_positive_contract_preserved": true,
+    "classified_pen_tools_excluded": true,
+    "lifecycle_residue_and_stale_timestamp_barrier": true,
+    "true_classified_terminal_tombstone_retained": true,
+    "legacy_tap_drag_scope": "CONSTRUCTED_AOSP_REFERENCE_COMPATIBILITY_NOT_OBSERVED_BOOK_COVER_OEM_EVENTS",
+    "api29_api33_scope": "API37_EXTERNAL_VERSION_BOUNDARY_CONTRACT_ONLY_ACTUAL_OLD_ANDROID_RUNTIME_NOT_RUN",
+    "below_api34_timestamp_precision": "MILLISECONDS_MULTIPLIED_BY1E6_UNITS_ONLY; SAME_MS_SAME_VECTOR_DISTINCT_SAMPLES_MAY_COLLAPSE_WITH_DUPLICATE_CALLBACKS",
+    "browser_history_gesture_state": "UNRESOLVED_NOT_MAPPED_FROM_ARBITRARY_HORIZONTAL_SCROLL",
+    "native_precision_touchpad_semantics": false,
+    "remote_application_wheel_quantization_possible": true,
+    "extra_remote_program_or_channel_added": false,
+    "finger_touch_simulation_added": false,
+    "canonical_core_java60": {
+      "sha256": "b1b1bfb5eb1c49c484782d15af373a8915d862dbda0a64754d066d797d0ad271",
+      "count": 60,
+      "scope": "EXACT_CANONICAL_SOURCE14_ZIP_CORE_MAIN_JAVA59_PLUS_THREE_MERGED_FILES_NOT_HISTORICAL_MIXED_EOL_MAP_NOT_RAW_STAGE",
+      "review_artifact_not_packaged_file_or_public_source_url": true
+    },
+    "native_c_h_jni_cmake_manifest_brand_version_bytes_unchanged": true,
+    "approved_source10_native_reuse_eligible": true,
+    "native_recompiled": false,
+    "full_app_compile_state": "NOT_RUN",
+    "android_app_runtime_state": "NOT_RUN",
+    "rdp_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN",
+    "actual_oem_event_state": "NOT_RUN",
+    "license_review_state": "PENDING_CURRENT126_MAPPING_AND_PUBLICATION_REVIEW"
+  },
+  "source15_historical_metadata_scope": "Predecessor source10/source12/source13/source14 fields and prior tested-input identifiers are frozen historical evidence, not whole source15 validation.",
+  "current_source15_java_unchanged_claim": false,
+  "current_source15_runtime_state": "NOT_RUN",
+  "source16_input_followup_layer": {
+    "format": "really-decent-portal-input-source16-v1",
+    "parent_source15_plan_sha256": "ee1e6f9b9589729b2be3289aea3390c57c9d901ace23e1fbcfd6ce4daea80aec",
+    "final_host_receipts": {
+      "host117": {
+        "path": "artifacts/book-cover-browser-nav-full-regression-run01/summary.json",
+        "sha256": "e0bffc59700f2a4949e04e05475a448e18e40d47f1a00ba2ec4c111f0640b785"
+      },
+      "root_readback117": {
+        "path": "artifacts/book-cover-browser-nav-full-regression-readback01/summary.json",
+        "sha256": "ec08b9feca94a328cc9a8f5bdfd83d2876233dcbd05cc3e58443ec8b97b39ec1"
+      }
+    },
+    "final_host_source_bindings": {
+      "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java": {
+        "receipt": "host117",
+        "pointer": [
+          "overlay_files",
+          "presentation/SessionView.java"
+        ]
+      },
+      "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java": {
+        "receipt": "host117",
+        "pointer": [
+          "overlay_files",
+          "presentation/SessionInputManager.java"
+        ]
+      },
+      "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/KeyboardMapper.java": {
+        "receipt": "root_readback117",
+        "pointer": [
+          "staged_sources",
+          2,
+          "sha256"
+        ]
+      }
+    },
+    "final_host_target_state": "PASS",
+    "final_host_scope": "EXACT_HASH_BOUND_SOURCE_HOST_EVIDENCE_ONLY_NOT_FULL_APP_JNI_RDP_OR_HARDWARE",
+    "changed_java_files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java",
+        "before_sha256": "51edfd57dd146444e25b0a65117b40e09a6d8c804da46daca71f8560954c4626",
+        "after_sha256": "117f40e972eb9fd1b75868e9124e949a4f45481d556bdbadf8c23eecf8bf504e",
+        "new_file": false
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
+        "before_sha256": "bb6ef4ce0d219cf3c65703a20397865855e510b6e3332ac94a789e38bd701850",
+        "after_sha256": "b90dddd816a0bee551b932fcddc3750bddb64348cd4ec20a722d151faaf8cfb2",
+        "new_file": false
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/KeyboardMapper.java",
+        "before_sha256": "69db3d3647b6fbe569f7e24ce42483dd8182a8b91a7ffded8e05bda1d6c4c370",
+        "after_sha256": "ab1604bbc1305080597db3e4fb418fc288f2b17bedf445bf83ecd80aa115bf8b",
+        "new_file": false
+      }
+    ],
+    "changed_resource_files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/res/xml/settings_app_ui.xml",
+        "before_sha256": "d6630098dcf25f692f32fff44f19540adae0bf60bfc44b1b8f120afdd21fdd49",
+        "after_sha256": "9d3b5990c94fa93553878a99ecc2c97133ff274f0b79a42c488354d59580b795",
+        "new_file": false
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/res/values/strings.xml",
+        "before_sha256": "377c8a35c2336819ee31545d09e779dde74039597560d31fa5612ce8beef051b",
+        "after_sha256": "438c43725112a100574f807096dc02fb40d01d8c495ee702cbf099dfafa7e692",
+        "new_file": false
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/res/values-zh-rTW/strings.xml",
+        "before_sha256": "38632bc4f6d21a1be87b5673d6da267b663f2558388c887f693590e9e7e03aa2",
+        "after_sha256": "52b8a0acb63739a7803a759ffadad9dff23cc63a3291b51f9bacd417caf6a446",
+        "new_file": false
+      }
+    ],
+    "opt_in_preference": {
+      "key": "ui.alt_touchpad_navigation",
+      "default_enabled": false
+    },
+    "canonical_core_java60_sha256": "946d1fd612852c957c4641dcd04b0bebe91cbbdb947979e1967e1ab520cf29cc",
+    "native_recompiled": false,
+    "source13_db_and_source14_tls_unchanged": true,
+    "whole_app_compile_state": "NOT_RUN",
+    "android_app_runtime_state": "NOT_RUN",
+    "jni_state": "NOT_RUN",
+    "rdp_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN"
+  },
+  "current_source16_runtime_state": "NOT_RUN",
+  "source17_input_followup_layer": {
+    "format": "really-decent-portal-input-source17-v1",
+    "parent_source16_plan_sha256": "1eee8bf28637d5b3fbaf589572dabd855c775b4aed2efea6388b79eb1c8db24b",
+    "final_host_receipts": {
+      "host120": {
+        "path": "artifacts/book-cover-browser-nav-v7-contract-run01/summary.json",
+        "sha256": "4ca7fe6e151c29e5f5534e0a7c9dd7b20ec7b9ceef6f7f3e1b0132ac42f6f38e"
+      }
+    },
+    "final_host_source_bindings": {
+      "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java": {
+        "receipt": "host120",
+        "pointer": [
+          "overlay_files",
+          "presentation/SessionView.java"
+        ]
+      },
+      "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java": {
+        "receipt": "host120",
+        "pointer": [
+          "overlay_files",
+          "presentation/SessionInputManager.java"
+        ]
+      }
+    },
+    "final_host_target_state": "PASS",
+    "final_host_scope": "EXACT_HASH_BOUND_SOURCE_HOST_EVIDENCE_ONLY_NOT_FULL_APP_JNI_RDP_OR_HARDWARE",
+    "host_contract_note": "120 host cases use eight explicit cross-axis-order contract test copies; original119 V7 FAIL43 is retained, not reclassified as unchanged-test PASS.",
+    "changed_java_files": [
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java",
+        "before_sha256": "117f40e972eb9fd1b75868e9124e949a4f45481d556bdbadf8c23eecf8bf504e",
+        "after_sha256": "762e9afcf900a26617e071e3ed285f2aa9cd53c5af5f15e423f85258c07fd77f",
+        "new_file": false
+      },
+      {
+        "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
+        "before_sha256": "b90dddd816a0bee551b932fcddc3750bddb64348cd4ec20a722d151faaf8cfb2",
+        "after_sha256": "852f29adaf2887da7dbd5862f5a1f192cdb5e6699ed7d130ca1e6908e3adb1d1",
+        "new_file": false
+      }
+    ],
+    "changed_resource_files": [],
+    "preserved_ui_sha256": {
+      "client/Android/Studio/freeRDPCore/src/main/res/xml/settings_app_ui.xml": "9d3b5990c94fa93553878a99ecc2c97133ff274f0b79a42c488354d59580b795",
+      "client/Android/Studio/freeRDPCore/src/main/res/values/strings.xml": "438c43725112a100574f807096dc02fb40d01d8c495ee702cbf099dfafa7e692",
+      "client/Android/Studio/freeRDPCore/src/main/res/values-zh-rTW/strings.xml": "52b8a0acb63739a7803a759ffadad9dff23cc63a3291b51f9bacd417caf6a446"
+    },
+    "opt_in_preference": {
+      "key": "ui.alt_touchpad_navigation",
+      "default_enabled": false
+    },
+    "canonical_core_java60_sha256": "adf8470e94a13b0bfa809863262d4dca2613419854a8b6c701f100ac48583016",
+    "native_recompiled": false,
+    "source13_db_and_source14_tls_unchanged": true,
+    "whole_app_compile_state": "NOT_RUN",
+    "android_app_runtime_state": "NOT_RUN",
+    "jni_state": "NOT_RUN",
+    "rdp_state": "NOT_RUN",
+    "hardware_state": "NOT_RUN"
+  },
+  "current_source17_runtime_state": "NOT_RUN"
+}

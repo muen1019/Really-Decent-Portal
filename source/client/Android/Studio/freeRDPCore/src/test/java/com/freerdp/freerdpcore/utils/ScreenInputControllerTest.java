@@ -1,0 +1,159 @@
+/*
+ * SPDX-License-Identifier: MPL-2.0
+ * Original additions for the DeskQuay Android client.
+ * Distribution change notice: 2026-10-29.
+ * Upstream basis: FreeRDP 3.32.2 commit 97eff6ddfbbfaa8e42a126d362686bd001ff8bdc.
+ * Existing copyright and attribution notices are retained.
+ */
+
+package com.freerdp.freerdpcore.utils;
+import android.view.MotionEvent;
+import android.view.InputDevice;
+import com.freerdp.freerdpcore.presentation.ScreenInputMode;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import java.util.*;
+import static org.junit.Assert.*;
+@RunWith(RobolectricTestRunner.class) @Config(manifest=Config.NONE,sdk=37)
+public class ScreenInputControllerTest {
+ static class Output implements ScreenInputController.Sink {
+  boolean available=true,accept=true; List<ScreenInputController.TouchFrame> frames=new ArrayList<>(); List<String> mouse=new ArrayList<>();
+  public boolean isDirectTouchAvailable(){return available;}
+  public boolean onTouchFrame(ScreenInputController.TouchFrame f){frames.add(f);return accept;}
+  public void onMouseMove(int x,int y){mouse.add("move:"+x+","+y);}
+  public void onMouseButton(int b,boolean d,int x,int y){mouse.add("button:"+b+":"+d+":"+x+","+y);}
+  public void onScroll(boolean h,boolean p){mouse.add("wheel:"+h+":"+p);}
+  public void onLocalZoom(float f,float x,float y){mouse.add("zoom:"+f);}
+ }
+ static MotionEvent event(long time,int action,int[] ids,float... xy) {
+  MotionEvent.PointerProperties[] pp=new MotionEvent.PointerProperties[ids.length]; MotionEvent.PointerCoords[] pc=new MotionEvent.PointerCoords[ids.length];
+  for(int i=0;i<ids.length;i++){pp[i]=new MotionEvent.PointerProperties();pp[i].id=ids[i];pp[i].toolType=MotionEvent.TOOL_TYPE_FINGER;pc[i]=new MotionEvent.PointerCoords();pc[i].x=xy[i*2];pc[i].y=xy[i*2+1];pc[i].pressure=1;pc[i].size=1;}
+  return MotionEvent.obtain(1,time,action,ids.length,pp,pc,0,0,1,1,7,0,InputDevice.SOURCE_TOUCHSCREEN,0);
+ }
+ static void send(ScreenInputController c,long time,int action,int[] ids,float... xy){MotionEvent e=event(time,action,ids,xy);try{assertTrue(c.onTouchEvent(e));}finally{e.recycle();}}
+ @Test public void directTouchMapsAbsoluteCoordinatesWithoutMouseFallback(){
+  Output o=new Output(); ScreenInputController c=new ScreenInputController(o,8,40,300); c.setGeometry(2,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,MotionEvent.ACTION_DOWN,new int[]{9},200,300);
+  assertEquals(1,o.frames.size()); assertArrayEquals(new int[]{9},o.frames.get(0).ids); assertArrayEquals(new int[]{100},o.frames.get(0).x); assertArrayEquals(new int[]{150},o.frames.get(0).y);assertArrayEquals(new int[]{0},o.frames.get(0).actions);assertTrue(o.mouse.isEmpty());
+ }
+ @Test public void directTouchTracksAllContactsAndCancelsTheirLatestCoordinates(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(2,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,MotionEvent.ACTION_DOWN,new int[]{9},200,300);
+  send(c,20,MotionEvent.ACTION_POINTER_DOWN|(1<<8),new int[]{9,4},220,320,600,700);
+  send(c,30,MotionEvent.ACTION_MOVE,new int[]{4,9},640,740,240,340);
+  send(c,40,MotionEvent.ACTION_POINTER_UP|(1<<8),new int[]{4,9},660,760,260,360);
+  c.cancel();
+  assertEquals(5,o.frames.size());
+  assertArrayEquals(new int[]{1,0},o.frames.get(1).actions);
+  assertArrayEquals(new int[]{320,120},o.frames.get(2).x);
+  assertArrayEquals(new int[]{1,2},o.frames.get(3).actions);
+  assertArrayEquals(new int[]{4},o.frames.get(4).ids);assertArrayEquals(new int[]{330},o.frames.get(4).x);assertArrayEquals(new int[]{3},o.frames.get(4).actions);
+  c.cancel();assertEquals(5,o.frames.size());assertTrue(o.mouse.isEmpty());
+ }
+ @Test public void fingerTouchpadMovesRelativelyAndClicksAtExistingCursor(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(2,1000,700);c.setPointerPosition(500,350);
+  send(c,10,MotionEvent.ACTION_DOWN,new int[]{0},100,100);
+  send(c,20,MotionEvent.ACTION_MOVE,new int[]{0},140,120);
+  send(c,30,MotionEvent.ACTION_UP,new int[]{0},140,120);
+  send(c,500,MotionEvent.ACTION_DOWN,new int[]{0},800,900);
+  send(c,550,MotionEvent.ACTION_UP,new int[]{0},800,900);
+  assertEquals(Arrays.asList("move:520,360","button:1:true:520,360","button:1:false:520,360"),o.mouse);assertTrue(o.frames.isEmpty());
+ }
+ @Test public void secondTapDragKeepsLeftDownUntilReleaseAndCancelEndsOnlyItsDrag(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
+  send(c,10,0,new int[]{0},100,100);send(c,30,1,new int[]{0},100,100);
+  send(c,100,0,new int[]{0},100,100);send(c,130,2,new int[]{0},120,100);
+  assertEquals(Arrays.asList("button:1:true:500,350","button:1:false:500,350","button:1:true:500,350","move:520,350"),o.mouse);
+  c.cancel();c.cancel();send(c,150,1,new int[]{0},120,100);
+  assertEquals("button:1:false:520,350",o.mouse.get(4));assertEquals(5,o.mouse.size());
+ }
+ static void twoTap(ScreenInputController c,long t){
+  send(c,t,0,new int[]{0},100,100);send(c,t+10,5|(1<<8),new int[]{0,1},100,100,200,100);
+  send(c,t+20,6|(1<<8),new int[]{0,1},100,100,200,100);send(c,t+30,1,new int[]{0},100,100);
+ }
+ @Test public void twoFingerTapClicksRightWithoutLeftClick(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
+  twoTap(c,10);
+  assertEquals(Arrays.asList("button:2:true:500,350","button:2:false:500,350"),o.mouse);assertTrue(o.frames.isEmpty());
+ }
+ @Test public void twoFingerSlideSendsWheelNotPointerOrButtons(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);
+  send(c,10,0,new int[]{0},100,200);send(c,20,5|(1<<8),new int[]{0,1},100,200,200,200);
+  send(c,30,2,new int[]{0,1},100,150,200,150);
+  send(c,40,6|(1<<8),new int[]{0,1},100,150,200,150);send(c,50,1,new int[]{0},100,150);
+  assertEquals(Collections.singletonList("wheel:false:true"),o.mouse);
+ }
+ @Test public void secondTwoFingerTapDragEndsWhenFingersLift(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
+  twoTap(c,10);
+  send(c,100,0,new int[]{0},100,100);send(c,110,5|(1<<8),new int[]{0,1},100,100,200,100);
+  send(c,130,2,new int[]{0,1},120,100,220,100);send(c,150,6|(1<<8),new int[]{0,1},120,100,220,100);send(c,160,1,new int[]{0},120,100);
+  assertEquals(Arrays.asList("button:2:true:500,350","button:2:false:500,350","button:2:true:500,350","move:520,350","button:2:false:520,350"),o.mouse);
+ }
+ @Test public void pinchZoomsLocallyWithoutMouseOrNativeTouch(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);
+  send(c,10,0,new int[]{0},100,100);send(c,20,5|(1<<8),new int[]{0,1},100,100,200,100);
+  send(c,30,2,new int[]{0,1},50,100,250,100);
+  send(c,40,6|(1<<8),new int[]{0,1},50,100,250,100);send(c,50,1,new int[]{0},50,100);
+  assertEquals(Collections.singletonList("zoom:2.0"),o.mouse);assertTrue(o.frames.isEmpty());
+ }
+ @Test public void switchingModeCancelsOldContactsAndRequiresFreshDown(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);c.setMode(ScreenInputMode.TOUCHPAD);
+  send(c,20,2,new int[]{0},200,200);send(c,30,1,new int[]{0},200,200);
+  assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);assertTrue(o.mouse.isEmpty());
+  send(c,40,0,new int[]{0},800,600);send(c,50,1,new int[]{0},800,600);assertEquals(2,o.mouse.size());
+ }
+ @Test public void unavailableOrSuspendedNativeTouchNeverSilentlyBecomesMouse(){
+  Output o=new Output();o.available=false;ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);o.available=true;send(c,20,2,new int[]{0},120,120);send(c,30,1,new int[]{0},120,120);
+  assertTrue(o.frames.isEmpty());assertTrue(o.mouse.isEmpty());
+  send(c,40,0,new int[]{0},100,100);o.available=false;send(c,50,2,new int[]{0},120,120);o.available=true;send(c,60,1,new int[]{0},120,120);
+  assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);assertTrue(o.mouse.isEmpty());
+ }
+ @Test public void failedNativeEnqueueCancelsAndNeedsNewGesture(){
+  Output o=new Output();o.accept=false;ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);o.accept=true;send(c,20,2,new int[]{0},120,120);send(c,30,1,new int[]{0},120,120);
+  assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);assertTrue(o.mouse.isEmpty());
+ }
+ @Test public void focusPauseDeactivationCancelsThenIgnoresOldStreamAfterResume(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);c.setActive(false);c.setActive(true);send(c,20,2,new int[]{0},120,120);send(c,30,1,new int[]{0},120,120);
+  assertEquals(2,o.frames.size());send(c,40,0,new int[]{0},100,100);assertEquals(3,o.frames.size());
+ }
+ @Test public void geometryChangeCancelsBeforeNewCoordinateMappingAndClampsBounds(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},200,300);c.setGeometry(2,1000,700);send(c,20,1,new int[]{0},200,300);
+  assertArrayEquals(new int[]{200},o.frames.get(1).x);assertArrayEquals(new int[]{3},o.frames.get(1).actions);
+  send(c,30,0,new int[]{0},-10,9000);assertArrayEquals(new int[]{0},o.frames.get(2).x);assertArrayEquals(new int[]{699},o.frames.get(2).y);
+ }
+ @Test public void deviceRemovalOnlyCancelsMatchingFingerOwner(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);c.cancelDevice(8);assertEquals(1,o.frames.size());c.cancelDevice(7);assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);
+ }
+ @Test public void horizontalSlideAccumulatesSmallDistancesAndNeverClicks(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);
+  send(c,10,0,new int[]{0},100,100);send(c,20,5|(1<<8),new int[]{0,1},100,100,200,100);
+  send(c,30,2,new int[]{0,1},80,100,180,100);send(c,40,2,new int[]{0,1},50,100,150,100);
+  send(c,50,6|(1<<8),new int[]{0,1},50,100,150,100);send(c,60,1,new int[]{0},50,100);
+  assertEquals(Collections.singletonList("wheel:true:true"),o.mouse);
+ }
+ @Test public void mouseTouchpadAndStylusSourcesRemainOutsideFingerController(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  for(int source:new int[]{InputDevice.SOURCE_MOUSE,InputDevice.SOURCE_TOUCHPAD,InputDevice.SOURCE_STYLUS}){
+   MotionEvent e=event(10,0,new int[]{0},100,100);e.setSource(source);try{assertFalse(c.onTouchEvent(e));}finally{e.recycle();}
+  }
+  assertTrue(o.frames.isEmpty());assertTrue(o.mouse.isEmpty());
+ }
+ @Test public void systemCancelWithoutToolMetadataStillReleasesDisplayContacts(){
+  Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);
+  send(c,10,0,new int[]{0},100,100);
+  MotionEvent.PointerProperties pp=new MotionEvent.PointerProperties();pp.id=0;pp.toolType=MotionEvent.TOOL_TYPE_UNKNOWN;
+  MotionEvent.PointerCoords pc=new MotionEvent.PointerCoords();pc.x=100;pc.y=100;
+  MotionEvent e=MotionEvent.obtain(1,20,MotionEvent.ACTION_CANCEL,1,new MotionEvent.PointerProperties[]{pp},new MotionEvent.PointerCoords[]{pc},0,0,1,1,7,0,InputDevice.SOURCE_TOUCHSCREEN,0);
+  try{assertTrue(c.onTouchEvent(e));}finally{e.recycle();}
+  assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);
+ }
+}

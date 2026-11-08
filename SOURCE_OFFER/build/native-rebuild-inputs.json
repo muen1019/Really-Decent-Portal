@@ -1,0 +1,105 @@
+{
+  "format": "formal23-public-native-rebuild-inputs-v1",
+  "scope": "RECIPE_INPUTS_NOT_A_NEW_BUILD_OR_BIT_REPRODUCIBILITY_PASS",
+  "abi": "arm64-v8a",
+  "android_platform": 29,
+  "source23_manifest_sha256": "27947560b5d22aef456bc9c5eaea032dcdfebd295ec4b4f616777ce117251c1a",
+  "original_native_compile_receipt_sha256": "f64c85881373a359283f18993bd933451dd2d0db3888e2a579453cc0d95cf17b",
+  "original_postvalidation_receipt_sha256": "579c9459947ce8e8800144a45908361ae0e824a8c6f146a993d27bc41d352e74",
+  "wrapper_receipt_sha256": "98e5990812294902359d90957f725dffd350270532b1bba789601932446d4068",
+  "external_source_archives": [
+    {
+      "component": "openssl",
+      "filename": "openssl-4.0.1.tar.gz",
+      "sha256": "2db3f3a0d6ea4b59e1f094ace2c8cd536dffb87cdc39084c5afa1e6f7f37dd09",
+      "bytes": 55079428,
+      "official_source_url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.1/openssl-4.0.1.tar.gz"
+    },
+    {
+      "component": "cjson",
+      "filename": "v1.7.19.tar.gz",
+      "sha256": "7fa616e3046edfa7a28a32d5f9eacfd23f92900fe1f8ccd988c1662f30454562",
+      "bytes": 356247,
+      "official_source_url": "https://github.com/DaveGamble/cJSON/archive/refs/tags/v1.7.19.tar.gz"
+    },
+    {
+      "component": "uriparser",
+      "filename": "uriparser-1.0.2.tar.xz",
+      "sha256": "7b2496f9622b4b201186a3d159d278605f1fb7262402a10cc1c0824889798b00",
+      "bytes": 202048,
+      "official_source_url": "https://github.com/uriparser/uriparser/releases/download/uriparser-1.0.2/uriparser-1.0.2.tar.xz"
+    }
+  ],
+  "original_tool_fingerprints": [
+    {
+      "filename": "gradle.bat",
+      "sha256": "619717e564dc38320e4a73f615cc6c45931ac25f6df0567b303dddd7e7cad9f7",
+      "bytes": 2925
+    },
+    {
+      "filename": "java.exe",
+      "sha256": "82051fdab26319d77d20cc0065045d05ec00b3e3d05f44935d7c06b96b621d55",
+      "bytes": 50304
+    },
+    {
+      "filename": "cmake.exe",
+      "sha256": "9b2f3db4222e8c20a844481428b85ef87358fc14596622a69b499af580c26fe3",
+      "bytes": 12421784
+    },
+    {
+      "filename": "ninja.exe",
+      "sha256": "950f9deedaf1879ad81e86060307cd4e61cb185c42056e5bd9e8a03120be225c",
+      "bytes": 578712
+    },
+    {
+      "filename": "clang.exe",
+      "sha256": "a402f6668aa586d104be112b77a1f5d941f595f2819f65a78d9a66c3f28aecc4",
+      "bytes": 132811360
+    },
+    {
+      "filename": "source.properties",
+      "sha256": "28e621fcb42251a296a9c1f2a7361fc47574047b7bba6cf00700cf57e3ddc414",
+      "bytes": 119
+    },
+    {
+      "filename": "make.exe",
+      "sha256": "91b7e155590d59db22e5eb0a3ffeec6350149f70f9ed2c242d133e584eb72fee",
+      "bytes": 236000
+    },
+    {
+      "filename": "bash.exe",
+      "sha256": "6a5c557c031f8683a796240b89c14e47deb5f3337ae8d34c43b675f392b6e885",
+      "bytes": 2440124
+    },
+    {
+      "filename": "perl.exe",
+      "sha256": "8c11767e0d47b97726d686139af87e7ebe464a472346cceda0a219c5feb7fa29",
+      "bytes": 14278
+    },
+    {
+      "filename": "cygpath.exe",
+      "sha256": "1dc43b872f8794e723be5d624a62831a1400c39d2b1d6fbaa6d184275bda0cd0",
+      "bytes": 30174
+    },
+    {
+      "filename": "pkg-config.exe",
+      "sha256": "bddc890337d8a76305e1a644884ae6995c452c0ad7781ef2ad729e41b5de8aa5",
+      "bytes": 81245
+    }
+  ],
+  "native_member_names": [
+    "legacy.so",
+    "libcjson.so",
+    "libcrypto.so",
+    "libfreerdp-android.so",
+    "libfreerdp-client3.so",
+    "libfreerdp3.so",
+    "libssl.so",
+    "liburiparser.so",
+    "libwinpr3.so"
+  ],
+  "sqlcipher_maven_coordinate": "net.zetetic:sqlcipher-android:4.17.0@aar",
+  "native_rebuild_recipe_executed": false,
+  "byte_reproducibility_state": "NOT_RUN",
+  "signing_or_installation_included": false
+}
