@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -37,6 +38,8 @@ public class SessionViewModel extends AndroidViewModel
 		IDLE,
 		CONNECTING,
 		CONNECTED,
+		RECONNECTING,
+		RECONNECTED,
 		FAILED,
 		DISCONNECTED
 	}
@@ -44,6 +47,8 @@ public class SessionViewModel extends AndroidViewModel
 	private final MutableLiveData<ConnectionState> state =
 	    new MutableLiveData<>(ConnectionState.IDLE);
 	private long registeredInstance = 0;
+	private GlobalApp.SessionEventListener registeredListener;
+	private ConnectionDiagnostic connectionDiagnostic;
 
 	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -64,36 +69,84 @@ public class SessionViewModel extends AndroidViewModel
 		return state;
 	}
 
+	/** Read on the main thread alongside the observed connection state. */
+	@Nullable public ConnectionDiagnostic getConnectionDiagnostic()
+	{
+		return connectionDiagnostic;
+	}
+
 	public void register(long instance)
 	{
+		if (registeredListener != null && registeredInstance == instance)
+			return;
 		unregister();
 		registeredInstance = instance;
-		state.setValue(ConnectionState.CONNECTING);
-		GlobalApp.registerSessionListener(instance, new GlobalApp.SessionEventListener() {
+		connectionDiagnostic = null;
+		final GlobalApp.SessionEventListener listener = new GlobalApp.SessionEventListener() {
 			@Override public void onConnectionSuccess()
 			{
-				state.setValue(ConnectionState.CONNECTED);
+				// Some reconnects also enter PostConnect. Wait for the explicit recovery result.
+				if (state.getValue() == ConnectionState.CONNECTING)
+					state.setValue(ConnectionState.CONNECTED);
 			}
 
-			@Override public void onConnectionFailure()
+			@Override public void onReconnectAttempt(int attempt, int freeRdpError, int serverError,
+			                                          long timestampMillis)
 			{
-				state.setValue(ConnectionState.FAILED);
+				connectionDiagnostic = new ConnectionDiagnostic(ConnectionDiagnostic.Result.RECONNECTING,
+				    timestampMillis, attempt, false, 0, freeRdpError, serverError);
+				state.setValue(ConnectionState.RECONNECTING);
 			}
 
-			@Override public void onDisconnected()
+			@Override public void onReconnected(long timestampMillis)
 			{
-				state.setValue(ConnectionState.DISCONNECTED);
+				ConnectionDiagnostic previous = currentReconnect();
+				connectionDiagnostic = new ConnectionDiagnostic(ConnectionDiagnostic.Result.RECONNECTED,
+				    timestampMillis, previous == null ? 0 : previous.attempt, false, 0,
+				    previous == null ? 0 : (int)previous.freeRdpError,
+				    previous == null ? 0 : (int)previous.serverError);
+				state.setValue(ConnectionState.RECONNECTED);
 			}
-		});
+
+			@Override public void onConnectionEnded(int status, int freeRdpError, int serverError,
+			                                        boolean intentional, long timestampMillis)
+			{
+				ConnectionDiagnostic previous = currentReconnect();
+				boolean failed = !intentional &&
+				    (state.getValue() == ConnectionState.CONNECTING || previous != null ||
+				     status != 0 || freeRdpError != 0 || serverError != 0);
+				connectionDiagnostic = new ConnectionDiagnostic(
+				    failed ? ConnectionDiagnostic.Result.FAILED : ConnectionDiagnostic.Result.DISCONNECTED,
+				    timestampMillis, previous == null ? 0 : previous.attempt, intentional,
+				    status, freeRdpError, serverError,
+				    previous == null ? ConnectionDiagnostic.Reason.UNKNOWN : previous.reason);
+				state.setValue(failed ? ConnectionState.FAILED : ConnectionState.DISCONNECTED);
+			}
+		};
+		registeredListener = listener;
+		state.setValue(ConnectionState.CONNECTING);
+		if (instance != 0)
+			GlobalApp.registerSessionListener(instance, listener);
+		else
+		{
+			mainHandler.post(() -> {
+				if (registeredListener == listener)
+					listener.onConnectionEnded(0x1F, 0, 0, false, System.currentTimeMillis());
+			});
+		}
+	}
+
+	@Nullable private ConnectionDiagnostic currentReconnect()
+	{
+		return state.getValue() == ConnectionState.RECONNECTING ? connectionDiagnostic : null;
 	}
 
 	public void unregister()
 	{
-		if (registeredInstance != 0)
-		{
-			GlobalApp.unregisterSessionListener(registeredInstance);
-			registeredInstance = 0;
-		}
+		if (registeredInstance != 0 && registeredListener != null)
+			GlobalApp.unregisterSessionListener(registeredInstance, registeredListener);
+		registeredInstance = 0;
+		registeredListener = null;
 	}
 
 	/**

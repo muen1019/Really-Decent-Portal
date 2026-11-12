@@ -22,6 +22,9 @@ import com.freerdp.freerdpcore.services.LibFreeRDP;
 
 public class SessionState implements Parcelable
 {
+	private static final int WINPR_ERROR_GEN_FAILURE = 0x1F;
+	private static final int WINPR_ERROR_BAD_ARGUMENTS = 0xA0;
+
 	public static final Parcelable.Creator<SessionState> CREATOR =
 	    new Parcelable.Creator<SessionState>() {
 		    public SessionState createFromParcel(Parcel in)
@@ -38,7 +41,7 @@ public class SessionState implements Parcelable
 	private final BookmarkBase bookmark;
 	private final Uri openUri;
 	private BitmapDrawable surface;
-	private LibFreeRDP.UIEventListener uiEventListener;
+	private volatile LibFreeRDP.UIEventListener uiEventListener;
 
 	public SessionState(Parcel parcel)
 	{
@@ -68,15 +71,16 @@ public class SessionState implements Parcelable
 
 	public void connect(Context context)
 	{
-		if (bookmark != null)
-		{
-			LibFreeRDP.setConnectionInfo(context, instance, bookmark);
-		}
-		else
-		{
-			LibFreeRDP.setConnectionInfo(context, instance, openUri);
-		}
-		LibFreeRDP.connect(instance);
+		if (instance == 0)
+			return; // The ViewModel reports native allocation failure without calling JNI.
+
+		boolean configured = bookmark != null
+		    ? LibFreeRDP.setConnectionInfo(context, instance, bookmark)
+		    : LibFreeRDP.setConnectionInfo(context, instance, openUri);
+		if (!configured)
+			LibFreeRDP.reportSetupFailure(instance, WINPR_ERROR_BAD_ARGUMENTS);
+		else if (!LibFreeRDP.connect(instance))
+			LibFreeRDP.reportSetupFailure(instance, WINPR_ERROR_GEN_FAILURE);
 	}
 
 	public long getInstance()

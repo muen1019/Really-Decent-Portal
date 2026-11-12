@@ -2,12 +2,13 @@
   "format": "really-decent-portal-release-source-v1",
   "package": "io.github.muen1019.reallydecentportal",
   "label": "Really Decent Portal",
-  "version": "0.1.0",
-  "upstream_version": "3.33.0",
-  "upstream_commit": "5a10d7b6b79a2fbc62e8eba77085cd356dc303a6",
+  "version": "0.1.7",
+  "upstream_version": "3.33.1",
+  "upstream_commit": "65bcca1913a28cbdd7eb913599f692bd2b707991",
   "source23_manifest_sha256": "27947560b5d22aef456bc9c5eaea032dcdfebd295ec4b4f616777ce117251c1a",
+  "source23_manifest_role": "BASELINE",
   "source_offer_location": {
-    "paired_filename": "Really-Decent-Portal-0.1.0-source.zip",
+    "paired_filename": "Really-Decent-Portal-0.1.7-source.zip",
     "delivery": "ALONGSIDE_APK",
     "repository_url": "https://github.com/muen1019/Really-Decent-Portal"
   }

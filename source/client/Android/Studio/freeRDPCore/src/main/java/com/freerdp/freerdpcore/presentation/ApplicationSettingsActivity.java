@@ -33,6 +33,12 @@ public class ApplicationSettingsActivity
 {
 	private static final String SCREEN_INPUT_MODE_KEY = "ui.screen_input_mode";
 
+	public static boolean isTapDragEnabled(Context context)
+	{
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+		    context.getString(R.string.preference_key_ui_tap_drag), true);
+	}
+
 	// This preference belongs to the current application ID, so a parallel test app
 	// does not change the production client's input mode.
 	public static ScreenInputMode getScreenInputMode(Context context)

@@ -13,7 +13,9 @@ package com.freerdp.freerdpcore.presentation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.TypedValue;
@@ -24,9 +26,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freerdp.freerdpcore.R;
 import com.freerdp.freerdpcore.services.LibFreeRDP;
+import com.freerdp.freerdpcore.utils.ClipboardManagerProxy;
 
 /**
  * Owns every dialog that the FreeRDP session may need: the connect-progress
@@ -58,8 +62,15 @@ public class SessionDialogs
 	private final View userCredView;
 
 	private AlertDialog progressDialog;
+	private TextView progressMessage;
+	private boolean showingReconnect;
+	private AlertDialog connectionEndedDialog;
 
+	private final Object callbackLock = new Object();
+	private DialogInterface waitingDialog;
+	private boolean callbackComplete;
 	private boolean callbackDialogResult;
+	private boolean destroyed;
 
 	public SessionDialogs(Activity activity, OnUserCancelListener cancelListener)
 	{
@@ -70,20 +81,12 @@ public class SessionDialogs
 		                           .setTitle(R.string.dlg_title_verify_certificate)
 		                           .setPositiveButton(android.R.string.yes,
 		                                              (dialog, which) -> {
-			                                              callbackDialogResult = true;
-			                                              synchronized (dialog)
-			                                              {
-				                                              dialog.notify();
-			                                              }
+			                                              completeDialog(dialog, true);
 		                                              })
 		                           .setNegativeButton(android.R.string.no,
 		                                              (dialog, which) -> {
-			                                              callbackDialogResult = false;
 			                                              notifyCancel();
-			                                              synchronized (dialog)
-			                                              {
-				                                              dialog.notify();
-			                                              }
+			                                              completeDialog(dialog, false);
 		                                              })
 		                           .setCancelable(false)
 		                           .create();
@@ -94,20 +97,12 @@ public class SessionDialogs
 		                         .setTitle(R.string.dlg_title_credentials)
 		                         .setPositiveButton(android.R.string.ok,
 		                                            (dialog, which) -> {
-			                                            callbackDialogResult = true;
-			                                            synchronized (dialog)
-			                                            {
-				                                            dialog.notify();
-			                                            }
+			                                            completeDialog(dialog, true);
 		                                            })
 		                         .setNegativeButton(android.R.string.cancel,
 		                                            (dialog, which) -> {
-			                                            callbackDialogResult = false;
 			                                            notifyCancel();
-			                                            synchronized (dialog)
-			                                            {
-				                                            dialog.notify();
-			                                            }
+			                                            completeDialog(dialog, false);
 		                                            })
 		                         .setCancelable(false)
 		                         .create();
@@ -117,18 +112,12 @@ public class SessionDialogs
 		                      .setPositiveButton(R.string.menu_app_settings,
 		                                         (dialog, which) -> {
 			                                         openExperimentalSettings();
-			                                         synchronized (dialog)
-			                                         {
-				                                         dialog.notify();
-			                                         }
+			                                         completeDialog(dialog, true);
 		                                         })
 		                      .setNegativeButton(android.R.string.cancel,
 		                                         (dialog, which) -> {
 			                                         notifyCancel();
-			                                         synchronized (dialog)
-			                                         {
-				                                         dialog.notify();
-			                                         }
+			                                         completeDialog(dialog, false);
 		                                         })
 		                      .setCancelable(false)
 		                      .create();
@@ -141,24 +130,12 @@ public class SessionDialogs
 	public boolean promptCredentials(StringBuilder username, StringBuilder domain,
 	                                 StringBuilder password)
 	{
-		callbackDialogResult = false;
-
-		((EditText)userCredView.findViewById(R.id.editTextUsername)).setText(username);
-		((EditText)userCredView.findViewById(R.id.editTextDomain)).setText(domain);
-		((EditText)userCredView.findViewById(R.id.editTextPassword)).setText(password);
-
-		showOnUiThread(dlgUserCredentials);
-
-		try
-		{
-			synchronized (dlgUserCredentials)
-			{
-				dlgUserCredentials.wait();
-			}
-		}
-		catch (InterruptedException e)
-		{
-		}
+		if (!awaitDialog(dlgUserCredentials, () -> {
+			    ((EditText)userCredView.findViewById(R.id.editTextUsername)).setText(username);
+			    ((EditText)userCredView.findViewById(R.id.editTextDomain)).setText(domain);
+			    ((EditText)userCredView.findViewById(R.id.editTextPassword)).setText(password);
+		    }))
+			return false;
 
 		username.setLength(0);
 		domain.setLength(0);
@@ -171,7 +148,7 @@ public class SessionDialogs
 		password.append(
 		    ((EditText)userCredView.findViewById(R.id.editTextPassword)).getText().toString());
 
-		return callbackDialogResult;
+		return true;
 	}
 
 	/**
@@ -180,18 +157,19 @@ public class SessionDialogs
 	public int verifyCertificate(String host, long port, String subject, String issuer,
 	                             String fingerprint, long flags)
 	{
-		String msg = activity.getResources().getString(R.string.dlg_msg_verify_certificate);
-		String type = "RDP-Server";
+		int peerType = R.string.certificate_peer_server;
 		if ((flags & LibFreeRDP.VERIFY_CERT_FLAG_GATEWAY) != 0)
-			type = "RDP-Gateway";
+			peerType = R.string.certificate_peer_gateway;
 		if ((flags & LibFreeRDP.VERIFY_CERT_FLAG_REDIRECT) != 0)
-			type = "RDP-Redirect";
-		msg += "\n\n" + type + ": " + host + ":" + port;
-		msg += "\n\nSubject: " + subject + "\nIssuer: " + issuer;
-		if ((flags & LibFreeRDP.VERIFY_CERT_FLAG_FP_IS_PEM) != 0)
-			msg += "\nCertificate: " + fingerprint;
-		else
-			msg += "\nFingerprint: " + fingerprint;
+			peerType = R.string.certificate_peer_redirect;
+		int certificateDetails = (flags & LibFreeRDP.VERIFY_CERT_FLAG_FP_IS_PEM) != 0
+		    ? R.string.certificate_pem_details
+		    : R.string.certificate_fingerprint_details;
+		String msg = activity.getString(R.string.dlg_msg_verify_certificate) + "\n\n" +
+		             activity.getString(R.string.certificate_identity_details,
+		                                activity.getString(peerType), host, Long.toString(port),
+		                                subject, issuer) + "\n" +
+		             activity.getString(certificateDetails, fingerprint);
 
 		return showVerifyDialog(msg);
 	}
@@ -210,21 +188,8 @@ public class SessionDialogs
 	/** Shows an "experimental feature" notice and blocks the calling thread until dismissed. */
 	public void showExperimentalBlocked(String featureName)
 	{
-		dlgExperimental.setMessage(
-		    activity.getString(R.string.dlg_msg_experimental_feature, featureName));
-
-		showOnUiThread(dlgExperimental);
-
-		try
-		{
-			synchronized (dlgExperimental)
-			{
-				dlgExperimental.wait();
-			}
-		}
-		catch (InterruptedException e)
-		{
-		}
+		awaitDialog(dlgExperimental, () -> dlgExperimental.setMessage(
+		    activity.getString(R.string.dlg_msg_experimental_feature, featureName)));
 	}
 
 	private void openExperimentalSettings()
@@ -234,28 +199,60 @@ public class SessionDialogs
 
 	private int showVerifyDialog(String msg)
 	{
-		callbackDialogResult = false;
-		dlgVerifyCertificate.setMessage(msg);
-
-		showOnUiThread(dlgVerifyCertificate);
-
-		try
-		{
-			synchronized (dlgVerifyCertificate)
-			{
-				dlgVerifyCertificate.wait();
-			}
-		}
-		catch (InterruptedException e)
-		{
-		}
-
-		return callbackDialogResult ? 1 : 0;
+		return awaitDialog(dlgVerifyCertificate, () -> dlgVerifyCertificate.setMessage(msg)) ? 1 : 0;
 	}
 
-	private void showOnUiThread(final AlertDialog dialog)
+	private boolean awaitDialog(AlertDialog dialog, Runnable prepare)
 	{
-		mainHandler.post(dialog::show);
+		synchronized (callbackLock)
+		{
+			if (destroyed || waitingDialog != null)
+				return false;
+			waitingDialog = dialog;
+			callbackComplete = false;
+			callbackDialogResult = false;
+			mainHandler.post(() -> {
+				synchronized (callbackLock)
+				{
+					if (destroyed || waitingDialog != dialog)
+						return;
+					if (activity.isFinishing())
+					{
+						completeDialog(dialog, false);
+						return;
+					}
+					prepare.run();
+					dialog.show();
+				}
+			});
+			try
+			{
+				while (!destroyed && !callbackComplete)
+					callbackLock.wait();
+				return !destroyed && callbackDialogResult;
+			}
+			catch (InterruptedException e)
+			{
+				Thread.currentThread().interrupt();
+				return false;
+			}
+			finally
+			{
+				waitingDialog = null;
+			}
+		}
+	}
+
+	private void completeDialog(DialogInterface dialog, boolean accepted)
+	{
+		synchronized (callbackLock)
+		{
+			if (waitingDialog != dialog)
+				return;
+			callbackDialogResult = accepted;
+			callbackComplete = true;
+			callbackLock.notifyAll();
+		}
 	}
 
 	private void notifyCancel()
@@ -269,6 +266,33 @@ public class SessionDialogs
 	 * replace any previously shown progress dialog.
 	 */
 	public void showProgress(String title, final OnConnectCancelListener listener)
+	{
+		showProgress(title, activity.getString(R.string.dlg_msg_connecting), listener);
+	}
+
+	public void showReconnect(ConnectionDiagnostic diagnostic, OnConnectCancelListener listener)
+	{
+		int attempt = diagnostic == null ? 1 : diagnostic.attempt;
+		String message = activity.getString(connectionReason(diagnostic, true)) + "\n\n" +
+		                 activity.getString(R.string.connection_reconnect_attempt, attempt);
+		if (showingReconnect && progressDialog != null && progressDialog.isShowing())
+		{
+			progressMessage.setText(message);
+			return;
+		}
+		showProgress(activity.getString(R.string.connection_reconnecting_title), message, listener);
+		showingReconnect = true;
+	}
+
+	public void showReconnected(ConnectionDiagnostic diagnostic)
+	{
+		if (diagnostic != null && diagnostic.attempt > 0)
+			Toast.makeText(activity, activity.getString(R.string.connection_reconnected_message,
+			                   activity.getString(connectionReason(diagnostic, true))),
+			               Toast.LENGTH_LONG).show();
+	}
+
+	private void showProgress(String title, String message, OnConnectCancelListener listener)
 	{
 		dismissProgress();
 
@@ -285,17 +309,17 @@ public class SessionDialogs
 		                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 		                                              ViewGroup.LayoutParams.WRAP_CONTENT));
 
-		TextView messageView = new TextView(activity);
-		messageView.setText(R.string.dlg_msg_connecting);
+		progressMessage = new TextView(activity);
+		progressMessage.setText(message);
 		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
 		    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		textParams.leftMargin = pad;
-		content.addView(messageView, textParams);
+		content.addView(progressMessage, textParams);
 
 		progressDialog = new AlertDialog.Builder(activity)
 		                     .setTitle(title)
 		                     .setView(content)
-		                     .setNegativeButton(android.R.string.cancel,
+		                     .setNegativeButton(R.string.cancel,
 		                                        (dialog, which) -> {
 			                                        if (listener != null)
 				                                        listener.onConnectCancel();
@@ -313,5 +337,90 @@ public class SessionDialogs
 			progressDialog.dismiss();
 			progressDialog = null;
 		}
+		progressMessage = null;
+		showingReconnect = false;
+	}
+
+	public void showConnectionEnded(boolean wasConnected, ConnectionDiagnostic diagnostic,
+	                                Runnable retry, Runnable close)
+	{
+		dismissConnectionEnded();
+		String message = activity.getString(connectionReason(diagnostic, wasConnected));
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity)
+		    .setTitle(wasConnected ? R.string.connection_ended_title : R.string.connection_failed_title)
+		    .setMessage(message)
+		    .setNegativeButton(R.string.connection_close, (dialog, which) -> close.run())
+		    .setCancelable(false);
+		if (retry != null)
+			builder.setPositiveButton(R.string.connection_retry, (dialog, which) -> retry.run());
+		if (diagnostic != null)
+			builder.setNeutralButton(R.string.connection_copy_diagnostics, null);
+		connectionEndedDialog = builder.show();
+		if (diagnostic != null)
+		{
+			// Leave Retry and Close available after copying the details.
+			connectionEndedDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setOnClickListener(v -> {
+				ClipboardManagerProxy.getClipboardManager(activity)
+				    .setClipboardData(message + "\n\n" + diagnostic.toShareText());
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+					Toast.makeText(activity, R.string.connection_diagnostics_copied,
+					               Toast.LENGTH_SHORT).show();
+			});
+		}
+	}
+
+	private static int connectionReason(ConnectionDiagnostic diagnostic, boolean wasConnected)
+	{
+		if (diagnostic != null)
+		{
+			switch (diagnostic.reason)
+			{
+				case SERVER_ENDED:
+					return R.string.connection_reason_server_ended;
+				case SIGNED_OUT:
+					return R.string.connection_reason_signed_out;
+				case IDLE_TIMEOUT:
+					return R.string.connection_reason_idle_timeout;
+				case TIME_LIMIT:
+					return R.string.connection_reason_timeout;
+				case REPLACED:
+					return R.string.connection_reason_replaced;
+				case ACCESS_DENIED:
+					return R.string.connection_reason_access_denied;
+				case AUTHENTICATION:
+					return R.string.connection_reason_authentication;
+				case TRANSPORT:
+					return R.string.connection_reason_transport;
+				case SERVER_ERROR:
+					return R.string.connection_reason_server_error;
+				default:
+					break;
+			}
+		}
+		return wasConnected ? R.string.connection_reason_unknown : R.string.error_connection_failure;
+	}
+
+	public void dismissConnectionEnded()
+	{
+		if (connectionEndedDialog != null)
+		{
+			connectionEndedDialog.dismiss();
+			connectionEndedDialog = null;
+		}
+	}
+
+	public void destroy()
+	{
+		synchronized (callbackLock)
+		{
+			destroyed = true;
+			callbackLock.notifyAll();
+		}
+		mainHandler.removeCallbacksAndMessages(null);
+		dismissProgress();
+		dismissConnectionEnded();
+		dlgUserCredentials.dismiss();
+		dlgVerifyCertificate.dismiss();
+		dlgExperimental.dismiss();
 	}
 }

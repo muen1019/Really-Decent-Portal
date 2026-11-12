@@ -10,11 +10,13 @@
 
 package com.freerdp.freerdpcore.presentation;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,13 +28,13 @@ import com.freerdp.freerdpcore.services.LibFreeRDP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Locale;
+import java.nio.charset.StandardCharsets;
 
 public class AboutActivity extends AppCompatActivity
 {
 	private static final String TAG = AboutActivity.class.toString();
+	private static final String ASSET_BASE = "file:///android_asset/";
 	private WebView mWebView;
 
 	@Override protected void onCreate(Bundle savedInstanceState)
@@ -46,20 +48,27 @@ public class AboutActivity extends AppCompatActivity
 		mWebView = findViewById(R.id.activity_about_webview);
 
 		WebSettings settings = mWebView.getSettings();
-		settings.setDomStorageEnabled(true);
 		settings.setUseWideViewPort(true);
 		settings.setLoadWithOverviewMode(true);
 		settings.setSupportZoom(true);
 
 		mWebView.setWebViewClient(new WebViewClient() {
-			@Override public boolean shouldOverrideUrlLoading(WebView view, String url)
+			@Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
 			{
-				if (url.startsWith("file:///android_asset/"))
+				if (request.getUrl().toString().startsWith(ASSET_BASE))
+					return false;
+				if (request.isForMainFrame() && "https".equals(request.getUrl().getScheme()))
 				{
-					view.loadUrl(url);
-					return true;
+					try
+					{
+						startActivity(new Intent(Intent.ACTION_VIEW, request.getUrl()));
+					}
+					catch (ActivityNotFoundException e)
+					{
+						Log.w(TAG, "Could not open link", e);
+					}
 				}
-				return false;
+				return true;
 			}
 		});
 
@@ -74,11 +83,11 @@ public class AboutActivity extends AppCompatActivity
 
 	private void populate()
 	{
-		String dir = "deskquay/";
-		String file = dir + "about.html";
+		String file = getString(R.string.about_page_asset);
 
 		StringBuilder total = new StringBuilder();
-		try (BufferedReader r = new BufferedReader(new InputStreamReader(getAssets().open(file))))
+		try (BufferedReader r = new BufferedReader(
+		         new InputStreamReader(getAssets().open(file), StandardCharsets.UTF_8)))
 		{
 			String line;
 			while ((line = r.readLine()) != null)
@@ -95,20 +104,18 @@ public class AboutActivity extends AppCompatActivity
 		String version;
 		try
 		{
-			version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+			String name = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+			version = name != null ? name : "—";
 		}
 		catch (PackageManager.NameNotFoundException e)
 		{
-			version = "unknown";
+			version = "—";
 		}
-		version = version + " (" + LibFreeRDP.getVersion() + ")";
 
-		final String base = "file:///android_asset/" + dir;
 		final String html = total.toString()
-		                        .replaceAll("%AFREERDP_VERSION%", version)
-		                        .replaceAll("%SYSTEM_VERSION%", Build.VERSION.RELEASE)
-		                        .replaceAll("%DEVICE_MODEL%", Build.MODEL);
+		                        .replace("%APP_VERSION%", TextUtils.htmlEncode(version))
+		                        .replace("%FREERDP_VERSION%", TextUtils.htmlEncode(LibFreeRDP.getVersion()));
 
-		mWebView.loadDataWithBaseURL(base, html, "text/html", null, "about:blank");
+		mWebView.loadDataWithBaseURL(ASSET_BASE + file, html, "text/html", "UTF-8", null);
 	}
 }

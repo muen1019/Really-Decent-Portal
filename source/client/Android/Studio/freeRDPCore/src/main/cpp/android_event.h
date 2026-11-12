@@ -83,6 +83,7 @@ typedef struct
 	HANDLE isSet;
 	CRITICAL_SECTION lock;
 	ANDROID_EVENT** events;
+	BOOL inputSuspended;
 	/* Worker-owned deadline: no timer object/thread or callback lifetime. */
 	BOOL wheelHorizontalSent;
 	UINT64 wheelLastHorizontalMs;
@@ -92,6 +93,8 @@ typedef struct
 /* TRUE transfers ownership to the queue (including a coalesced event); FALSE
  * leaves ownership with the caller. TRUE does not prove signalling or delivery. */
 FREERDP_LOCAL BOOL android_push_event(freerdp* inst, ANDROID_EVENT* event);
+/* Pause input and retire queued events without replacing the worker's wait handle. */
+FREERDP_LOCAL void android_event_queue_set_suspended(freerdp* inst, BOOL suspended);
 
 FREERDP_LOCAL HANDLE android_get_handle(freerdp* inst);
 FREERDP_LOCAL BOOL android_check_handle(freerdp* inst);

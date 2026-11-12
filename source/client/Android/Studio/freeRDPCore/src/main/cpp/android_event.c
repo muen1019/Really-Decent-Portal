@@ -61,6 +61,8 @@ BOOL android_push_event(freerdp* inst, ANDROID_EVENT* event)
 	if (!queue)
 		goto out_context;
 	EnterCriticalSection(&queue->lock);
+	if (queue->inputSuspended && event->type != EVENT_TYPE_DISCONNECT)
+		goto out_queue;
 	if (android_coalesce_cursor_move(queue, event))
 	{
 		accepted = TRUE;
@@ -99,6 +101,41 @@ out_context:
 	if (coalesced)
 		android_event_free(event);
 	return accepted;
+}
+
+void android_event_queue_set_suspended(freerdp* inst, BOOL suspended)
+{
+	WINPR_ASSERT(inst);
+	WINPR_ASSERT(inst->context);
+	androidContext* context = (androidContext*)inst->context;
+	EnterCriticalSection(&context->eventLock);
+	ANDROID_EVENT_QUEUE* queue = context->event_queue;
+	if (queue)
+	{
+		EnterCriticalSection(&queue->lock);
+		queue->inputSuspended = suspended;
+		if (suspended)
+		{
+			size_t kept = 0;
+			for (size_t x = 0; x < queue->count; x++)
+			{
+				ANDROID_EVENT* event = queue->events[x];
+				if (event->type == EVENT_TYPE_DISCONNECT)
+					queue->events[kept++] = event;
+				else
+					android_event_free(event);
+			}
+			memset(queue->events + kept, 0, (queue->count - kept) * sizeof(ANDROID_EVENT*));
+			queue->count = kept;
+			queue->wheelHorizontalSent = FALSE;
+			queue->wheelLastHorizontalMs = 0;
+			queue->wheelDueMs = 0;
+			if (!(kept ? SetEvent(queue->isSet) : ResetEvent(queue->isSet)))
+				WLog_WARN(TAG, "Failed to update reconnect queue signal");
+		}
+		LeaveCriticalSection(&queue->lock);
+	}
+	LeaveCriticalSection(&context->eventLock);
 }
 
 /* Experimental transport gap, not a guarantee about remote message time. */

@@ -238,6 +238,8 @@ public class KeyboardMapper
 	private boolean isWinKeyDown = false;
 	private boolean isWinComboUsed = false;
 	private final Object uiModifierOwner = new Object();
+	private final Object contentZoomControlOwner = new Object();
+	private int contentZoomControlKey;
 	private final PhysicalKeyState physicalKeys = new PhysicalKeyState((vk, down) -> {
 		if (listener != null)
 			listener.processVirtualKey(vk, down);
@@ -502,24 +504,24 @@ public class KeyboardMapper
 		return true;
 	}
 
-	/** Temporarily holds Control without releasing an existing physical or UI owner. */
-	public void withControlModifier(Runnable action)
+	/** Share an already-held left or right Ctrl with the zoom stream, or hold left Ctrl. */
+	public void beginContentZoomControl()
 	{
-		if (listener == null || action == null)
+		if (listener == null || contentZoomControlKey != 0)
 			return;
-		Object owner = new Object();
-		boolean acquire = !familyPressed(VK_LCONTROL, VK_RCONTROL | VK_EXT_KEY);
-		try
-		{
-			if (acquire)
-				physicalKeys.acquire(owner, VK_LCONTROL);
-			action.run();
-		}
-		finally
-		{
-			if (acquire)
-				physicalKeys.release(owner, VK_LCONTROL, true);
-		}
+		int right = VK_RCONTROL | VK_EXT_KEY;
+		contentZoomControlKey = !physicalKeys.isPressed(VK_LCONTROL) && physicalKeys.isPressed(right)
+		    ? right : VK_LCONTROL;
+		physicalKeys.acquire(contentZoomControlOwner, contentZoomControlKey);
+	}
+
+	public void endContentZoomControl(boolean sendKeyUp)
+	{
+		if (contentZoomControlKey == 0)
+			return;
+		int key = contentZoomControlKey;
+		contentZoomControlKey = 0;
+		physicalKeys.release(contentZoomControlOwner, key, sendKeyUp);
 	}
 
 	public boolean processAndroidKeyEvent(KeyEvent event)
@@ -823,6 +825,7 @@ public class KeyboardMapper
 	public void releaseOwnedKeys(boolean sendKeyUps)
 	{
 		physicalKeys.releaseAll(sendKeyUps);
+		contentZoomControlKey = 0;
 		shiftPressed = ctrlPressed = altPressed = winPressed = false;
 		isShiftLocked = isCtrlLocked = isAltLocked = isWinLocked = false;
 		isWinKeyDown = isWinComboUsed = false;

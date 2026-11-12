@@ -16,6 +16,7 @@
 #include <freerdp/config.h>
 
 #include <locale.h>
+#include <stdint.h>
 
 #include <jni.h>
 #include <stdio.h>
@@ -24,6 +25,7 @@
 
 #include <winpr/assert.h>
 #include <winpr/image.h>
+#include <winpr/interlocked.h>
 
 #include <freerdp/graphics.h>
 #include <freerdp/codec/rfx.h>
@@ -239,6 +241,10 @@ static BOOL android_pre_connect(freerdp* instance)
 	rdpSettings* settings = instance->context->settings;
 
 	if (!settings)
+		return FALSE;
+
+	/* Request the server's disconnect reason in the GCC client core data. */
+	if (!freerdp_settings_set_bool(settings, FreeRDP_SupportErrorInfoPdu, TRUE))
 		return FALSE;
 
 	int rc = PubSub_SubscribeChannelConnected(instance->context->pubSub,
@@ -483,7 +489,9 @@ static BOOL android_post_connect(freerdp* instance)
 	                 freerdp_settings_get_uint32(settings, FreeRDP_DesktopWidth),
 	                 freerdp_settings_get_uint32(settings, FreeRDP_DesktopHeight),
 	                 freerdp_settings_get_uint32(settings, FreeRDP_ColorDepth));
-	freerdp_callback("OnConnectionSuccess", "(J)V", (jlong)instance);
+	const androidContext* afc = (const androidContext*)instance->context;
+	if (!afc->reconnecting)
+		freerdp_callback("OnConnectionSuccess", "(J)V", (jlong)instance);
 	return TRUE;
 }
 
@@ -617,6 +625,21 @@ static DWORD android_verify_changed_certificate_ex(freerdp* instance, const char
 	return res;
 }
 
+static BOOL android_disconnect_requested(androidContext* context)
+{
+	return InterlockedCompareExchange(&context->disconnectRequested, 0, 0) != 0;
+}
+
+/* Worker-owned cause survives FreeRDP clearing error fields on the next attempt. */
+static void android_remember_reconnect_cause(freerdp* instance, androidContext* context)
+{
+	const UINT32 error = freerdp_get_last_error(instance->context);
+	if (context->reconnectError == FREERDP_ERROR_SUCCESS && error != FREERDP_ERROR_CONNECT_CANCELLED)
+		context->reconnectError = error;
+	if (context->reconnectServerError == ERRINFO_SUCCESS)
+		context->reconnectServerError = freerdp_error_info(instance);
+}
+
 WINPR_ATTR_NODISCARD
 static SSIZE_T android_retry_dialog(freerdp* instance, const char* what, size_t current,
                                     void* userarg)
@@ -633,30 +656,32 @@ static SSIZE_T android_retry_dialog(freerdp* instance, const char* what, size_t 
 	if (delay > ANDROID_RECONNECT_MAX_DELAY_MS)
 		delay = ANDROID_RECONNECT_MAX_DELAY_MS;
 
-	if (WaitForSingleObject(afc->foregroundEvent, INFINITE) != WAIT_OBJECT_0)
+	if (android_disconnect_requested(afc) ||
+	    WaitForSingleObject(afc->foregroundEvent, INFINITE) != WAIT_OBJECT_0)
 		return -1;
-	if (freerdp_get_last_error(instance->context) == FREERDP_ERROR_CONNECT_CANCELLED)
+	if (android_disconnect_requested(afc) ||
+	    freerdp_get_last_error(instance->context) == FREERDP_ERROR_CONNECT_CANCELLED)
 		return -1;
 
-	freerdp_callback("OnReconnecting", "(J)V", (jlong)instance);
+	android_remember_reconnect_cause(instance, afc);
+	const jint attempt = current >= (size_t)INT32_MAX ? INT32_MAX : (jint)(current + 1);
+	freerdp_callback("OnReconnectAttempt", "(JIII)V", (jlong)instance, attempt,
+	                 (jint)afc->reconnectError, (jint)afc->reconnectServerError);
 	return delay;
 }
 
-static int android_freerdp_run(freerdp* instance)
+static DWORD android_freerdp_run(freerdp* instance)
 {
 	WINPR_ASSERT(instance);
 
-	DWORD status = WAIT_FAILED;
+	DWORD status = CHANNEL_RC_OK;
 	HANDLE handles[MAXIMUM_WAIT_OBJECTS];
-	HANDLE inputEvent = nullptr;
 	rdpContext* context = instance->context;
 	WINPR_ASSERT(context);
+	androidContext* afc = (androidContext*)context;
+	HANDLE inputEvent = android_get_handle(instance);
 
-	const rdpSettings* settings = context->settings;
-
-	inputEvent = android_get_handle(instance);
-
-	while (!freerdp_shall_disconnect_context(context))
+	while (!android_disconnect_requested(afc) && !freerdp_shall_disconnect_context(context))
 	{
 		DWORD count = 0;
 
@@ -666,47 +691,68 @@ static int android_freerdp_run(freerdp* instance)
 
 		if (tmp == 0)
 		{
+			status = GetLastError();
 			WLog_ERR(TAG, "freerdp_get_event_handles failed");
 			break;
 		}
 
 		count += tmp;
-		status = WaitForMultipleObjects(count, handles, FALSE, android_get_wait_timeout(instance));
+		const DWORD wait = WaitForMultipleObjects(count, handles, FALSE,
+		                                           android_get_wait_timeout(instance));
 
-		if (status == WAIT_FAILED)
+		if (wait == WAIT_FAILED)
 		{
-			WLog_ERR(TAG, "WaitForMultipleObjects failed with %u [%08X]", status,
-			         (unsigned)GetLastError());
+			status = GetLastError();
+			WLog_ERR(TAG, "WaitForMultipleObjects failed [%08X]", (unsigned)status);
 			break;
 		}
 
-		/* A deadline is a normal wake, not OnConnectionFailure(258).
-		 * WAIT_FAILED and subsequent network/input errors keep their paths. */
-		if (status == WAIT_TIMEOUT)
-			status = CHANNEL_RC_OK;
+		const BOOL checked = freerdp_check_event_handles(context);
+		DWORD networkStatus = checked ? CHANNEL_RC_OK : GetLastError();
+		if (android_disconnect_requested(afc) ||
+			(checked && freerdp_shall_disconnect_context(context)))
+			break;
 
-		if (!freerdp_check_event_handles(context))
+		if (checked)
 		{
-			if (!client_auto_reconnect(instance))
+			if (android_check_handle(instance))
+				continue;
+			networkStatus = GetLastError();
+			/* Sending input can discover a broken socket before the read side does. */
+			if ((freerdp_get_last_error(context) != FREERDP_ERROR_CONNECT_TRANSPORT_FAILED) ||
+				(freerdp_error_info(instance) != ERRINFO_SUCCESS))
 			{
-				WLog_ERR(TAG, "Failed to check FreeRDP file descriptor");
-				status = GetLastError();
+				status = networkStatus;
+				WLog_ERR(TAG, "Failed to check android file descriptor");
 				break;
 			}
+			WLog_INFO(TAG, "Transport failure while sending input");
 		}
 
-		if (freerdp_shall_disconnect_context(instance->context))
+		android_remember_reconnect_cause(instance, afc);
+		android_event_queue_set_suspended(instance, TRUE);
+		if (android_disconnect_requested(afc))
 			break;
-
-		if (android_check_handle(instance) != TRUE)
+		afc->reconnecting = TRUE;
+		const BOOL reconnected = client_auto_reconnect(instance);
+		afc->reconnecting = FALSE;
+		if (!reconnected)
 		{
-			WLog_ERR(TAG, "Failed to check android file descriptor");
 			status = GetLastError();
+			if (status == CHANNEL_RC_OK)
+				status = networkStatus;
+			WLog_ERR(TAG, "Failed to restore FreeRDP transport");
 			break;
 		}
+		if (android_disconnect_requested(afc) || freerdp_shall_disconnect_context(context))
+			break;
+		android_event_queue_set_suspended(instance, FALSE);
+		freerdp_callback("OnReconnected", "(J)V", (jlong)instance);
+
+		afc->reconnectError = FREERDP_ERROR_SUCCESS;
+		afc->reconnectServerError = ERRINFO_SUCCESS;
 	}
 
-disconnect:
 	WLog_INFO(TAG, "Prepare shutdown...");
 
 	return status;
@@ -714,41 +760,46 @@ disconnect:
 
 static DWORD WINAPI android_thread_func(LPVOID param)
 {
-	DWORD status = ERROR_BAD_ARGUMENTS;
 	freerdp* instance = param;
 	WLog_DBG(TAG, "Start...");
 
 	WINPR_ASSERT(instance);
 	WINPR_ASSERT(instance->context);
 
-	if (freerdp_client_start(instance->context) != CHANNEL_RC_OK)
-		goto fail;
+	rdpContext* context = instance->context;
+	androidContext* afc = (androidContext*)context;
+	DWORD status = (DWORD)freerdp_client_start(context);
+	const BOOL started = status == CHANNEL_RC_OK;
+	BOOL connected = FALSE;
 
-	WLog_DBG(TAG, "Connect...");
-
-	if (!freerdp_connect(instance))
-		status = GetLastError();
-	else
+	if (started && !android_disconnect_requested(afc))
 	{
-		status = android_freerdp_run(instance);
-		WLog_DBG(TAG, "Disconnect...");
-
-		if (!freerdp_disconnect(instance))
-			status = GetLastError();
+		WLog_DBG(TAG, "Connect...");
+		connected = freerdp_connect(instance);
+		status = connected ? android_freerdp_run(instance) : GetLastError();
 	}
 
-	WLog_DBG(TAG, "Stop...");
+	/* Teardown can replace the cause. Send captured values, never a live context lookup. */
+	UINT32 error = freerdp_get_last_error(context);
+	UINT32 serverError = freerdp_error_info(instance);
+	if (error == FREERDP_ERROR_SUCCESS)
+		error = afc->reconnectError;
+	if (serverError == ERRINFO_SUCCESS)
+		serverError = afc->reconnectServerError;
+	if (connected && !freerdp_disconnect(instance) && status == CHANNEL_RC_OK)
+		status = GetLastError();
+	if (started)
+	{
+		const DWORD stopped = (DWORD)freerdp_client_stop(context);
+		if (status == CHANNEL_RC_OK)
+			status = stopped;
+	}
 
-	if (freerdp_client_stop(instance->context) != CHANNEL_RC_OK)
-		goto fail;
-
-fail:
 	WLog_DBG(TAG, "Session ended with %08" PRIX32 "", status);
-
-	if (status == CHANNEL_RC_OK)
-		freerdp_callback("OnDisconnected", "(J)V", (jlong)instance);
-	else
-		freerdp_callback("OnConnectionFailure", "(J)V", (jlong)instance);
+	const BOOL local = android_disconnect_requested(afc) ||
+	                   error == FREERDP_ERROR_CONNECT_CANCELLED;
+	freerdp_callback("OnConnectionEnded", "(JIIIZ)V", (jlong)instance, (jint)status,
+	                 (jint)error, (jint)serverError, local ? JNI_TRUE : JNI_FALSE);
 
 	WLog_DBG(TAG, "Quit.");
 	ExitThread(status);
@@ -1045,27 +1096,20 @@ JNIEXPORT jboolean JNICALL Java_com_freerdp_freerdpcore_services_LibFreeRDP_free
 	}
 
 	androidContext* ctx = (androidContext*)inst->context;
-	ANDROID_EVENT* event = (ANDROID_EVENT*)android_event_disconnect_new();
-
-	if (!event)
-		return JNI_FALSE;
-
-	if (!android_push_event(inst, event))
-	{
-		android_event_free((ANDROID_EVENT*)event);
-		return JNI_FALSE;
-	}
-
+	/* Reconnect can reset FreeRDP's abort event/error. Keep the local request separately. */
+	InterlockedExchange(&ctx->disconnectRequested, 1);
 	/* The abort keeps an existing error, so force the cancel. */
 	freerdp_set_last_error_log(inst->context, FREERDP_ERROR_CONNECT_CANCELLED);
-	if (!freerdp_abort_connect_context(inst->context))
-		return JNI_FALSE;
+	const BOOL aborted = freerdp_abort_connect_context(inst->context);
+	ANDROID_EVENT* event = android_event_disconnect_new();
+	if (event && !android_push_event(inst, event))
+		android_event_free(event);
 
 	/* Wake a held reconnect. */
 	if (ctx->foregroundEvent && !SetEvent(ctx->foregroundEvent))
 		WLog_WARN(TAG, "SetEvent failed");
 
-	return JNI_TRUE;
+	return aborted ? JNI_TRUE : JNI_FALSE;
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1365,7 +1409,6 @@ Java_com_freerdp_freerdpcore_services_LibFreeRDP_freerdp_1send_1clipboard_1data(
 	const size_t data_length = data ? (*env)->GetStringUTFLength(env, jdata) : 0;
 	jboolean ret =
 	    android_push_clipboard_event(inst, data, data_length, "text/plain;charset=utf-8");
-	WLog_DBG(TAG, "send_clipboard_data: (%s)", data);
 
 	if (data)
 		(*env)->ReleaseStringUTFChars(env, jdata, data);

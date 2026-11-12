@@ -31,6 +31,7 @@ import android.hardware.input.InputManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -96,8 +97,10 @@ public class SessionView extends View
 	}
 	private final SparseArray<BrowserNavigationContact> browserNavigationContacts = new SparseArray<>();
 	private double touchpadPinchSteps;
+	private double touchpadPinchSpan;
 	private int touchpadPinchDevice = -1;
 	private long touchpadPinchDownTime;
+	private long touchpadPinchRetiredDownTime = -1;
 	private long touchpadPinchSampleTime = -1;
 	private static final class LegacyPointerContact
 	{
@@ -107,7 +110,10 @@ public class SessionView extends View
 		boolean held;
 	}
 	private final SparseArray<LegacyPointerContact> legacyPointerContacts = new SparseArray<>();
-	private static final double CONTENT_ZOOM_STEP = Math.log(1.1);
+	private static final double CONTENT_ZOOM_STEP = Math.log(1.32);
+	// The first notch needs about 16% spread. A threshold above half a step
+	// prevents small reversals at a notch boundary from undoing it immediately.
+	private static final double CONTENT_ZOOM_TRIGGER = 0.54;
 	private static final int MAX_CONTENT_ZOOM_STEPS_PER_EVENT = 8;
 
 	private PenInputController penInputController;
@@ -120,6 +126,7 @@ public class SessionView extends View
 
 	private ScreenInputController screenInputController;
 	private ScreenInputMode screenInputMode = ScreenInputMode.TOUCHPAD;
+	private boolean tapDragEnabled = true;
 	private boolean screenInputActive = true;
 	private boolean showScreenPointer;
 	private Bitmap screenCursorBitmap;
@@ -245,8 +252,19 @@ public class SessionView extends View
 			}
 		}, vc.getScaledTouchSlop(), Math.max(notchPxX, notchPxY), ViewConfiguration.getDoubleTapTimeout());
 		screenInputController.setMode(screenInputMode);
+		screenInputController.setTapDragEnabled(tapDragEnabled);
 		screenInputController.setActive(screenInputActive);
 		if (width > 0 && height > 0) screenInputController.setGeometry(scaleFactor,width,height);
+	}
+
+	public void setTapDragEnabled(boolean enabled)
+	{
+		if (tapDragEnabled == enabled)
+			return;
+		tapDragEnabled = enabled;
+		cancelLegacyPointerInput();
+		if (screenInputController != null)
+			screenInputController.setTapDragEnabled(enabled);
 	}
 
 	/** Installs an independent pen sink; changing finger mode never changes pen routing. */
@@ -505,6 +523,7 @@ public class SessionView extends View
 	}
 	public ScreenInputMode getScreenInputMode() { return screenInputMode; }
 	public void cancelScreenInput() {
+		if (sessionViewListener != null) sessionViewListener.onSessionViewContentZoomCancel();
 		resetTouchpadPinch();
 		cancelTouchpadWheelInput();
 		if (screenInputController != null) screenInputController.cancel();
@@ -763,29 +782,8 @@ public class SessionView extends View
 		if (handlePenInput(event))
 			return true;
 		trackTouchpadPinchBoundary(event);
-		if (isTouchpadPinchEvent(event))
-		{
-			if (!screenInputActive || event.getButtonState() != 0)
-			{
-				resetTouchpadPinch();
-				return true; // A pinch never becomes a drag or releases a held hardware button.
-			}
-			int action = event.getActionMasked();
-			if (action == MotionEvent.ACTION_DOWN)
-				beginTouchpadPinch(event);
-			else if (event.getDeviceId() == touchpadPinchDevice && event.getDownTime() == touchpadPinchDownTime &&
-			         action == MotionEvent.ACTION_MOVE)
-			{
-				int remaining = MAX_CONTENT_ZOOM_STEPS_PER_EVENT;
-				for (int i = 0; i < event.getHistorySize(); i++)
-					remaining = applyTouchpadPinchSample(event.getHistoricalAxisValue(MotionEvent.AXIS_GESTURE_PINCH_SCALE_FACTOR, 0, i), event.getHistoricalEventTimeNanos(i), remaining);
-				applyTouchpadPinchSample(event.getAxisValue(MotionEvent.AXIS_GESTURE_PINCH_SCALE_FACTOR), event.getEventTimeNanos(), remaining);
-			}
-			else if (event.getDeviceId() == touchpadPinchDevice &&
-			         (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL))
-				resetTouchpadPinch();
+		if (handleTouchpadPinch(event))
 			return true;
-		}
 		// A framework cancellation can lose source/tool metadata. Retire only the
 		// named device; another pointer's screen stream or held mouse stays intact.
 		if (event.getActionMasked() == MotionEvent.ACTION_CANCEL &&
@@ -913,7 +911,7 @@ public class SessionView extends View
 		int x = (int)mapped.getX(), y = (int)mapped.getY(); mapped.recycle();
 		if (x == contact.x && y == contact.y) return true;
 		sessionViewListener.onSessionViewPointerDevice(device);
-		if (!contact.held)
+		if (tapDragEnabled && !contact.held)
 		{
 			contact.held = true;
 			sessionViewListener.onSessionViewBeginTouch();
@@ -935,50 +933,141 @@ public class SessionView extends View
 
 	private void resetTouchpadPinch()
 	{
+		retireTouchpadPinch(Math.max(SystemClock.uptimeMillis(), touchpadPinchDownTime));
+	}
+
+	private void retireTouchpadPinch(long downTime)
+	{
+		touchpadPinchRetiredDownTime = Math.max(touchpadPinchRetiredDownTime, downTime);
 		touchpadPinchSteps = 0;
+		touchpadPinchSpan = 0;
 		touchpadPinchDevice = -1;
 		touchpadPinchDownTime = 0;
 		touchpadPinchSampleTime = -1;
 	}
 
-	private void beginTouchpadPinch(MotionEvent event)
+	private boolean ownsTouchpadPinch(MotionEvent event)
 	{
-		if (touchpadPinchDevice == event.getDeviceId() && touchpadPinchDownTime == event.getDownTime())
+		return touchpadPinchDevice == event.getDeviceId() && touchpadPinchDownTime == event.getDownTime();
+	}
+
+	private void beginTouchpadPinch(MotionEvent event, long firstSampleTime)
+	{
+		if (ownsTouchpadPinch(event))
 			return;
-		resetTouchpadPinch();
+		retireTouchpadPinch(touchpadPinchDownTime);
 		touchpadPinchDevice = event.getDeviceId();
 		touchpadPinchDownTime = event.getDownTime();
-		touchpadPinchSampleTime = event.getEventTimeNanos();
+		touchpadPinchSampleTime = firstSampleTime;
 	}
 
 	private void trackTouchpadPinchBoundary(MotionEvent event)
 	{
-		if (Build.VERSION.SDK_INT < 34 || !screenInputActive || !ScreenInputController.isExternalPointerEvent(event))
+		if (Build.VERSION.SDK_INT < 34 || !screenInputActive)
 			return;
 		int action = event.getActionMasked();
-		if (action == MotionEvent.ACTION_DOWN)
-			beginTouchpadPinch(event);
-		else if ((action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) &&
-		         event.getDeviceId() == touchpadPinchDevice && event.getDownTime() == touchpadPinchDownTime)
-			resetTouchpadPinch();
+		if (action == MotionEvent.ACTION_DOWN && event.getButtonState() == 0 &&
+		    ScreenInputController.isExternalPointerEvent(event))
+			beginTouchpadPinch(event, event.getEventTimeNanos());
+		else if ((action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) && ownsTouchpadPinch(event))
+		{
+			if (action == MotionEvent.ACTION_CANCEL && sessionViewListener != null)
+				sessionViewListener.onSessionViewContentZoomCancel();
+			retireTouchpadPinch(event.getDownTime());
+		}
 	}
 
-	private int applyTouchpadPinchSample(float factor, long time, int remaining)
+	private boolean handleTouchpadPinch(MotionEvent event)
 	{
+		if (!isTouchpadPinchEvent(event))
+			return false;
+		if (!screenInputActive || event.getButtonState() != 0)
+		{
+			// A pinch never becomes a drag or releases a held hardware button.
+			if (touchpadPinchDevice == -1 || ownsTouchpadPinch(event))
+				retireTouchpadPinch(event.getDownTime());
+			return true;
+		}
+		int action = event.getActionMasked();
+		switch (action)
+		{
+			case MotionEvent.ACTION_DOWN:
+				beginTouchpadPinch(event, event.getEventTimeNanos());
+				return true;
+			case MotionEvent.ACTION_POINTER_UP:
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_CANCEL:
+				if (touchpadPinchDevice == -1 || ownsTouchpadPinch(event))
+					retireTouchpadPinch(event.getDownTime());
+				return true;
+			case MotionEvent.ACTION_POINTER_DOWN:
+				if (event.getPointerCount() != 2)
+					return true;
+				break;
+			case MotionEvent.ACTION_MOVE:
+				break;
+			default:
+				return true;
+		}
+
+		if (!ownsTouchpadPinch(event))
+		{
+			// Classification can arrive after DOWN, or the start can miss this View.
+			// Require a new uptime-based down time, including across focus/session resets.
+			if (event.getDownTime() <= Math.max(touchpadPinchRetiredDownTime, touchpadPinchDownTime))
+				return true;
+			beginTouchpadPinch(event, -1);
+		}
+		if (action == MotionEvent.ACTION_POINTER_DOWN)
+		{
+			if (event.getEventTimeNanos() >= touchpadPinchSampleTime)
+			{
+				touchpadPinchSampleTime = event.getEventTimeNanos();
+				touchpadPinchSpan = touchpadPinchSpan(event, -1);
+			}
+			return true;
+		}
+		int remaining = MAX_CONTENT_ZOOM_STEPS_PER_EVENT;
+		for (int i = 0; i < event.getHistorySize(); i++)
+			remaining = applyTouchpadPinchSample(event, i, remaining);
+		applyTouchpadPinchSample(event, -1, remaining);
+		return true;
+	}
+
+	private static double touchpadPinchSpan(MotionEvent event, int history)
+	{
+		if (event.getPointerCount() != 2)
+			return 0;
+		if (history < 0)
+			return Math.hypot((double)event.getX(0) - event.getX(1), (double)event.getY(0) - event.getY(1));
+		return Math.hypot((double)event.getHistoricalX(0, history) - event.getHistoricalX(1, history),
+		                  (double)event.getHistoricalY(0, history) - event.getHistoricalY(1, history));
+	}
+
+	private int applyTouchpadPinchSample(MotionEvent event, int history, int remaining)
+	{
+		long time = history < 0 ? event.getEventTimeNanos() : event.getHistoricalEventTimeNanos(history);
 		if (time <= touchpadPinchSampleTime)
 			return remaining; // Touch/generic duplicate callbacks and overlapping history are one sample.
 		touchpadPinchSampleTime = time;
+		double span = touchpadPinchSpan(event, history);
+		double factor = touchpadAxis(event, MotionEvent.AXIS_GESTURE_PINCH_SCALE_FACTOR, history);
+		// The axis is zero when absent. A valid 1 is a neutral sample even if coordinates
+		// shift due to pointer interpolation. Use the distance only for this classified pinch.
+		if (factor == 0 && touchpadPinchSpan > 0 && span > 0)
+			factor = span / touchpadPinchSpan;
+		touchpadPinchSpan = Double.isFinite(span) ? span : 0;
 		return applyTouchpadPinchScale(factor, remaining);
 	}
 
-	private int applyTouchpadPinchScale(float factor, int remaining)
+	private int applyTouchpadPinchScale(double factor, int remaining)
 	{
-		if (!Float.isFinite(factor) || factor <= 0)
+		if (!Double.isFinite(factor) || factor <= 0)
 			return remaining;
 		touchpadPinchSteps += Math.log(factor) / CONTENT_ZOOM_STEP;
 		touchpadPinchSteps = Math.max(-MAX_CONTENT_ZOOM_STEPS_PER_EVENT,
 		                             Math.min(MAX_CONTENT_ZOOM_STEPS_PER_EVENT, touchpadPinchSteps));
-		while (Math.abs(touchpadPinchSteps) >= 1 && remaining > 0)
+		while (Math.abs(touchpadPinchSteps) >= CONTENT_ZOOM_TRIGGER && remaining > 0)
 		{
 			boolean zoomIn = touchpadPinchSteps > 0;
 			touchpadPinchSteps += zoomIn ? -1 : 1;
@@ -1265,8 +1354,8 @@ public class SessionView extends View
 		if (handlePenInput(event))
 			return true;
 		trackTouchpadPinchBoundary(event);
-		if (isTouchpadPinchEvent(event))
-			return onTouchEvent(event);
+		if (handleTouchpadPinch(event))
+			return true;
 		final boolean isPointer = event.isFromSource(InputDevice.SOURCE_CLASS_POINTER) || ScreenInputController.isExternalPointerEvent(event);
 		if (!isPointer)
 			return false;
@@ -1381,6 +1470,7 @@ public class SessionView extends View
 
 		/** Physical touchpad content zoom; never changes the local desktop scale. */
 		default void onSessionViewContentZoom(boolean zoomIn) {}
+		default void onSessionViewContentZoomCancel() {}
 		/** Identifies external pointer streams without changing legacy direct callbacks. */
 		default void onSessionViewPointerDevice(int deviceId) {}
 		default void onSessionViewPointerCancel(int deviceId) {}

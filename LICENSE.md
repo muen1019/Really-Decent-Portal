@@ -15,7 +15,7 @@
 [第三方告知](THIRD_PARTY_NOTICES.md) 及
 [詳細元件／來源對照](CURRENT_RUNTIME_LICENSE_MAP.json) 同時提供。
 
-27 份通知中包含兩份實際 NDK 編譯／連結支援碼的原始通知；某些通知涵蓋
+29 份通知中包含兩份實際 NDK 編譯／連結支援碼的原始通知；某些通知涵蓋
 較廣的工具鏈內容，不表示該工具鏈所有元件皆進入 App。標為 SOURCE_ONLY
 的材料也不會被冒稱為當前 runtime 的全部授權。
 

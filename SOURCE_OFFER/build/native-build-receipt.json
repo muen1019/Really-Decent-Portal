@@ -1,0 +1,2041 @@
+{
+  "format": "really-decent-portal-native-build-receipt-v1",
+  "abi": "arm64-v8a",
+  "upstream_commit": "65bcca1913a28cbdd7eb913599f692bd2b707991",
+  "openssl_version": "4.0.3",
+  "compile_units": [
+    {
+      "path": "GENERATED/channels/client/tables.c",
+      "sha256": "36ef9a26fb6eb6a9727632353106ebaedc3685fd0f62ad380e100d4e577207cf",
+      "component": "freerdp-winpr",
+      "generated_from": "channels/client/tables.c.in",
+      "template_sha256": "753c58412ae94af93bea78a1aeac604a9ab218e7545a0d0698e2a1d5059d3f1f"
+    },
+    {
+      "path": "channels/ainput/client/ainput_main.c",
+      "sha256": "ae164fd0cdbd71134395a5d9e3e4449ee28b2b530b2c6fffd7a8d97f724197c8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/audin/client/aaudio/audin_aaudio.c",
+      "sha256": "84d3849026d39936a47899dffa08df602e6d967fc77b0f419ad83c783883369a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/audin/client/audin_main.c",
+      "sha256": "82f02b8b9e0662c012c641ccf7d0995502db1be3480fcd36ca94d5ac43c61bff",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/audin/client/opensles/audin_opensl_es.c",
+      "sha256": "b0275150df31a84ccc9686980ceed0c1ffacf13045d531a1b3942b052eda373d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/audin/client/opensles/opensl_io.c",
+      "sha256": "0830e9caa4ecf4ed6673b2684d74cc7ec4e7e253de80f53faddd0bc43f431fea",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/client/addin.c",
+      "sha256": "887e1061750856ec07bbe6b83c6cdfde63000e2d03ca1270a072e6139cbea784",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/client/generic_dynvc.c",
+      "sha256": "482402c2aa5fe706ebff23829d91c4ed86f539e45101aaa614e74ac66b4e6a07",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/cliprdr/client/cliprdr_format.c",
+      "sha256": "0c862dbfcba59e17e21e6bad3d777852736b2de0f7c4da5beb295059f169f02b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/cliprdr/client/cliprdr_main.c",
+      "sha256": "152f08b4e30de43cb86cfc068f8be349212eeae36de8f2896588f2266ca5b09d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/cliprdr/cliprdr_common.c",
+      "sha256": "286bd2aa3541a53924e39bd489876202e21e8082f7bd31605927fa16101e7c16",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/disp/client/disp_main.c",
+      "sha256": "4a15d75d2cc8e8a708b92d8f70e3824d83e6017494fd921505683ecf1dedb8c8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/disp/disp_common.c",
+      "sha256": "061ce02df392953cbd3cd96cc2530e69cdeff31c767b01a116ddc9e058518ab1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/drdynvc/client/drdynvc_main.c",
+      "sha256": "fd5dc63eddb02d30be5683fb70a237985181cae587170c80885d769fc49e2d34",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/drive/client/drive_file.c",
+      "sha256": "c6495ccba9a513b6e5fee40ca7a93273f351632fa9f26c35ad3a875f07e8e4cf",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/drive/client/drive_main.c",
+      "sha256": "529a151853067d98c7d1aa09893e3522780065e07c64a90f1e34aef70b91232d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/echo/client/echo_main.c",
+      "sha256": "3b349135bc2d84f7963536623dccdac17fbd4ad063bab9c215d85cc5baeacadf",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/encomsp/client/encomsp_main.c",
+      "sha256": "c9208d6ce195e4d3aeaa410d091f4070114be76e8beaae67838d22be96dea61c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/geometry/client/geometry_main.c",
+      "sha256": "4bd2030fc67683f6d7b6955eacbc77b2444843b94386731086fc7e9198a9dfb8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/location/client/location_main.c",
+      "sha256": "a5afe97411224235d20a7069937c911f4f4e63d62d2233ee41f6c0ebd560f319",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/printer/client/android/printer_android.c",
+      "sha256": "cd05828a633702dd7bce10c6a912338710bbceac70f54d882e012005de291ee7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/printer/client/printer_main.c",
+      "sha256": "353f8b163be4941e628770a8e9522e3f906721d20a2ee04c956e92f31a77da67",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rail/client/client_rails.c",
+      "sha256": "1a6fe629b6a2f2878e978388ac772272837fba062d7c778eac3460b91acff036",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rail/client/rail_main.c",
+      "sha256": "fb50fc0b8190d5d8c717931e123aea0ed80d031ebcfbc762d7e4a44007072ca9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rail/client/rail_orders.c",
+      "sha256": "46e36d1aef22c13805730fe004620abb5b685ea9ed970c2c8fb359d7a2b6050d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rail/rail_common.c",
+      "sha256": "a3c3bfd6df0598c869162cb643701fd463d45409d8178747a52e6148da15b5f2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpdr/client/devman.c",
+      "sha256": "71abbc593879027675b6a86c69ec9f2a6c28ec2c30a13c7bca5cc2fcb0b7859d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpdr/client/irp.c",
+      "sha256": "a5708308f6e6fa4b16ef7df7ba904a07ddf54fd85fe5ca4796eff19943bfe955",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpdr/client/rdpdr_capabilities.c",
+      "sha256": "e7de5de1fa2d3819cf4e3ed358f6fe4debe1e6b782f669590f6c079837ae3aa9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpdr/client/rdpdr_main.c",
+      "sha256": "6f726d13b8bcd8e789ff6046d27dda88a2e6944f04e322c68346f0652341e259",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpecam/client/android/camera_android.c",
+      "sha256": "3dab71436c78ad3602717260a1472aabf3e715acec146fbf48348ae2ac0e006f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpecam/client/camera_device_enum_main.c",
+      "sha256": "bd709d7d9e77814a6d357ee35a6dcdd964407a5b61cabb3c45b6d002a95b8644",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpecam/client/camera_device_main.c",
+      "sha256": "32a772ac59645acfa525b3cf097870431a81cd493b39d85fb5c74c161bc424b1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpecam/client/encoding.c",
+      "sha256": "132050b95254778c03575ff1de68f1f29534aacbe548e65f53844849a643fadf",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpei/client/rdpei_main.c",
+      "sha256": "4e69a38959d35278f9a0848e95515ea524c856a4fa455d28852c97d0890f6380",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpei/rdpei_common.c",
+      "sha256": "5d06a950df6a7cc31caf65163c30d9e5170b2c81bc31c5ce34fd9196a4e8640c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpgfx/client/rdpgfx_codec.c",
+      "sha256": "ad8c34cad8c325faafaca038f42531dcf57a0f551d17f828051bad112779b9d7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpgfx/client/rdpgfx_main.c",
+      "sha256": "df37f678337a6bc0193179235fc26bcd2eedc0ef1e730387e2f1e3c28c8fcf8b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpgfx/rdpgfx_common.c",
+      "sha256": "d88a15fc6ca32eb068a2836dece5de6a4647885be4fddc1fb86de8b3bf9bbf19",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/client/aaudio/rdpsnd_aaudio.c",
+      "sha256": "2776576147e3a1877f5e1dab6f6409fdab6b2d54c0d0befe924b7fe3cf8c2a13",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/client/fake/rdpsnd_fake.c",
+      "sha256": "6e3be9cda83e47419683f76e8735fa1ae987b354f056b56c1d59bbe844fe2297",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/client/opensles/opensl_io.c",
+      "sha256": "6dc0a6c4e08df3563b459b0f0c8f9f2d8fa58886dbf8ca7f6182c714c2299b2c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/client/opensles/rdpsnd_opensles.c",
+      "sha256": "7a4ee83769f6ddc44a5a6a41f83df725f1d6010e6b28420d747f66a504891c60",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/client/rdpsnd_main.c",
+      "sha256": "e6ad6d99354d7ccb441b69adaa072006733325f1c6e0d10bdfbae96a8ecced4d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/rdpsnd/common/rdpsnd_common.c",
+      "sha256": "1ab0e2cc1325f4126c48db3dc94e2c7f435d60323c0c3edd0ac74227fb9b5f6f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/remdesk/client/remdesk_main.c",
+      "sha256": "5c7f791b172634265352c6b9b9a50b09d96f51091aba37ce5907c82fc4f20d5f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/remdesk/common/remdesk_common.c",
+      "sha256": "70420a2d6d80bc1778c9c522be835ba611d0bebcff3bb83b60b4c4f4c906de94",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/smartcard/client/smartcard_main.c",
+      "sha256": "c62cb3d642552f602146177cb9f46446ce3c578cdb1f88df698fe7789c900c42",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "channels/video/client/video_main.c",
+      "sha256": "deed349b6254d25cf38cf74318aafbffefc7d1f3b15470ed28d105089032715c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_cliprdr.c",
+      "sha256": "35635a11971f66062404d29618bbe79618b0da3992e1706baa2372b10c5560f2",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_disp.c",
+      "sha256": "1e734f552fe1a5c70e071490cbb9533478d45e71524ce8040f73da137225c2ad",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_event.c",
+      "sha256": "9c056aa7d418e30aa709eb8f9399569fbaad39f839d85a8a3e8c8b9362115bfc",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_freerdp.c",
+      "sha256": "fbd7b5b778a9431f62e2a5f85f6ed76a1faa6e242788d655de3ac2c558eccf25",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_jni_callback.c",
+      "sha256": "75852feffb24e1c85349abb2167f947cb09489c6306acd3d01c3bc086f9d95d5",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_jni_utils.c",
+      "sha256": "2e8d17c1c1da91af2fae105007ef81403da6d21f156474f39923ea1829c99932",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_pen.c",
+      "sha256": "fe1980e26403e6031cffa71ca6032de73369d9a51977e2ddb37d5eb6dd635869",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_rail.c",
+      "sha256": "b5468eab42f9122b60a4db92d4664f537a267da3371df2cc5a1b65cc2d29ff95",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/Android/Studio/freeRDPCore/src/main/cpp/android_touch.c",
+      "sha256": "e74241e5d3935553ee0603c9138737a84f4b4e8a26ecceea3eba019df4a52cb6",
+      "component": "android-jni"
+    },
+    {
+      "path": "client/common/aad_helper.c",
+      "sha256": "59b927a4ec2cb908a995d9b4770e70fbaab31558b09939850108fa655da5938c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/client.c",
+      "sha256": "573940ef0da84f26934176c37cbc0eabcffbc70d5a6c4702448ebad6820188e4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/client_cliprdr_file.c",
+      "sha256": "8607c354fe6a4ec91a2e49e5addfb974d322eab1e16ff55eabd3068a0794c1b0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/cmdline.c",
+      "sha256": "a03ba5a23a1bef07658d8bbc561a429da56ef5d893da384823332e4a4e5d758c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/file.c",
+      "sha256": "ca0a2ff0442b328014d1f23d7d1d9e15db80a7e50f69b4385874d9629276c46b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/geometry.c",
+      "sha256": "254a92a96fbc1a9ce484363a57d04dda74ba967aef354d31346bd34d3712168f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/oauth2.c",
+      "sha256": "a39719028d940e4a96bb1a7f28fce1638b93d766e3253af995f87a57db83bd3b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "client/common/smartcard_cli.c",
+      "sha256": "70fae77f217462884750382757cf3e61d48c2ba1c316dfd3a138b49220e3a33e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/bitmap.c",
+      "sha256": "c0cbadcf90f751968df3387dc1d577bbfcdbd346bc59d3ac8854637c68b02be1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/brush.c",
+      "sha256": "b7da4df143908a089e048cd0013d0e478115d328f3dec8cc952f82d88cd48b82",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/cache.c",
+      "sha256": "12bbcf43996aeaad36b697fd28db8e87850d437dbf8774fc651a0302b3292931",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/glyph.c",
+      "sha256": "f5ac187566c1730ff6dec1643058f234409c604d28f8fb214e473e5bef7ef5a6",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/nine_grid.c",
+      "sha256": "0df2e69fb0707aac5ef99469e41ddfe76f91f17aab5e36b22b4945d7e1f1a756",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/offscreen.c",
+      "sha256": "47e716a55dc71deab735100e27be82b55c628ef53a132c840b4352c86caee3d7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/palette.c",
+      "sha256": "2bb811115412c600631e4e0b6fe2a37a2d204c9a8f78141423617b6ac6a1c7c0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/persistent.c",
+      "sha256": "f1ec810aee5267abbf77723f9d2a5026eb6142087c5f7267aa7c492f3378e978",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/cache/pointer.c",
+      "sha256": "c04f416fef05a74e2d2f8254f162016297f6cef46eac5cbf0de66031d6e866f9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/audio.c",
+      "sha256": "d3c4206c767c07e7530f707ecbc8ee14ac9037b25fa72b8fcffdb175379dbad0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/bitmap.c",
+      "sha256": "b1fcf70a9a08d3ac13e2dfe672d89d633090cd13ff19f58d64af59eddd3a7d7c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/bulk.c",
+      "sha256": "b986bf74dc363a032b0b5920fcedb25b8bab26268bbe1fc03563d488dbe7ea30",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/clear.c",
+      "sha256": "a0cf85be31c31c2d09e0a258620b44091ed4022b3dbcf0ea43ccd3f461fd524d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/color.c",
+      "sha256": "d6d88a9c931e78f90bfc48e5ae2c2019b6b127e1b7043a536aaa2de2506e12b0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/dsp.c",
+      "sha256": "23b3d8903b8afdc48cfe3eeb3f69df83d7cea965dabd2ee2a3ef162c65420137",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/h264.c",
+      "sha256": "d8990661a2aef010bddebc66349cdb25e366d44de5d7ac1562e82a084d7b8110",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/interleaved.c",
+      "sha256": "6b49d731fd2d915c8c0301b2e9892de8f200b5116811793c43187f24b18e5407",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/jpeg.c",
+      "sha256": "9e2edd798971e7632f0576c997a0ffa6d38204e06d379a46886a791fa0f7ac6f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/mppc.c",
+      "sha256": "5d20a18dcf7d1c8f2b725f3e28da818c1051730eca9f6c95b31b85ffe5d4b378",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/ncrush.c",
+      "sha256": "d001b9b9feffac812c7efcd44d806175523d0fc38983c095efde38c9164f9e44",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/neon/nsc_neon.c",
+      "sha256": "d8f34b07c9f7dc9e203cd8b23e8e2d74c24bb734fc44b65e63d95cda92ba8da0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/neon/rfx_neon.c",
+      "sha256": "90787eea7a767d7157a14aca2d9b614d8b9f3cef70fe5cde88a14c9a16e3a0c2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/nsc.c",
+      "sha256": "0a14861046156e946b8897318c1a2ffe3f6082b483b38c7a41f6a5d03a8cc445",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/nsc_encode.c",
+      "sha256": "6d5028b1ea3e349f14812f3948ca5c4f5a61b8e4ad2478f5bb9ac51b21215d1a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/planar.c",
+      "sha256": "7182fb817d200d0fccde9a8f9fed39ba16a09c41d5b1367400de7324ba8592fb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/progressive.c",
+      "sha256": "83c012877068cb18ca3d0b396985828b4e8dbb5f5f0710398ba5c6634c88fa3a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/region.c",
+      "sha256": "c3adb5ff1d9afe991e6b6b2fc993f73f9c7fa97e6f6d16c914c6d6b2d8f9bb9a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx.c",
+      "sha256": "0d8881c90eb62b98f4e8e083dfae3b2f4515b4cc8b7639af7cc97f407d076ca8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx_decode.c",
+      "sha256": "f1dfa44f666413299360ed85ff592e2ab711257a78cd348a0652a8fc15c7d73e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx_dwt.c",
+      "sha256": "6a72283bede3569f58d02e72b063e712eb0270d5cfecab4952f392bed17fa80b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx_encode.c",
+      "sha256": "77fdf855022dadbc5ac154b10cd1d0e4504e992ee56e118d986b0bcad97f9c67",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx_quantization.c",
+      "sha256": "6a9d8a775e7e980387765f24b1e7dc80321ae78709ab05c462c9f2d3c8c540cf",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/rfx_rlgr.c",
+      "sha256": "1b642df5f2088731baff86a9214e2b744314ad5ac12bc2c4dc380097914d85bb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/sse/nsc_sse2.c",
+      "sha256": "096889e41c9e5800d7e4154a6a8d40f3d1734153927e14f76004d1cf35ffd59c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/sse/rfx_sse2.c",
+      "sha256": "a0e225ed9d1942974941859da196e374763907307e1f034a7fdde91da9bd9a88",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/video.c",
+      "sha256": "e3b8795b7452c9913204e6e65c091ad4fce5871d2d3d3689377d6f7cfc55a1f4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/xcrush.c",
+      "sha256": "af75e1acb156999102144b0481415ffe922fc98612be1cc98818c0ed7302d0b8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/yuv.c",
+      "sha256": "22e4111c52564d0a70cae47f4ad5318829255a27fa4e9a9b00c0228a43c15c12",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/codec/zgfx.c",
+      "sha256": "b5f53987bbddaf57693b82d7dfc12df3be2f432e8f803a090c6a94eb14771241",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/common/addin.c",
+      "sha256": "22da930dd2ddcbb2c9066c7bcd953448810778a921731bb86ad6b9fcc544b093",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/common/assistance.c",
+      "sha256": "ab848b50bcf37d8ea9ffa39affaeeb871e7310b3e40bb7ce3db427844793cdcb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/common/settings.c",
+      "sha256": "2bae8be986908dcdffbc2afb4f8915ff0160cfab71d69702f839eaf0efb6dd6d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/common/settings_getters.c",
+      "sha256": "23b79f8588e22f106d03e2e6e1fdd77f168ca6b46d21645b51a8c3c58201b285",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/common/settings_str.c",
+      "sha256": "cba1473d8c90260e55378750a705bf476a1118faa2d43c8f9ea8f4edad56af4e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/aad.c",
+      "sha256": "9af62df0d425ab6ba51970881823c5c4023b5db9330b6d4278772165328b3fa2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/activation.c",
+      "sha256": "9ddadc22528fa35e5030a5c42d736dc0ac23c3e35f0f5d4d0c8d4ddfec3b7a8c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/autodetect.c",
+      "sha256": "63ad77a830c830e1060419fb8c4e7147bb391bc28fbab3e2820ab199f6f9be51",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/capabilities.c",
+      "sha256": "8c096703d0747469b61943091e11d5baeae53ecd1b147f8efe88326abb8af57f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/channels.c",
+      "sha256": "e1aa0ab803b50065d8bae6375bb6ae1ffd2a1cf93653ec32e668d512ce52eb86",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/childsession.c",
+      "sha256": "c3f777dcf7aad0714b963e3e0e1227a572c65a74c07f636ed80a671485db3afd",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/client.c",
+      "sha256": "0b1d37b7f792f6f34edcf5878cd63571eb8a7d7eebd09498a0813707c60a913c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/codecs.c",
+      "sha256": "ce3376eeff68a43a01d1432102abfc79b3afe1446a5b3fe395decc55da780b40",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/connection.c",
+      "sha256": "9d197d202d558b782cf600981c3fb940296b43bf437d6ebba1970b063e5f2713",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/credssp_auth.c",
+      "sha256": "c45f30ee5aae47a6f838a18dab98124d51c9930c61ccddaff354eb1dbff6a03f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/display.c",
+      "sha256": "879fb54a36254da271ac11a923fff9ea300ce94ea246c1249aa7346bcb8b5bc0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/errbase.c",
+      "sha256": "2c1fd86ecc2a1879f490a2c3194372f227fbc9035eaa0d66261b4974bb5e6d17",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/errconnect.c",
+      "sha256": "d0c94b7b21d61d7407f047c56134e1deb4f0b27658daf1d334c10c16a8d7f410",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/errinfo.c",
+      "sha256": "faf8579c8c41d341af81d1b10558fc5f3966662634a1331eab5cd3ee868d4722",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/fastpath.c",
+      "sha256": "d3afff6df43b3c8bf64106369703712e218ca42ba065b6a88d24c0ce48678084",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/freerdp.c",
+      "sha256": "1b4f3b7c16e8957573a7b58d3b308182f71602b9d79420b5f53e59b0fb37eb37",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/arm.c",
+      "sha256": "39903f9ba2e9f76872e5ee523fe0a3caa02125ee5499c75472e5145cee6ce05f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/http.c",
+      "sha256": "39ba47290be763e442d901a1c2a0610c3ed8d075c8c994e64b118912f130b115",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/ncacn_http.c",
+      "sha256": "ddafcfe712102b59084413e16425f57eaafcb8d5a444d34825f6f4d3c79b16e8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rdg.c",
+      "sha256": "05cdac94f5afa0acdb62677f1eed33f53bac6e83c58f474b1d3509a8c710bbc3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rpc.c",
+      "sha256": "c0d48a3a74c149c714c889866c59994f8686800dfd8c290a413a8574001192a3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rpc_bind.c",
+      "sha256": "5e68b5be4bf3b6fd112e52aa4c76cae34d721142ee40cc99a4eff14117a327c1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rpc_client.c",
+      "sha256": "cbde0f16b0e5c0926b54e8cee9dfaced28910bf91dda4878a3e09bb77c9088d0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rpc_fault.c",
+      "sha256": "bba940cffe15c381b999210392aec5453146bf615ebaae813b0040400212f350",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rts.c",
+      "sha256": "d3b6e0851004bd4cd00afc8b229a084c9b806b142095787d7e929d2e91e9a05c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/rts_signature.c",
+      "sha256": "015182b1c615f1943b4e539d46fece1d7f2497ec99fec0fa040435a4c60aa82b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/tsg.c",
+      "sha256": "de213154340f232b73bac591cb7188b3890f30db1d12de259d005139455fa32e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/websocket.c",
+      "sha256": "74b0f131b5f04596f2bc61f93e2186706792a3c6b4fa7003c7e5a344e63a8633",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gateway/wst.c",
+      "sha256": "4c7565ae38b3b026eb9f881bec058f212314e372ef0193dbb1c338ac3775c570",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/gcc.c",
+      "sha256": "01370f72bccfbb6dc045edc287d0748abb79650c9fb0c1135669bbf2745d2bef",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/graphics.c",
+      "sha256": "3ecaf3cbc9acf809aaf0c84de3a6cefeef9813c1d1f5349187ccee6f8afd9a59",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/heartbeat.c",
+      "sha256": "312d498ec6432de196a1b54d22108ca41d00993937b9c8ef48e129fa7ff087c2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/info.c",
+      "sha256": "9f4a7e46fc2b978bf3328288747da54ddf77595cdc6d02c592cb034c570f0ee7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/input.c",
+      "sha256": "239610bb51f5b54b00b5a9f44c8c9812c2770e0d9f2c0992648b3af30e45c08d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/license.c",
+      "sha256": "c410a4d32fcb40b801d710cb23495b67c2b8abcda13c1958047a399ad3c8e2eb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/listener.c",
+      "sha256": "1c33df7440e9e16bdb4825ffaba2c472f522501e3a221b2867944e48b76cecf9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/mcs.c",
+      "sha256": "e5c4b8b8ef8817fa0b156a7251059e5d9d63186d2d5066fd76a137e9057ddc1c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/message.c",
+      "sha256": "fbbaf4d0874e5da4a53d700c347a361787698f17640f701a4b363e8fe5bfd6df",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/metrics.c",
+      "sha256": "5c699ece29c77ea18634a73f781e58919bde8a54eda9d72570e8bea80e152fc5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/multitransport.c",
+      "sha256": "959ed7ffc20828cdd7fa6d8c24ebe6fbf01da9b41e536d8e41ffe671bb928ba7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/nego.c",
+      "sha256": "1084422e886ff04057e69643b3bf330a84a0ce0974d70177b7481b573a4648e4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/nla.c",
+      "sha256": "fdf8d154c74f1b350eed898bda2049d255d2e619f9031457c8e327a23bc29339",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/orders.c",
+      "sha256": "0aef7effd4fa49b0946526ac69c745383006ab5c14a9607bbe909600cf2f89e2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/peer.c",
+      "sha256": "bac1047cddbeac7a61a32fd562ab0f329f95de96a8731cd28cb5b34e561d9c3e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/proxy.c",
+      "sha256": "ecd89a15fc20e49de91c21d8fa2beff394f83d75cf569d64548e2ac52cc707b0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/rdp.c",
+      "sha256": "e5058642a98db41a99ea669a9e7bbfe5d4d7153fb40c88ea715df9c044f137c2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/rdstls.c",
+      "sha256": "78a6bf54a6dbca6dd99a7d469e1cd81d197c43423f058f635d867ab876268ddb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/redirection.c",
+      "sha256": "d7ae58d83c292893910af163715532a2a2a2593e6efd65dd9369eecf6e0038bb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/security.c",
+      "sha256": "f0de3b593f1aff62f97f794c580a49fcf47af2073d032f9c5e130fc28f48c244",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/server.c",
+      "sha256": "6ef64411d8f448fa2d3b1865296c9face73d45afc921cfaa3d4db3f88221a933",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/settings.c",
+      "sha256": "d2daa1afb5ec663ec6004aff331c8a6a99c7b7ca189f627f7373955779fde551",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/smartcardlogon.c",
+      "sha256": "6b2e8f5d30f26ba8771f3e55bb83211e447ea12853c4ae3ebbc781a38543779e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/state.c",
+      "sha256": "a6cc63ac994242aba5fcbd18256af63b25c9ad2b0102d444e61249278975aa1e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/streamdump.c",
+      "sha256": "778ad4ddcf70cf5d4255f3b194cbdebc035967c45c924229db79081b8f139914",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/surface.c",
+      "sha256": "9187232ca5b0e7eac91ebbb81bd42c1cd92bfaf739693b60edbf5b102f76a896",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/tcp.c",
+      "sha256": "73fac3c362810d35369c3ab92f8a59fa2cdf500ba4de7ead7084481686b26a22",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/timer.c",
+      "sha256": "962f695504452a089123c5a5c8864303b743d101994b7294fdd5ee1501fb5284",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/timezone.c",
+      "sha256": "c95fd0284aaa49186c31fa8ab2b448e9868a0d730eda9a4964effe3e2f81fd81",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/tpdu.c",
+      "sha256": "94e2a30cfe67babed504d50dbccf8e96b21eb7f5e3ecd29b23b6c1773ea31136",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/tpkt.c",
+      "sha256": "f07261ef3f87299ff39dfb2facfb2e464f088f79169d2586738ad3c473ccbc7f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/transport.c",
+      "sha256": "f623bda262116d13cce460bd8aacc3f284e06ceeb865eaaabc08a9b9e6aea9e4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/update.c",
+      "sha256": "7b40ad78e28c18e2977387434499c25a7e9ab3d3c5c6da4846ba238dc803b4ca",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/utils.c",
+      "sha256": "0f3c39a842fd796d248141170a2b810acb55d0c0747f047c9acf872175c5b3e1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/core/window.c",
+      "sha256": "4c24ec26af0aec35fb79ec386c2cf66ee386e29034462b5319292380c9eaf550",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/base64.c",
+      "sha256": "dbdf0720a23c0808c5d5d43dc9f556961d20cc8de371dccac590c59f5318e007",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/ber.c",
+      "sha256": "e0b93d254b2a712e3c49c149dc27541cf30c8d2bbf904846fa46c4c081031301",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/cert_common.c",
+      "sha256": "02ef2619a7627f17cbdaf2dc4dca006cc2f53b2bb4ad81629f5af391cbd8ef25",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/certificate.c",
+      "sha256": "634037656194028c352f15955bba2909d5749165b9b93aa7298fb8f6a28227c3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/certificate_data.c",
+      "sha256": "2cd45564b93742984a7b887ebfe53719cf6063026300649637fe0b0c126dab3a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/certificate_store.c",
+      "sha256": "1b249150f08e8584f15b5e2b08d9f4f760793cc6e6dc5a7dd4e0f664e661a05e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/crypto.c",
+      "sha256": "33e82d0a6316bdc0eb3b1d23f0c8ca47a7eb7c2e8594f8140aac564b244bd33e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/opensslcompat.c",
+      "sha256": "67ba77c112fa4cf95254e99d7d313e161c361f154120b3f505affbb231de38b8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/per.c",
+      "sha256": "698c951201922cecee278d2185a1efc63f82c80081252abf1ff160a5d8fc9bf1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/privatekey.c",
+      "sha256": "dc67ce8ab8ad22a61f564748334429c605ecb63434bf73734be9b8e768b441eb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/tls.c",
+      "sha256": "ecdf3dc1be590991f06376cd3dd1330e5b0999c8d1ccc2f68c22342826ac74f0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/crypto/x509_utils.c",
+      "sha256": "1efc4ccb2cea377d70fc1999d86257200ab79b65293eeb73bf8c42951a5abf49",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/emu/scard/FreeRDP.ico.c",
+      "sha256": "f0e04cc5531b2485cbdf78e0e34cd21f876d463fe458187409e5f8d912c51ba4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/emu/scard/smartcard_emulate.c",
+      "sha256": "1891fd6e4a4167fd6c8d895c9024d0e187a6e19658e82d80350279415af816d0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/emu/scard/smartcard_virtual_gids.c",
+      "sha256": "21945f1f977972ade8ece6057fe7275121fd1a5502e190cc25e568cf25cc1b87",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/bitmap.c",
+      "sha256": "69613b8639dd6b273cfa389bf7074b5216761f432cba84bfcf6e0defd9867d0f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/brush.c",
+      "sha256": "7bdd5733ffd1bc136261a22cde25870b27d32a1307e87dccb52400b5ced12a66",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/clipping.c",
+      "sha256": "83968b2e0694fdb97fa0fb84a8a54fb3822aeea9366bb23cfcbf1bb5ff50f013",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/dc.c",
+      "sha256": "72868f75c2c3251d9c129e9c08723035a63ddd3e360935d59dd3acfb2569ccaa",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/drawing.c",
+      "sha256": "942357b4693dda89440af01894baaa3ac4c3d0573f0bd7508d967cda8c3555fb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/gdi.c",
+      "sha256": "c0295ba388d2ce727a1d290a7bf3496b97ba3dd7b1000c7c97882c398977719b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/gfx.c",
+      "sha256": "13dbfb0de6ba0b0010de79f10bb3b3c45d0b8ef6c668e485a9da3340a84d7492",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/graphics.c",
+      "sha256": "a098ce0a871457d87fe8b5ecc68ad6bd743631718738730c1c98fbb63d764a28",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/line.c",
+      "sha256": "570ca9984d9e4003ce1e257df93bee92865b33cf99a5da239ac7de47ba74cd42",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/pen.c",
+      "sha256": "9983ac8e919bc6ee549d0fce297e2539101c570777411244325a5010d042c505",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/region.c",
+      "sha256": "724b82a8898ef277cd8af8e112114fee6fbfb7e37dc7e3398089d50f9ef880bb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/shape.c",
+      "sha256": "af43c36e751864e5b804310219331d9b49d9fb882153862c65315651eabb9840",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/gdi/video.c",
+      "sha256": "b43f4a3e367ffaedd9caf9a66277b9b54b26316dd82b3d5f80e427a4977f8533",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/locale/keyboard.c",
+      "sha256": "14d0fcd9753eb3fe2c353885c44007c00fe75cfb75644845119557d60d5a4d04",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/locale/keyboard_layout.c",
+      "sha256": "e70ffed60aa6b8e89551e308fa5da1045507050867dd30a9a268b53ab400a577",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/locale/locale.c",
+      "sha256": "a14e066271cbb86d3be7f8adfe820d654f75df9c81aab483587be11ae465632f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/neon/prim_YCoCg_neon.c",
+      "sha256": "025e98992138e1d2df9387f5946328f7ba3b3309a8890dd422af9f6fa1c0a78d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/neon/prim_YUV_neon.c",
+      "sha256": "8ad3dd47c4ef9ea9b6924d3a68c7acf1e7ebc79ab8733c75c630b5f654984b1d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/neon/prim_colors_neon.c",
+      "sha256": "746c68b22ad861b8f48a881ea837d58d96b04b319e2ab6cc71a005af44d8c8f2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/opencl/prim_YUV_opencl.c",
+      "sha256": "53bb2332ccbf3c2fd01d931930612b8175e7f2d5816ab6e11b00a29699b57b01",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_YCoCg.c",
+      "sha256": "75484f18cae906e966cd727d36992bb8e8caa72c2ad3e69dc97a02df1f169043",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_YUV.c",
+      "sha256": "fb73ea492ddf9a8e54eb8358e2ef468e4d04bfca60d9ce5f7b293c61ececdeb5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_add.c",
+      "sha256": "ebed994a2bd6bed36499a54f54a4d2f2ad85846cd5b94620dad3a6a951c352b2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_alphaComp.c",
+      "sha256": "8c0002a61fbf8b3db71f6112596f3ae6d3dd4f8b0f2f4ba15fed91f8dedadc23",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_andor.c",
+      "sha256": "70d83f6d7d6f5c49cf24f074a42314d073b0158b15a7e2ea8bdc9b959048c428",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_colors.c",
+      "sha256": "f9156ebc5a0598b637b625a937b0e84f8d10ffc8ad80839a344354d669add221",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_copy.c",
+      "sha256": "75cd27813a674d85db4d69e74efa366175d654858acca1a7cb0ecc8ad8251596",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_set.c",
+      "sha256": "ef86e5f05c4514436e72d397e583f9bbdf431c520aeb3c5303a35c13e8c4e379",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_shift.c",
+      "sha256": "6aac33279b0e12e194aadd48aa9a0ec83c1ff0b7a0aba139c68939aad3945bb8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/prim_sign.c",
+      "sha256": "c0ee555bd8ed0cd14a9e633f68e974c84a3797624359a85e3fe451c2fb611dd7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/primitives.c",
+      "sha256": "6c66e281c03ba4cec8466f7ecfc885b761d4f39e197ad8fc72db131238f149d5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_YCoCg_ssse3.c",
+      "sha256": "07e48b489eac35c70a5737a387701f340e55d8a95de5983df2b9f3fb4f1a954d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_YUV_avx2.c",
+      "sha256": "d246f88439c362308d96deb6f9466a20f7d9d6a691ce9e326aed882cd15927ae",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_YUV_sse4.1.c",
+      "sha256": "e92af18859e6643b9be2e37d97ea40a0a065bdb81f7b05614ddf53db67196728",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_add_sse3.c",
+      "sha256": "31a2604747644f74c0b64d3a75c8f4e79876f1ddf463b6ac89f05757d3bab340",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_alphaComp_sse3.c",
+      "sha256": "a6b87fe6a41dda44817619941bc54eee5579f92e69750a767446d1056ac11d7d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_andor_sse3.c",
+      "sha256": "1d16eb1a53ebdfc3c54a3605d9814689a6663e346d0cdb933972ca6aedc81725",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_colors_sse2.c",
+      "sha256": "d6ed747b85ef8ac4e25cf3ef579eb31738613afe5f74cab0cc5683980d566855",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_copy_avx2.c",
+      "sha256": "a307b72bcd0cafc5d79d035b98382b363d9bf4eb3a5cd9c83a67eca2d0c1149e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_copy_sse4_1.c",
+      "sha256": "a0313028c13cefbd71c2ae6d7bb5b102139704ee5982fa68abf48a01b04ed6d9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_set_sse2.c",
+      "sha256": "c17394309670eb7cb415c2bd808f5c0003bb4fde377787214b39e10497088bfe",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_shift_sse3.c",
+      "sha256": "db82254281b3af92d342ae578dae1db4086dec6c3b753b144e862252f2bd05a9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/primitives/sse/prim_sign_ssse3.c",
+      "sha256": "78ead51f9707ace919f4607b95426348404703d5b7978da7d60658ceeaa6509b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/channel_pdu_tracker.c",
+      "sha256": "fdd4ca869c7e42cb275671c7b06a3a3156b1af6b1a44ad9269cb236511d42981",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/cliprdr_utils.c",
+      "sha256": "7caa25c189175e3ead9d4d4bea076c0e55e4e17a3408a7af7d8bb16572143171",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/drdynvc.c",
+      "sha256": "d469a24eb8e91953c9158d4f692084f039f21db1826b2f4f7b4ac9f3a9701889",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/encoded_types.c",
+      "sha256": "16960728329e8448e04e45bcb414459540bb6590393665518cfa852cfa1ec998",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/gfx.c",
+      "sha256": "27703ab5b63a719816ec421d23ba72ca99698446955c4cf85928b8c6d4029392",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/helpers.c",
+      "sha256": "e0410a54a67c5c6607faf96fe82fdd41a9b9cd0ee323bc96ddfdab9c5024da1d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/http.c",
+      "sha256": "3627413c47e85bfef0d15ee514ecc58ff026daff864ea6163c40639d79d82811",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/passphrase.c",
+      "sha256": "a5e7d9806946e070272a4b9d635c7b35aa4cadfd2e21e07f7e362ffec95d27e7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/pcap.c",
+      "sha256": "5f7e33f3c8d421a7b6f18c008e1f692750388eed88550ec102a43e598b021410",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/profiler.c",
+      "sha256": "3ce72d3794f018bdfde32a5c951bc522a6ce6586a5d927b0ec771d45a3709831",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/rdpdr_utils.c",
+      "sha256": "b32ddfce119703ba2fc4f8a06d2d4cc1f907f5b3af3204b8a8fa95f530a7a2bc",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/ringbuffer.c",
+      "sha256": "68bd5f9ea7644b1fc1170938ee9cc46d366e8f933a0deff503f4902f86adb04a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/signal.c",
+      "sha256": "e1adce59216afdec6e45c50cf1e3fa68b3107a1b9d67438de31c59e10fbdc44e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/signal_posix.c",
+      "sha256": "b00868114d1f2777fbe6254e239611ecde65ff57fee747f3bf140be880875762",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/smartcard_call.c",
+      "sha256": "ef322948291aa722616ba5650562db473470a5e7f35b73692c13229ac99e3b8e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/smartcard_operations.c",
+      "sha256": "8b11d8adb3d2b37ae8c06b97d8f669fbc12015fe1d95c8351ae4d307e411d06b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/smartcard_pack.c",
+      "sha256": "21996c3161402ce0a5db8d34012b8a8c9b0e365f24572d393f752d681f186279",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/stopwatch.c",
+      "sha256": "63cf60ce8ed6b3ff742497f9fe660ec5b98dea5f3585ef492294d0726565b461",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/string.c",
+      "sha256": "9326cee2b41860b0bd8333fe88286ed44cd1919105fb448398ac497ec39ffed9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "libfreerdp/utils/warnings.c",
+      "sha256": "1b057a702787ec809a916c0e72136fe933bb2a0135112e83a9f832674700d2fc",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/bcrypt/bcrypt.c",
+      "sha256": "2f59ad01a96d88766003d2abdfd1ef4714b056012d81d1df16773b55828b55f5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/clipboard/clipboard.c",
+      "sha256": "5868952203f64873ee54d7f1d7a3ed81a8a326117fceb5dc79202d7a7552e44f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/clipboard/synthetic.c",
+      "sha256": "f5018f12ce53d6ee647a60ef2eb33af1d4db7e2458a9a33b02417414e23fff0d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/clipboard/synthetic_file.c",
+      "sha256": "5b50b3a89dd7e36a7ef44806c800cc3a5c1cc73e1b54935c650f3429f32244e9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm.c",
+      "sha256": "6a3f8e4ad6499189b3ba157e3826bc53100783a4612e3f10cbfcddf78065d653",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm_io.c",
+      "sha256": "5f024d7c5fdaf60aafa3914938a24c4ba3b134a789979686d702e1e5d05c7ec8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm_ioctl.c",
+      "sha256": "c54e490701e09bfcc60230a9964a2bdb6dc2338fc51da541a8d48b8baa0719d3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm_sercx2_sys.c",
+      "sha256": "fa202400e8c95fa62ea8bec4c70feec0edcf54e444d779e2b46edcbcc6bd82e9",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm_sercx_sys.c",
+      "sha256": "3863d35a72b1e7893852f9dccb602d129237f42d0497df0296174c38f9d5652e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/comm/comm_serial_sys.c",
+      "sha256": "043bfa95b9776555c71a7ed471f7a6fdf530de806cb71bd285958ef08bdb7c68",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/credentials/credentials.c",
+      "sha256": "a721431addd26298fb7b0a9a0182260a987ad641261dc2ebc401a027695cfcd3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/alignment.c",
+      "sha256": "408c338eaa820f381ceb09c5a584f9c7e204875b0aa3ed6b02d61436041fbae3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/assert.c",
+      "sha256": "8e385fba478efb469ae34ddb529236f8eaf3d51b4b66483fba2ba0fdb602c3a6",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/buffer.c",
+      "sha256": "9143e9036e96516d1635856d57ae3f55301c62918d0de885837148555ab8da9b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/conversion.c",
+      "sha256": "42fef27bb1648625528a28dda3d20d287569e34f2f1cb1ac020315262dd6a5e8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/memory.c",
+      "sha256": "017a7479c9e19497af8f2cd83931077637c34fcea92ab182497c5fbd84a6e8d1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/string.c",
+      "sha256": "aa238bdd6f0273c2c09cfdb5e7aacb999c9afa6916d46c1c14ae3d91d88ab9f6",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/unicode.c",
+      "sha256": "26b5be8fd56a154993f36c9deb7a06e91cde78060a7d04f926ba34829513c22f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crt/unicode_android.c",
+      "sha256": "de20e25948ba0d28499cddff561b3ab837c093b35e9e1806c7c32ca265ccab3e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/cert.c",
+      "sha256": "bb4a0d6d806846b3c18374b5dad4983c95a37f6ce021e3eb6395d932cbc64e04",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/cipher.c",
+      "sha256": "46942ca324d719f900e556c1cf3cd700b664785802c5c1ab4b2e6820f8eb5332",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/crypto.c",
+      "sha256": "00fa7d5207cc045b9c6b01bb081b512f173a603d773b11b6ce9d2088af218e86",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/hash.c",
+      "sha256": "dc5a0d26be90b9f1a64f3364999c0a3f1aeb232d614f0496d83d61666f3ffd3f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/hmac_md5.c",
+      "sha256": "9046d4a2f158b1b0e189d466d6cf507897150915cff26070c4b8cfaa3d3ebb71",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/md4.c",
+      "sha256": "909f8457f16374c9fd30912e03851bb16e8755fac63d86cc5f6bfb41250a139c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/md5.c",
+      "sha256": "3a942c88d2cfb38c92c9b298bea114ca050c4d3516eb225041b07e4f697a39ba",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/rand.c",
+      "sha256": "6ae0988fb2da69f520db522bbc33e406cff2ce394049e29bbf42cf3b38e80531",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/crypto/rc4.c",
+      "sha256": "fb06b3a46174a054a709343586908b197fab5efb5da8858c303372014caffec2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/dsparse/dsparse.c",
+      "sha256": "3c32e8fcbb9c1f7e2fafda3aebe10834b24321dd05ea167e6ad227f4915a6c03",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/environment/environment.c",
+      "sha256": "501369acc71474cd0a3210bf1d6d4456cc19e54443c4c7bf48ffd947e2a68591",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/error/error.c",
+      "sha256": "0d0df9bb5b1ec13fc62c628902b44f78eef2f87519cc6b8cffdf6fb6428b4f87",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/file/file.c",
+      "sha256": "678091f0da8037778033d365cb7d831ccedeb1795058e748323ec81c9fc635fc",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/file/generic.c",
+      "sha256": "e5c37cf50bad405d42b08a110d44e86457348eec3e6ed2bc8a1138e0dee97e66",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/file/namedPipeClient.c",
+      "sha256": "95a5bec6cffbd709d6daa3dc20d55a3c39a80eaa0c2951bac69a1d861e25840d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/file/pattern.c",
+      "sha256": "bd49886f2315e2aa29e40bb2058f0e4d48f89cfc3a0d5c35ed4413352cb36d02",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/handle/handle.c",
+      "sha256": "95f5826bb1558430dcc42d342659bf45a4f1481d0e413892740bde4d1f2c4791",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/handle/nonehandle.c",
+      "sha256": "f04dbeafcf4a765e1bed684880c22042ff40b4abf533025e7d2d18f337dcc47d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/input/keycode.c",
+      "sha256": "4ce64b7f2c187db6992664b0c39946d20a6dafc16946c09e359e7610083b4bb4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/input/scancode.c",
+      "sha256": "dc4993334ef111d15edfe24b56bf4bdfb472e331df09b95b7e6f72e7b0474f5d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/input/virtualkey.c",
+      "sha256": "67e827b30eb19697f62ad11f0be6ec25a93936389b22e277dd85ede1478847c8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/interlocked/interlocked.c",
+      "sha256": "21ec6acebf3dd9cfc1231041a02e909ca6804c3221822f7aab1cd481b8208816",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/io/device.c",
+      "sha256": "d5bf92e6460ca0ce05270ba9a44ce411718f4b882c923f96234bb251af29b934",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/io/io.c",
+      "sha256": "e327f05319faecee7a76c68b34e842fa0ebbf2f5f2b2380f4613410ca6f404d3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/library/library.c",
+      "sha256": "276a4aac7aa9800d913d4584d60098be9d4871b6c9c52456bd49eec3b9156a8f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/memory/memory.c",
+      "sha256": "1a302c83b384752b9efdfcc10ddfaba7ae3cc5b590baaf1c1d6f98969f43ede2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/ncrypt/ncrypt.c",
+      "sha256": "92c9fde4d6094b08efff6141131b825f82b0fa65686316e4998f64e6709baa17",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/ndr/ndr.c",
+      "sha256": "fcbb0c19eb57a911f406644aee61c6161fb8b6097a7cd2611fc01fc4d3e66c1e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/nt/nt.c",
+      "sha256": "6fccdb732b72ebde27c6f4881c07c5db7dd72364d9328a0509141f92d294c67b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/nt/ntstatus.c",
+      "sha256": "f0761b3473d6a26252167fbe71a68c622bd5e2b57b38014cdaa026515db66963",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/path/path.c",
+      "sha256": "af3fba6bacabcbd1fa10ed14e8e4bd36bab35c7cd0bc23b10090af470ae4ded5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/path/shell.c",
+      "sha256": "33a99e6a94c3b105749952cd6dfcfe57b364ad9faa117c3afb5fe41494daac9b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pipe/pipe.c",
+      "sha256": "6c6fed210c0ec76ff16cea258f962433fec85a7a6eaef69d3cc757e665853333",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/callback.c",
+      "sha256": "e358bae746d0bd6af80edb7d951355e3e5ebb417d585cc7b8b43a3578dd35995",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/callback_cleanup.c",
+      "sha256": "e223ad92fbe933d08d1e72c5eccca09742387d4f5ef8807c05318bf836e75043",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/cleanup_group.c",
+      "sha256": "d6d9d1b16f9e4d47239fcf96a6f3627c7a8904ea51cc8aed48e41e5e4143e3d3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/io.c",
+      "sha256": "ec3067c9e40a41af5e0d96858a8981003b880845a2c62a45ac8c5ba9af1f02fb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/pool.c",
+      "sha256": "91d3922dd322a441ae8646bc97ffab5795c603ecfba35ccb25aef58c350709b4",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/synch.c",
+      "sha256": "3ef88d8b21ac4c11c2c744ecc8c6ee30e7e61770cadc0e8bb963ae2edee7e9e3",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/timer.c",
+      "sha256": "1f803d69cf2e3af46fcb3ae9e17ed917be4b4f7f96f36e505f7636931fdd5adb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/pool/work.c",
+      "sha256": "8551a23a12ce0091112e40630e16f071aaf53dfc1ae7026ada69b6ebe768a755",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/rpc/rpc.c",
+      "sha256": "b5dd2533698794364d80ca3ee6efc58e5a914672dc7b0fcaa3ab99ea3109c61c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/security/security.c",
+      "sha256": "c6d89a8e6d3f95bb4d5638ec5065283049f4deacdf27e7238ce3df5429743aee",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/smartcard/smartcard.c",
+      "sha256": "1d4e38b8ca8fe2a4306562bb9a3cf2f4b877d74654a68e49104d192865bde0e2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/smartcard/smartcard_pcsc.c",
+      "sha256": "2ef50c09af89be8a03e3257268bf9e99ca2a9e6f24c9ba0724c8886ad995a231",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/CredSSP/credssp.c",
+      "sha256": "9bce307224e3fc47ede32056ac903d7f4d2a3c8b5cd02a07617d315ac1c2cc68",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/Kerberos/kerberos.c",
+      "sha256": "85549527e1be6275b02130fb25d7856abb8677e8975cd2a163f82ed8e8c35788",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/NTLM/ntlm.c",
+      "sha256": "686865a97b87f18a79296911300d353b2eeb189c19405c8237fdcb32ceaf557c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/NTLM/ntlm_av_pairs.c",
+      "sha256": "76ba6eb09628cf5b10b17603f4fb93c4f4a6032937846038d48bc382c23b406c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/NTLM/ntlm_compute.c",
+      "sha256": "9f73bc0df3a1ea4477465e6b7a952c6145cd9f0a143be0c5817a91f51cb92219",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/NTLM/ntlm_message.c",
+      "sha256": "ce67dd2d3b50a916b9965837ddd2ca7c613490e6ba0c0fdf7059d859991b31be",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/Negotiate/negotiate.c",
+      "sha256": "590560ca83d4458199dfab128e6a419260bb1e45e30a5d0ead58af661a1bec6b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/Schannel/schannel.c",
+      "sha256": "017f9b15bd85ae66d40ee010ddd9890813aaebfc9038a26087e7bca423bfb8b1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/Schannel/schannel_openssl.c",
+      "sha256": "80b620981c0cc54b2b6faffe1020a2dcee0763864b0c5b7d9c97ace1f844ddae",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/sspi.c",
+      "sha256": "8ad2cf2e3d4f42de5e96380da962ac293c0e1ac6d3fdddc4f8786669ba464b21",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/sspi_export.c",
+      "sha256": "6a2670877f8e8222d889c201e56ec10c3e6a68452b021641ed1a245c2481365e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/sspi_gss.c",
+      "sha256": "d56125f676dfdd39208220eda037c78e31bdc8f178c3a7b53942711aa4c7ea94",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspi/sspi_winpr.c",
+      "sha256": "35285cfa0d5c7c3d1bd3ab5be777314b9412fc3bad092826520d8899b1fb41ba",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sspicli/sspicli.c",
+      "sha256": "43719dc88c9d24ac081cb11868654009c1376bcd0b9b3a1f9a53be74a93036f5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/address.c",
+      "sha256": "477f18b9879bb6f54e925b6603ec8cdf7faec2c4c7763aea629bfab5c179674b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/barrier.c",
+      "sha256": "61187a27738bf3c862155204000f813c4c16e8a5aabb15cf242cdf5c3b4a8764",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/critical.c",
+      "sha256": "1b873497d90648b7396aa8aee7f8c80b1d0e0ff1b871a92cd433b7550d294442",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/event.c",
+      "sha256": "0d35cccffc4125b0e1d6a8f025b8feba87f01ede908e35b341ec38fedc68529d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/init.c",
+      "sha256": "bbb10d13d1b429c183f51e9575f2ef32cdcd4f208f5703fc73730946874077e5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/mutex.c",
+      "sha256": "674e081b62f5d5068c25a033cbc26f9bceff07cd3409927d7cc9b88440b8dd92",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/pollset.c",
+      "sha256": "c33472ad283560b541c6d48024ff154cc2f39dd5a871d8f54abd8cf13ea60f1a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/semaphore.c",
+      "sha256": "1c3b46b18085199925e85df3d27dd796192c2371e92ffa3538d5eacadd1c08d7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/sleep.c",
+      "sha256": "66ceb49e8034acc9139960c9db1ff68b6ea431cb5dfa133104931130f806c48f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/timer.c",
+      "sha256": "03e39f7c3265aca9f62a1a42e77b6b49816ea31552646c73db69f3079cb0a47b",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/synch/wait.c",
+      "sha256": "750f8410a3062c0aaf883d0ab5b4ef5be0d0e4bab3d432e55649b346bcc55949",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sysinfo/cpufeatures/cpu-features.c",
+      "sha256": "1d0a7db0e0abe37e28f5e5c31df4faca9659a37b42060845669ad802ea997b6f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/sysinfo/sysinfo.c",
+      "sha256": "1ad92421caa2dd2d11ff7ecd3c9740c2da4ddeb96b108e2c129b26f78a51a5e6",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/apc.c",
+      "sha256": "dff5e354a8087ecc0995cdfc54f37a215a02a738dc85a74dad74c1d024a7e3b8",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/argv.c",
+      "sha256": "9fda5e89190a71f6fa3145eae93d93c96fdeaace1133d6a7d41f522e8405a130",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/process.c",
+      "sha256": "ade45d713cc8441e4be5006065f20a601388de9f716254a6a22f5e1580725984",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/processor.c",
+      "sha256": "22ab8b61be74a0b03164d51d244ebe14ff2e11c934610a93a5e203ae8c5e230d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/procthreadattr.c",
+      "sha256": "21e640eba068dbcde02cc7800b112d568f6aec71d1cba0865906151b7d39226f",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/thread.c",
+      "sha256": "23f451369c5457c4f513c8125bc7d66d42f2b9807d2c5a69463339d0ed289139",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/thread/tls.c",
+      "sha256": "d146b22d19540af7cf67a0fba6cc91007105fed3bdb48d28ba5bc8a96415e782",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/timezone/TimeZoneIanaAbbrevMap.c",
+      "sha256": "0f008d35bd1bf85ad09fd1a4232858da41bb88eed30ff471ff64652795493a03",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/timezone/TimeZoneIanaAliases.c",
+      "sha256": "cd2b9786d059467b1421258fe53df148df8ffba287e247c08b4f4c176c155bba",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/timezone/TimeZoneNameMapUtils.c",
+      "sha256": "5b14c8660c603943cc5c8f290aa9617a2d3ccfa44347094ca844efa26c4fcdaa",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/timezone/WindowsZones.c",
+      "sha256": "f8ba8b42ef9f884020570c6bba39b91ccdb60282ee39ae16f79fc9bfbdd41643",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/timezone/timezone.c",
+      "sha256": "30f75583101268d3b2ddbb953721d6f290a18e8cd98648e7719771b0146669fa",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/android.c",
+      "sha256": "b9502b92ef1cc6582738d1f5aaa0baa32c7e5b717ae880c65c55006385337265",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/asn1/asn1.c",
+      "sha256": "b922c7c12ffd11c145411672fb639d4f4f221cfdea8b2bcea37914f5a205ee12",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/atexit.c",
+      "sha256": "1abfec5b7b39fa43631ee118ae457925af6fde20dd4b0cb3d6432b0344544dba",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/cmdline.c",
+      "sha256": "5b3bb1dd091c6e81f5b3dfd6d35794d4396e72bdd7217a7d7fc48592b0042252",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/ArrayList.c",
+      "sha256": "25ee5bea8032d680eff119fc66146ad3ea8fd07f4f42e9bbe7488f4de05e99c0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/BitStream.c",
+      "sha256": "cec39cc8027613787577bf129f97db701378b74b53ef38430242517f437aa144",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/BufferPool.c",
+      "sha256": "62e0a182555992af026eba92f94122c1aafdfc76c1714ab88aa469ea0e7c5c54",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/CountdownEvent.c",
+      "sha256": "c8a46ec63f3ee78dfc778a859e91aaf4b9ab71b242cea127457365054d7b19f2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/HashTable.c",
+      "sha256": "0389dbf9c756459ac2d2c94300cb988edf6a3b71b2b4002e0a6f4aeda4ea2fbc",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/LinkedList.c",
+      "sha256": "22c9fd19ede96af8bf400c6186e618cc49f2a3989730b03204976caa30548777",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/ListDictionary.c",
+      "sha256": "02bf45ffd513f11e6cbb738f4b7e2a1f90d74f862a0294fb92f34e06142910ee",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/MessagePipe.c",
+      "sha256": "f97ed34a666121089cd4ba6620b0474481bb234594bb702e172c209f4b332076",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/MessageQueue.c",
+      "sha256": "fed925a225afd40f11652520a0ff09fd7a83d3a40243058d4d37e31cf28ea2ca",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/Object.c",
+      "sha256": "b016c6b8fa20af1e5eccaae88ae02f3e8f2b632441041ab0e499f56c2d531d91",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/ObjectPool.c",
+      "sha256": "89d0c955bc0e8678a10a01f9a09d032133a28eac2782ad6a77a87336bfe73afd",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/PubSub.c",
+      "sha256": "86dc7bc8987fbf5a02f36d1ebc3f46c5e8d6f13496abae2971f24fafe1d3a52d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/Queue.c",
+      "sha256": "d9fc1e9c9491e4fb210ee205e4ccccbf116c63bcbe564c54e483778ed4b81827",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/Stack.c",
+      "sha256": "b3150fa78bce77c0afca3235585ee8795cddcf5e5d360fbc037d3fe555064885",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/collections/StreamPool.c",
+      "sha256": "df3a6d9ee28a68108a2dd6312966bf0ef66de6c365eb30132652525a1ec79645",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/config-readers.c",
+      "sha256": "ede65108ddd2385a1a7b4d213cb077304be6f127f8708045ba06b941b4fa9cdb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/debug.c",
+      "sha256": "c2494e1d8d1568e49556f48da6bd82359fb2dedc8b0a04357eec7cc4d8f0213e",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/i18n.c",
+      "sha256": "f9f2ac6b6000a6e414a52fc6d977884679bae514cfd60e35016d63470f0f61c2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/image.c",
+      "sha256": "ee9a69f5554f56df665b8b4774df60ed420ba51de8527c3427f7195700e94117",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/ini.c",
+      "sha256": "d5b37f137f3aefd198a9288de133bf8e1d11afa6ac6b2206266ec87755b885e7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/json/c-json.c",
+      "sha256": "9cdc96742acd6930a9b8a52add135570171f0339fd53a63756122719ea205429",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/json/json.c",
+      "sha256": "68b09c9edf3e6335e06898e97b05479ed45090a72edd3018ac767bb62ed2f8ba",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/ntlm.c",
+      "sha256": "1b82e90ef2540e6931484adb30723a47c5a9fe6d1af7838d755307fde79f2b30",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/print.c",
+      "sha256": "1f81865f8e4a88412b0e880daf2d31c80428aed68d454d6f1176b2e6956de49a",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/sam.c",
+      "sha256": "7f441dad0e8dbdfafded856b6d8e9deffdfd24f3c68af319c267f73e0c7df9d5",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/ssl.c",
+      "sha256": "0b21896d5c82bba6fae585e0da1fbfd2bb86af879ae36e8512bf836dee2a2567",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/stream.c",
+      "sha256": "d1f3b4444438b4dcecafd75df34257ca8d5996491f6a48269041bf7c247e80b1",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/strlst.c",
+      "sha256": "55a19fbba616f9d8f6e51899acc0c7ccd3b753219dc57e7a98fbb78f8dce5d83",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/unwind/debug.c",
+      "sha256": "4fea07ab7c781c3f8f99922571b2c6c5b9f378eddfb7bb5631bdc241dcb0d097",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/winpr.c",
+      "sha256": "53a192e525780c0249cef972874714cf298eaad93dd9b03d5be2ac05a94ab577",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/Appender.c",
+      "sha256": "bca6743ce1c09aed5b9f500074d6262de884110a09c52e232c9d986193b3d00c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/BinaryAppender.c",
+      "sha256": "3edfaee5c9cc01ece5a10e54bfaa7cd3c8e7d660bfbcc776c67432e7edef92c7",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/CallbackAppender.c",
+      "sha256": "1608205a19fb2cfda54f703aaa51cb76abf64f9d3de13d541ebc6b083a31ecd2",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/ConsoleAppender.c",
+      "sha256": "f53e3078ab5fc901fd5ba0f36468df03774571ea495a960717ac33f3a7dd2753",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/DataMessage.c",
+      "sha256": "ae21a19ae095950822edf2ffb7165b75907150017640706eb9cb6e47dcfbba37",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/FileAppender.c",
+      "sha256": "27011bd426eb1977ffcd4c27fef10156093be1ce557e951568ec8440e353b80c",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/ImageMessage.c",
+      "sha256": "2eddba3ca801be7ebf3df02a53993dc8d8d95c487d91166eda1007fd4d5fa8da",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/Layout.c",
+      "sha256": "a0a59fbb126d500287ccceb497813b834e8f167f609f232039d67893455eab82",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/Message.c",
+      "sha256": "1b9cf811e2195f42edba99edee9ea79c13c9eb5ce03e253eaa1fb79fc0f4ae6d",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/PacketMessage.c",
+      "sha256": "d4654091b559307f5722eb305f57b743bd7e80a4cb6de5fa008eab8f90bec493",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/SyslogAppender.c",
+      "sha256": "fdb9fb3f2dcba3255e899a22b7fcdfa6ab1bba8efb07c172e55c960e455c8af0",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/UdpAppender.c",
+      "sha256": "ead95215e648fb30c3fdfdf99d328f48c7a23dfe62772f5074fc9eca8822bacb",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/utils/wlog/wlog.c",
+      "sha256": "fdbe3771a6eca7eef3c2f88e85a31a97912fad3142558a368d2cfcea11b1eeca",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/winsock/winsock.c",
+      "sha256": "c9ac44aa8292944b5b312fd2be761882be85902917c2a7dd5cd6067288be57cf",
+      "component": "freerdp-winpr"
+    },
+    {
+      "path": "winpr/libwinpr/wtsapi/wtsapi.c",
+      "sha256": "821f1f95e3710729101b745348f13b9508b129285831ae87c2ba3b6a2d6bae3e",
+      "component": "freerdp-winpr"
+    }
+  ],
+  "native_sha256": {
+    "legacy.so": "54c46a8736d26123d257aeb2227f30dd7cd9f3a4407f12b9ce6de8cf11fbc56b",
+    "libcjson.so": "dd4f6d30b4b131b6d85afec23effb2b6d793eae6d1425ef27faacc3b319bf7fd",
+    "libcrypto.so": "af96e61c00cb9b0988574944546b260db6128521bbf61462e0397839d5d57b5b",
+    "libfreerdp-android.so": "2738b625e292fdd642a7ef350f274fee2f5f39562941b9324fdabc710bdd1020",
+    "libfreerdp-client3.so": "6635c97f0ba9adc28e2297ef391ad7cb48cb74876ad0e2f7063b9bf5a7781674",
+    "libfreerdp3.so": "a63f6d7220c177af03393f5ea16205493051faf454c5d34f62bdcc0e8a1ce1a4",
+    "libssl.so": "96b372c3f0f613a248ad88deb21ef6b2442937092f181718b79432bca0b5ed7d",
+    "liburiparser.so": "8d71b5ff0a61288638d9e00772ab8c944419bbbd164d463f894bbad2f673213a",
+    "libwinpr3.so": "1e564680f5dbd0f11c2e5f59e308b5afa1af31bb7eb3463134f3e66025f366cd"
+  }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<resources>
+    <string name="connection_reconnecting_title">正在重新連線</string>
+    <string name="connection_reconnect_attempt">第 %1$d 次嘗試</string>
+    <string name="connection_reconnected_message">已重新連線。%1$s</string>
+    <string name="connection_ended_title">連線已結束</string>
+    <string name="connection_failed_title">無法連線</string>
+    <string name="connection_retry">重試</string>
+    <string name="connection_close">關閉</string>
+    <string name="connection_copy_diagnostics">複製錯誤訊息</string>
+    <string name="connection_diagnostics_copied">已複製錯誤訊息。</string>
+    <string name="connection_reason_server_ended">伺服器已結束連線。</string>
+    <string name="connection_reason_signed_out">遠端工作階段已登出。</string>
+    <string name="connection_reason_idle_timeout">遠端電腦因閒置逾時而中斷連線。</string>
+    <string name="connection_reason_timeout">遠端工作階段已達連線時間上限。</string>
+    <string name="connection_reason_replaced">另一個連線已接管這個遠端工作階段。</string>
+    <string name="connection_reason_access_denied">遠端電腦拒絕了這個連線。</string>
+    <string name="connection_reason_authentication">伺服器拒絕登入。</string>
+    <string name="connection_reason_transport">與遠端電腦的網路連線已中斷。</string>
+    <string name="connection_reason_server_error">遠端電腦回報連線錯誤。</string>
+    <string name="connection_reason_unknown">無法判定這次中斷的原因。</string>
+</resources>

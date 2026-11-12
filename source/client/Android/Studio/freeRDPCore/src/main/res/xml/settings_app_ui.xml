@@ -29,6 +29,12 @@
         android:defaultValue="false"
         android:key="@string/preference_key_ui_invert_scrolling"
         android:title="@string/settings_ui_invert_scrolling" />
+    <!-- Modified 2026-11-09: make app-handled tap dragging configurable. -->
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/preference_key_ui_tap_drag"
+        android:title="@string/settings_ui_tap_drag_title"
+        android:summary="@string/settings_ui_tap_drag_summary" />
     <!-- Modified 2026-10-31: optional physical-Alt browser navigation, disabled by default. -->
     <CheckBoxPreference
         android:defaultValue="false"

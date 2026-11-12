@@ -141,6 +141,8 @@ public class SessionActivity extends AppCompatActivity
 	private BookmarkBase pendingConnectBookmark = null;
 	private boolean connectCancelledByUser = false;
 	private boolean sessionRunning = false;
+	private boolean sessionEstablished;
+	private boolean reconnecting;
 	private long backPressedTime = 0;
 
 	private SessionViewModel sessionViewModel;
@@ -328,12 +330,7 @@ public class SessionActivity extends AppCompatActivity
 		sessionViewModel = new ViewModelProvider(this).get(SessionViewModel.class);
 		sessionViewModel.getState().observe(this, this::onConnectionStateChanged);
 
-		dialogs = new SessionDialogs(this, new SessionDialogs.OnUserCancelListener() {
-			@Override public void onUserCancel()
-			{
-				connectCancelledByUser = true;
-			}
-		});
+		dialogs = new SessionDialogs(this, () -> cancelConnection(session));
 
 		// Wire up the input manager (instance is attached later in bindSession()).
 		inputManager =
@@ -413,7 +410,7 @@ public class SessionActivity extends AppCompatActivity
 		if (hasFocus)
 		{
 			hideSystemBars();
-			if (mClipboardManager != null)
+			if (session != null && mClipboardManager != null)
 				mClipboardManager.getPrimaryClipManually();
 		}
 	}
@@ -484,6 +481,10 @@ public class SessionActivity extends AppCompatActivity
 	@Override protected void onDestroy()
 	{
 		keyboardController.onDestroy();
+		if (dialogs != null)
+			dialogs.destroy();
+		if (sessionViewModel != null)
+			sessionViewModel.unregister();
 		if (connectThread != null)
 		{
 			connectThread.interrupt();
@@ -496,11 +497,10 @@ public class SessionActivity extends AppCompatActivity
 
 		// Disconnect only this activity's session.
 		if (session != null)
+		{
+			session.setUIEventListener(null);
 			LibFreeRDP.disconnect(session.getInstance());
-
-		// unregister freerdp session listener
-		if (sessionViewModel != null)
-			sessionViewModel.unregister();
+		}
 
 		// remove clipboard listener
 		if (mClipboardManager != null)
@@ -511,6 +511,7 @@ public class SessionActivity extends AppCompatActivity
 			GlobalApp.freeSession(session.getInstance());
 
 		session = null;
+		uiHandler.removeCallbacksAndMessages(null);
 	}
 
 	@Override public void onConfigurationChanged(Configuration newConfig)
@@ -754,17 +755,25 @@ public class SessionActivity extends AppCompatActivity
 
 	private void connectWithTitle(String title)
 	{
-		session.setUIEventListener(this);
+		final SessionState connecting = session;
+		connecting.setUIEventListener(this);
 
-		sessionViewModel.register(session.getInstance());
+		sessionViewModel.register(connecting.getInstance());
 
-		dialogs.showProgress(title, () -> {
-			connectCancelledByUser = true;
-			LibFreeRDP.cancelConnection(session.getInstance());
-		});
+		dialogs.showProgress(title, () -> cancelConnection(connecting));
 
-		connectThread = new ConnectThread(getApplicationContext(), session);
+		connectThread = new ConnectThread(getApplicationContext(), connecting);
 		connectThread.start();
+	}
+
+	private void cancelConnection(SessionState expected)
+	{
+		if (expected == null || session != expected || isFinishing() || isDestroyed())
+			return;
+		connectCancelledByUser = true;
+		LibFreeRDP.cancelConnection(expected.getInstance());
+		// An in-flight retry must not open or wait on another authentication dialog.
+		dialogs.destroy();
 	}
 
 	// binds the current session to the activity by wiring it up with the
@@ -772,8 +781,10 @@ public class SessionActivity extends AppCompatActivity
 	private void bindSession()
 	{
 		Log.v(TAG, "bindSession called");
+		sessionEstablished = true;
 		session.setUIEventListener(this);
 		sessionView.onSurfaceChange(session);
+		sessionView.setVisibility(View.VISIBLE);
 		scrollView.requestLayout();
 
 		Bitmap surface = session.getSurface() != null ? session.getSurface().getBitmap() : null;
@@ -795,6 +806,11 @@ public class SessionActivity extends AppCompatActivity
 
 	public void handleBackPressed()
 	{
+		if (session == null)
+		{
+			closeSessionActivity(RESULT_CANCELED);
+			return;
+		}
 		// hide keyboards (if any visible) or send alt+f4 to the session
 		if (inputManager != null)
 		{
@@ -922,21 +938,6 @@ public class SessionActivity extends AppCompatActivity
 		uiHandler.sendEmptyMessage(REFRESH_SESSIONVIEW);
 	}
 
-	@Override public void OnReconnecting()
-	{
-		// Native retry callbacks run on the worker. Input ownership belongs to the
-		// UI thread; discard it without sending releases over the failed transport.
-		final SessionState reconnectingSession = session;
-		uiHandler.post(() -> {
-			if (reconnectingSession == null || session != reconnectingSession ||
-			    isFinishing() || isDestroyed())
-				return;
-			keyboardController.onTransportClosed();
-			railManager.onSessionEnd();
-			Toast.makeText(this, R.string.info_reconnecting, Toast.LENGTH_LONG).show();
-		});
-	}
-
 	@Override public void OnGraphicsResize(int width, int height, int bpp)
 	{
 		// replace bitmap
@@ -1017,7 +1018,6 @@ public class SessionActivity extends AppCompatActivity
 
 	@Override public void OnRemoteClipboardChanged(String data)
 	{
-		Log.v(TAG, "OnRemoteClipboardChanged: " + data);
 		mClipboardManager.setClipboardData(data);
 	}
 
@@ -1094,7 +1094,6 @@ public class SessionActivity extends AppCompatActivity
 	// ClipboardManagerProxy.OnClipboardChangedListener
 	@Override public void onClipboardChanged(String data)
 	{
-		Log.v(TAG, "onClipboardChanged: " + data);
 		if (session != null)
 			LibFreeRDP.sendClipboardData(session.getInstance(), data);
 	}
@@ -1107,18 +1106,26 @@ public class SessionActivity extends AppCompatActivity
 
 	private void onConnectionStateChanged(SessionViewModel.ConnectionState state)
 	{
-		if (session == null)
+		if (session == null || isFinishing() || isDestroyed())
 			return;
 		switch (state)
 		{
 			case CONNECTED:
 				onSessionConnected();
 				break;
+			case RECONNECTING:
+				onReconnectAttempt();
+				break;
+			case RECONNECTED:
+				onSessionReconnected();
+				break;
 			case FAILED:
-				onSessionFailed();
+				Log.v(TAG, "onSessionFailed");
+				onSessionEnded(RESULT_CANCELED);
 				break;
 			case DISCONNECTED:
-				onSessionDisconnected();
+				Log.v(TAG, "onSessionDisconnected");
+				onSessionEnded(RESULT_OK);
 				break;
 			default:
 				break;
@@ -1165,40 +1172,88 @@ public class SessionActivity extends AppCompatActivity
 		}
 	}
 
-	private void onSessionFailed()
+	private void onReconnectAttempt()
 	{
-		Log.v(TAG, "onSessionFailed");
-
-		// cancel any pending input events
-		keyboardController.onTransportClosed();
-
-		dialogs.dismissProgress();
-
-		// post error message on UI thread
+		if (!reconnecting)
+		{
+			reconnecting = true;
+			keyboardController.onTransportClosed();
+			railManager.clear();
+			sessionView.setRailMode(false);
+		}
 		if (!connectCancelledByUser)
-			uiHandler.sendMessage(Message.obtain(
-			    null, DISPLAY_TOAST, getResources().getText(R.string.error_connection_failure)));
-
-		closeSessionActivity(RESULT_CANCELED);
+		{
+			SessionState expected = session;
+			ConnectionDiagnostic diagnostic = sessionViewModel.getConnectionDiagnostic();
+			dialogs.showReconnect(diagnostic, () -> cancelConnection(expected));
+		}
 	}
 
-	private void onSessionDisconnected()
+	private void onSessionReconnected()
 	{
-		Log.v(TAG, "onSessionDisconnected");
-
-		// cancel any pending input events
-		keyboardController.onTransportClosed();
-
-		if (ApplicationSettingsActivity.getKeepScreenOnWhenConnected(this))
+		if (connectCancelledByUser)
 		{
-			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			LibFreeRDP.disconnect(session.getInstance());
+			return;
 		}
-
+		// A stopped Activity can observe success without seeing the retry attempt.
+		if (!reconnecting)
+			keyboardController.onTransportClosed();
+		reconnecting = false;
 		dialogs.dismissProgress();
+		bindSession();
+		dialogs.showReconnected(sessionViewModel.getConnectionDiagnostic());
+		Log.v(TAG, "onSessionReconnected");
+	}
 
+	private void onSessionEnded(int resultCode)
+	{
+		SessionState ended = session;
+		BookmarkBase bookmark = ended.getBookmark();
+		Uri uri = ended.getOpenUri();
+		ConnectionDiagnostic diagnostic = sessionViewModel.getConnectionDiagnostic();
+		boolean intentional = connectCancelledByUser || (diagnostic != null && diagnostic.intentional);
+		boolean wasConnected = sessionEstablished;
+		keyboardController.onTransportClosed();
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		dialogs.dismissProgress();
 		railManager.clear();
+		sessionView.setRailMode(false);
+		sessionView.setVisibility(View.INVISIBLE);
 
-		session.setUIEventListener(null);
-		closeSessionActivity(RESULT_OK);
+		// The native worker has sent its terminal callback. Retire its view and
+		// listener before Retry starts a new instance from the same settings.
+		sessionViewModel.unregister();
+		ended.setUIEventListener(null);
+		uiHandler.removeCallbacksAndMessages(null);
+		session = null;
+		bitmap = null;
+		connectThread = null;
+		pendingConnectBookmark = null;
+		sessionEstablished = false;
+		reconnecting = false;
+		GlobalApp.freeSession(ended.getInstance());
+
+		if (intentional)
+		{
+			closeSessionActivity(resultCode);
+			return;
+		}
+		Runnable retry = bookmark != null || uri != null ? () -> retryConnection(bookmark, uri) : null;
+		dialogs.showConnectionEnded(wasConnected, diagnostic, retry,
+		                            () -> closeSessionActivity(resultCode));
+	}
+
+	private void retryConnection(BookmarkBase bookmark, Uri uri)
+	{
+		if (session != null || isFinishing() || isDestroyed())
+			return;
+		dialogs.dismissConnectionEnded();
+		connectCancelledByUser = false;
+		backPressedTime = 0;
+		if (bookmark != null)
+			connect(bookmark);
+		else if (uri != null)
+			connect(uri);
 	}
 }

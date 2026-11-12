@@ -3,6 +3,7 @@
  SPDX-License-Identifier: Apache-2.0
  Modified for the DeskQuay Android client; see the versioned source and change history.
  Distribution change notice: 2026-10-29.
+ Modified 2026-11-09: complete the Traditional Chinese interface resources.
  Upstream basis: FreeRDP 3.32.2 commit 97eff6ddfbbfaa8e42a126d362686bd001ff8bdc.
  Existing copyright and attribution notices are retained.
 -->
@@ -11,9 +12,11 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="cancel">取消</string>
+    <string name="save">儲存</string>
     <string name="cont">繼續</string>
     <string name="login">登入</string>
     <!-- Home menu items -->
+    <string name="menu_search">搜尋</string>
     <string name="menu_about">關於</string>
     <string name="menu_help">說明</string>
     <string name="menu_new_bookmark">新連線</string>
@@ -22,12 +25,18 @@
     <string name="menu_connect">連線</string>
     <string name="menu_edit">編輯</string>
     <string name="menu_delete">刪除</string>
+    <string name="bookmark_export">分享</string>
+    <string name="export_failed">無法分享連線</string>
     <!-- Session menu items -->
     <string name="menu_sys_keyboard">鍵盤</string>
     <string name="menu_ext_keyboard">功能鍵</string>
     <string name="menu_touch_pointer">觸控指標</string>
+    <string name="kbd_win_key">Windows 鍵</string>
+    <string name="tp_hscroll">水平捲動</string>
+    <string name="tp_middle_click">按滑鼠中鍵</string>
     <!-- List section headers -->
     <!-- Search strings -->
+    <string name="quick_connect_to">連線至 %s</string>
     <!-- List placeholder labels -->
     <!-- Bookmark settings strings -->
     <string name="settings_cat_host">主機</string>
@@ -42,6 +51,7 @@
     <string name="settings_cat_settings">設定</string>
     <string name="settings_screen">螢幕</string>
     <string name="settings_cat_screen">螢幕設定</string>
+    <string name="settings_cat_scale">縮放設定</string>
     <string name="settings_colors">顏色</string>
     <string-array name="colors_array">
         <item>256 色（8 位元）</item>
@@ -69,6 +79,20 @@
     </string-array>
     <string name="settings_width">寬</string>
     <string name="settings_height">高</string>
+    <string name="settings_scale">縮放比例</string>
+    <string name="settings_scale_desktop">桌面縮放比例</string>
+    <string name="settings_scale_device">裝置縮放比例</string>
+    <string-array name="scale_mode_array">
+        <item>100%</item>
+        <item>140%</item>
+        <item>180%</item>
+        <item>自訂</item>
+    </string-array>
+    <string-array name="scale_device_array">
+        <item>100%</item>
+        <item>140%</item>
+        <item>180%</item>
+    </string-array>
     <string name="settings_performance">效能</string>
     <string name="settings_cat_performance">效能設定</string>
     <string name="settings_perf_remotefx">RemoteFX</string>
@@ -79,17 +103,37 @@
     <string name="settings_perf_menu_animation">功能表及視窗動畫</string>
     <string name="settings_perf_theming">視覺樣式</string>
     <string name="settings_advanced">進階</string>
+    <string name="settings_tlsSecLevel">TLS 安全等級</string>
+    <string name="settings_tlsMinLevel">最低 TLS 版本</string>
     <string name="settings_cat_gateway">閘道</string>
     <string name="settings_enable_gateway_settings">啟用閘道伺服器</string>
     <string name="settings_gateway_settings">閘道設定</string>
     <string name="settings_redirect_sdcard">遠端 SD 卡</string>
     <string name="settings_redirect_sound">遠端音訊</string>
+    <string-array name="tlsSecLevel_array">
+        <item>使用預設值</item>
+        <item>全部允許</item>
+        <item>80 位元</item>
+        <item>112 位元</item>
+        <item>128 位元</item>
+        <item>192 位元</item>
+        <item>256 位元</item>
+    </string-array>
+    <string-array name="tlsMinLevel_array">
+        <item>使用預設值</item>
+        <item>TLS 1.0</item>
+        <item>TLS 1.1</item>
+        <item>TLS 1.2</item>
+        <item>TLS 1.3</item>
+    </string-array>
     <string-array name="redirect_sound_array">
         <item>不要播放</item>
         <item>在遠端電腦上播放</item>
         <item>在這部裝置上播放</item>
     </string-array>
     <string name="settings_redirect_microphone">遠端麥克風</string>
+    <string name="settings_redirect_camera">重新導向相機</string>
+    <string name="settings_redirect_printer">重新導向印表機</string>
     <string name="settings_security">安全性</string>
     <string-array name="security_array">
         <item>自動</item>
@@ -98,15 +142,22 @@
         <item>NLA</item>
     </string-array>
     <string name="settings_remote_program">遠端程式</string>
+    <string name="settings_alternate_shell">替代命令殼層</string>
     <string name="settings_work_dir">工作目錄</string>
     <string name="settings_async_channel">非同步通道</string>
     <string name="settings_async_update">非同步更新</string>
     <string name="settings_console_mode">主控台模式</string>
+    <string name="settings_cat_hyperv">Hyper-V</string>
+    <string name="settings_cat_redirection">重新導向</string>
+    <string name="settings_cat_session">工作階段</string>
+    <string name="settings_vmconnect_mode">Hyper-V 主控台（vmconnect）</string>
+    <string name="settings_vmconnect_guid">虛擬機器識別碼（GUID）</string>
     <!-- App settings strings -->
     <string name="settings_password_present">*******</string>
     <string name="settings_password_empty">未設定密碼</string>
     <string name="settings_cat_ui">使用者介面</string>
     <string name="settings_ui_hide_status_bar">隱藏狀態列</string>
+    <string name="settings_ui_hide_navigation_bar">隱藏導覽列</string>
     <string name="settings_ui_swap_mouse_buttons">滑鼠按鈕互換</string>
     <string name="settings_ui_invert_scrolling">反向滾動</string>
     <string name="settings_ui_auto_scroll_touchpointer">觸控指標自動滾動</string>
@@ -115,9 +166,13 @@
     <string name="settings_cat_power">省電</string>
     <string name="settings_cat_client">用戶端</string>
     <string name="settings_power_disconnect_timeout">關閉閒置連線</string>
+    <string name="settings_power_keep_screen_on_when_connected">連線時保持螢幕開啟</string>
+    <string name="settings_power_auto_reconnect">自動重新連線</string>
     <string name="settings_cat_security">安全性</string>
     <string name="settings_security_accept_certificates">接受所有憑證</string>
     <string name="settings_security_clear_certificate_cache">清除憑證快取</string>
+    <!-- Session strings -->
+    <string name="session_double_back_to_exit">再按一次返回即可中斷連線</string>
     <!-- Activity titles -->
     <string name="title_bookmark_settings">連線設定</string>
     <string name="title_application_settings">設定</string>
@@ -130,11 +185,18 @@
     <string name="error_connection_failure">無法建立與遠端電腦的連線！</string>
     <!-- Info message strings -->
     <string name="info_capabilities_changed">螢幕設定已更改為遠端電腦支援的設定。</string>
+    <string name="info_reconnecting">正在重新連線…</string>
     <string name="info_reset_success">憑證快取已刪除。</string>
     <string name="info_reset_failed">無法刪除憑證快取！</string>
     <!-- Dialog strings -->
     <string name="dlg_title_verify_certificate">驗證憑證</string>
-    <string name="dlg_msg_verify_certificate">無法驗證遠端電腦的身份。您要繼續連線嗎？</string>
+    <string name="dlg_msg_verify_certificate">無法驗證遠端電腦的身分。要繼續連線嗎？</string>
+    <string name="certificate_peer_server">RDP 伺服器</string>
+    <string name="certificate_peer_gateway">RDP 閘道</string>
+    <string name="certificate_peer_redirect">RDP 重新導向</string>
+    <string name="certificate_identity_details">%1$s：%2$s:%3$s\n\n主體：%4$s\n簽發者：%5$s</string>
+    <string name="certificate_pem_details">憑證：%1$s</string>
+    <string name="certificate_fingerprint_details">指紋：%1$s</string>
     <string name="dlg_title_credentials">請輸入您的登入資訊</string>
     <string name="dlg_title_create_shortcut">建立捷徑</string>
     <string name="dlg_msg_create_shortcut">捷徑名稱：</string>
@@ -147,7 +209,34 @@
     <string name="dlg_msg_clear_cert_cache">您確定要刪除所有快取的憑證嗎？</string>
     <string name="debug_level">偵錯等級</string>
     <string name="settings_debug">偵錯設定</string>
+    <string name="settings_cat_experimental">實驗性功能</string>
+    <string name="settings_experimental_remoteapp">RemoteApp 視窗</string>
+    <string name="settings_experimental_remoteapp_summary">將遠端程式顯示為個別視窗。這是實驗性功能，運作可能不穩定。</string>
+    <string name="experimental_feature_remoteapp">RemoteApp</string>
+    <string name="settings_experimental_camera">相機重新導向</string>
+    <string name="settings_experimental_camera_summary">讓遠端工作階段使用本機相機。這是實驗性功能，運作可能不穩定。</string>
+    <string name="experimental_feature_camera">相機重新導向</string>
+    <string name="dlg_title_experimental_feature">實驗性功能</string>
+    <string name="dlg_msg_experimental_feature">「%1$s」是實驗性功能。請前往「實驗性功能」設定啟用。</string>
     <string name="preference_title_client_name">用戶端名稱</string>
+    <string name="settings_ui_fit_rounded_corners">配合螢幕圓角</string>
+    <string name="pref_title_theme">App 主題</string>
+    <string-array name="pref_theme_entries">
+        <item>跟隨系統</item>
+        <item>淺色</item>
+        <item>深色</item>
+    </string-array>
+    <string name="settings_loadBalanceInfo">負載平衡資訊</string>
+    <string name="select_display_title">選擇顯示器</string>
+    <string name="display_main_screen">主螢幕</string>
+    <string name="print_notif_channel">列印工作</string>
+    <string name="print_notif_title">已收到列印工作</string>
+    <string name="print_notif_open">開啟</string>
+    <string name="print_notif_print">列印</string>
+    <string name="accessibility_keyboard_label">實體鍵盤快捷鍵</string>
+    <string name="accessibility_keyboard_description">將實體鍵盤快捷鍵（例如 Windows 鍵）傳送至遠端桌面。</string>
+    <string name="pref_title_keyboard_accessibility">實體鍵盤快捷鍵</string>
+    <string name="pref_summary_keyboard_accessibility">將 Windows 鍵與系統快捷鍵傳送至遠端桌面。需要無障礙權限。</string>
     <string name="screen_input_mode_touchpad">觸控板</string>
     <string name="screen_input_mode_touch">觸控</string>
     <string name="screen_input_touch_unavailable">觸控\n遠端未支援</string>
@@ -162,4 +251,7 @@
     <string name="settings_ui_alt_touchpad_navigation_title">Alt＋觸控板前後頁</string>
     <string name="settings_ui_alt_touchpad_navigation_on">按住實體 Alt，以雙指水平滑動並放手，切換上一頁／下一頁；一般雙指捲動不變。</string>
     <string name="settings_ui_alt_touchpad_navigation_off">停用；一般雙指捲動不變。</string>
+    <!-- Modified 2026-11-09: tap dragging preference. -->
+    <string name="settings_ui_tap_drag_title">輕觸兩下拖曳</string>
+    <string name="settings_ui_tap_drag_summary">適用於螢幕觸控板，以及由 App 判讀的實體觸控板手勢。原生輕觸拖曳由 Android 的觸控板設定控制。</string>
 </resources>

@@ -1,19 +1,16 @@
 {
-  "format": "formal23-public-native-rebuild-inputs-v1",
-  "scope": "RECIPE_INPUTS_NOT_A_NEW_BUILD_OR_BIT_REPRODUCIBILITY_PASS",
+  "format": "really-decent-portal-native-rebuild-inputs-v1",
+  "scope": "CLEAN_SOURCE_BUILD_INPUTS",
   "abi": "arm64-v8a",
   "android_platform": 29,
-  "source23_manifest_sha256": "27947560b5d22aef456bc9c5eaea032dcdfebd295ec4b4f616777ce117251c1a",
-  "original_native_compile_receipt_sha256": "f64c85881373a359283f18993bd933451dd2d0db3888e2a579453cc0d95cf17b",
-  "original_postvalidation_receipt_sha256": "579c9459947ce8e8800144a45908361ae0e824a8c6f146a993d27bc41d352e74",
-  "wrapper_receipt_sha256": "98e5990812294902359d90957f725dffd350270532b1bba789601932446d4068",
+  "freerdp_upstream_commit": "65bcca1913a28cbdd7eb913599f692bd2b707991",
   "external_source_archives": [
     {
       "component": "openssl",
-      "filename": "openssl-4.0.1.tar.gz",
-      "sha256": "2db3f3a0d6ea4b59e1f094ace2c8cd536dffb87cdc39084c5afa1e6f7f37dd09",
-      "bytes": 55079428,
-      "official_source_url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.1/openssl-4.0.1.tar.gz"
+      "filename": "openssl-4.0.3.tar.gz",
+      "sha256": "325b5c806167c13b40b1ffeadfe0248197c00eccc4cf123ec1e28d2d2fd216d9",
+      "bytes": 55235667,
+      "official_source_url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.3/openssl-4.0.3.tar.gz"
     },
     {
       "component": "cjson",
@@ -99,7 +96,7 @@
     "libwinpr3.so"
   ],
   "sqlcipher_maven_coordinate": "net.zetetic:sqlcipher-android:4.17.0@aar",
-  "native_rebuild_recipe_executed": false,
+  "release_native_build_receipt": "native-build-receipt.json",
   "byte_reproducibility_state": "NOT_RUN",
   "signing_or_installation_included": false
 }

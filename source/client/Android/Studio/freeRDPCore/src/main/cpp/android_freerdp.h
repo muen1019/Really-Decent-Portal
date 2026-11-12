@@ -50,6 +50,11 @@ typedef struct android_context
 	ANDROID_PEN_STATE pen;
 	DWORD workerId;
 	HANDLE foregroundEvent;
+	volatile LONG disconnectRequested;
+	/* The following fields belong to the RDP worker and its callbacks. */
+	BOOL reconnecting;
+	UINT32 reconnectError;
+	UINT32 reconnectServerError;
 } androidContext;
 
 #endif /* FREERDP_CLIENT_ANDROID_FREERDP_H */

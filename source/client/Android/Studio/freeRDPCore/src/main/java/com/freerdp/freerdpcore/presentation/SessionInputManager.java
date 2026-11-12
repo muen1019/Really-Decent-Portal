@@ -42,6 +42,7 @@ import com.freerdp.freerdpcore.utils.TouchpadWheelAccumulator;
 import com.freerdp.freerdpcore.utils.ScreenInputController;
 import com.freerdp.freerdpcore.utils.PenInputController;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -59,6 +60,9 @@ public class SessionInputManager
 	private static final int SCROLLING_DISTANCE = 12;
 	private static final int SCROLLING_EDGE_MARGIN = 16;
 	private static final int MOVE_EVENT_THROTTLE_MS = 16;
+	private static final int CONTENT_ZOOM_CTRL_LEAD_MS = 32;
+	private static final int CONTENT_ZOOM_CTRL_TAIL_MS = 100;
+	private static final int MAX_PENDING_CONTENT_ZOOM_STEPS = 8;
 
 	private static final int MSG_SEND_MOVE_EVENT = 1;
 	private static final int MSG_SCROLLING_REQUESTED = 2;
@@ -87,6 +91,11 @@ public class SessionInputManager
 	private final InputManager deviceManager;
 	private boolean listeningForDevices;
 	private boolean keyboardInputActive;
+	private final ArrayDeque<Boolean> pendingContentZoom = new ArrayDeque<>();
+	private final Runnable contentZoomLead = this::flushContentZoom;
+	private final Runnable contentZoomTail = () -> cancelContentZoom(true);
+	private boolean contentZoomControlHeld;
+	private boolean contentZoomLeadPending;
 	private final MouseButtonOwnership mouseButtons = new MouseButtonOwnership();
 	private final Set<MouseNavigationStream> mouseNavigationKeys = new LinkedHashSet<>();
 	private final Set<MouseNavigationStream> completedMouseNavigationKeys = new LinkedHashSet<>();
@@ -169,6 +178,8 @@ public class SessionInputManager
 
 	public void setKeyboardInputActive(boolean active)
 	{
+		if (active)
+			sessionView.setTapDragEnabled(ApplicationSettingsActivity.isTapDragEnabled(context));
 		// Retire live contacts while the old session is still eligible to send CANCEL.
 		sessionView.setScreenInputActive(active && instance != 0);
 		keyboardInputActive = active;
@@ -185,6 +196,7 @@ public class SessionInputManager
 
 	public void releaseOwnedKeys(boolean sendKeyUps)
 	{
+		cancelContentZoom(sendKeyUps);
 		keyboardMapper.releaseOwnedKeys(sendKeyUps && instance != 0);
 	}
 
@@ -199,6 +211,7 @@ public class SessionInputManager
 	/** Lifecycle gate and held-key repeat happen in one main-loop operation. */
 	public boolean repeatCapturedKey(int device, int key, long downTime)
 	{
+		cancelContentZoom(true);
 		return instance != 0 && keyboardInputActive &&
 		    keyboardMapper.repeatHeldPhysicalKey(device, key, downTime);
 	}
@@ -233,6 +246,7 @@ public class SessionInputManager
 
 	private void retirePointerDevice(int deviceId)
 	{
+		cancelContentZoom(true);
 		retireMouseNavigationKeys(deviceId);
 		mouseMotionButtons.remove(deviceId);
 		sendMouseReleases(mouseButtons.releaseDevice(deviceId));
@@ -356,6 +370,7 @@ public class SessionInputManager
 	// Cancels any pending delayed-move events; called on connection failure / disconnect.
 	public void cancelPendingEvents()
 	{
+		cancelContentZoom(true);
 		sessionView.cancelLegacyPointerInput();
 		cancelDelayedMoveEvent();
 		sessionView.cancelTouchpadWheelInput();
@@ -372,6 +387,7 @@ public class SessionInputManager
 
 	@Override public boolean onSessionViewPreImeKeyEvent(KeyEvent event)
 	{
+		cancelContentZoom(true);
 		if (instance == 0 || !keyboardInputActive)
 			return keyboardMapper.consumeOwnedKeyUp(event);
 		return keyboardMapper.processPhysicalKeyEventBeforeIme(event);
@@ -385,6 +401,7 @@ public class SessionInputManager
 
 	public boolean onAndroidKeyEvent(KeyEvent event, KeyboardMapper.KeyEventOrigin origin)
 	{
+		cancelContentZoom(true);
 		if (onMouseNavigationKeyEvent(event))
 			return true;
 		if (instance == 0 || !keyboardInputActive)
@@ -568,6 +585,7 @@ public class SessionInputManager
 			return false;
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
+			cancelContentZoom(true);
 			LibFreeRDP.disconnect(instance);
 			return true;
 		}
@@ -581,6 +599,7 @@ public class SessionInputManager
 			return false;
 		if (!ApplicationSettingsActivity.getUseBackAsAltf4(context))
 			return false;
+		cancelContentZoom(true);
 		keyboardMapper.sendAltF4();
 		return true;
 	}
@@ -630,6 +649,7 @@ public class SessionInputManager
 
 	public void cancelScreenInput()
 	{
+		cancelContentZoom(true);
 		sessionView.cancelScreenInput();
 		if (instance != 0)
 			LibFreeRDP.cancelTouchEvents(instance);
@@ -656,6 +676,7 @@ public class SessionInputManager
 
 	@Override public boolean onPenFrame(PenInputController.PenFrame frame)
 	{
+		cancelContentZoom(true);
 		if (instance == 0)
 			return false;
 		if (frame.action == PenInputController.CANCEL)
@@ -677,6 +698,7 @@ public class SessionInputManager
 
 	@Override public boolean onTouchFrame(ScreenInputController.TouchFrame frame)
 	{
+		cancelContentZoom(true);
 		return instance != 0 &&
 		    LibFreeRDP.sendTouchFrame(instance, frame.ids, frame.actions, frame.x, frame.y);
 	}
@@ -698,6 +720,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		LibFreeRDP.sendCursorEvent(instance, 0, 0,
 		                          horizontal ? Mouse.getHScrollEvent(context, positive)
 		                                     : Mouse.getScrollEvent(context, positive));
@@ -728,6 +751,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return false;
+		cancelContentZoom(true);
 		// No older coalesced move may cross a button edge from any input owner.
 		cancelDelayedMoveEvent();
 		if (owner == MouseButtonOwnership.HARDWARE)
@@ -956,6 +980,8 @@ public class SessionInputManager
 		for (int i = 0; i < count; i++)
 			if (horizontal[i] < -255 || horizontal[i] > 255 || vertical[i] < -255 || vertical[i] > 255)
 				throw new IllegalArgumentException("Wheel chunk outside inversion-safe range");
+		if (count > 0)
+			cancelContentZoom(true);
 		// No summation or deferred queue: each signed chunk remains a separate RDP packet.
 		for (int i = 0; i < count; i++)
 			if (vertical[i] != 0)
@@ -970,6 +996,8 @@ public class SessionInputManager
 		if (instance == 0) return;
 		if (horizontal < -255 || horizontal > 255 || vertical < -255 || vertical > 255)
 			throw new IllegalArgumentException("Wheel chunk outside inversion-safe range");
+		if (horizontal != 0 || vertical != 0)
+			cancelContentZoom(true);
 		// Compatibility candidate for Chromium's same-time HWHEEL -> WHEEL rewrite:
 		// https://chromium.googlesource.com/chromium/src/+/refs/heads/main/ui/views/win/hwnd_message_handler.cc#3515
 		// Equal native timestamps across successive pairs still need real-session validation.
@@ -983,6 +1011,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		LibFreeRDP.sendCursorEvent(instance, 0, 0, Mouse.getScrollEvent(context, down));
 	}
 
@@ -991,14 +1020,81 @@ public class SessionInputManager
 	{
 		if (instance == 0 || !keyboardInputActive)
 			return;
-		keyboardMapper.withControlModifier(() ->
-		    LibFreeRDP.sendCursorEvent(instance, mouseX, mouseY, Mouse.getContentZoomEvent(zoomIn)));
+		if (!contentZoomControlHeld)
+		{
+			contentZoomControlHeld = true;
+			contentZoomLeadPending = true;
+			keyboardMapper.beginContentZoomControl();
+			handler.postDelayed(contentZoomLead, CONTENT_ZOOM_CTRL_LEAD_MS);
+		}
+		if (contentZoomLeadPending)
+		{
+			if (pendingContentZoom.size() < MAX_PENDING_CONTENT_ZOOM_STEPS)
+				pendingContentZoom.addLast(zoomIn);
+			return;
+		}
+		if (sendContentZoomWheel(zoomIn))
+			scheduleContentZoomRelease();
+	}
+
+	@Override public void onSessionViewContentZoomCancel()
+	{
+		cancelContentZoom(true);
+	}
+
+	private void flushContentZoom()
+	{
+		contentZoomLeadPending = false;
+		if (instance == 0 || !keyboardInputActive)
+		{
+			cancelContentZoom(instance != 0);
+			return;
+		}
+		while (!pendingContentZoom.isEmpty())
+			if (!sendContentZoomWheel(pendingContentZoom.removeFirst()))
+				return;
+		scheduleContentZoomRelease();
+	}
+
+	private boolean sendContentZoomWheel(boolean zoomIn)
+	{
+		boolean sent = false;
+		try
+		{
+			sent = LibFreeRDP.sendCursorEvent(instance, mouseX, mouseY, Mouse.getContentZoomEvent(zoomIn));
+			return sent;
+		}
+		finally
+		{
+			if (!sent)
+				cancelContentZoom(true);
+		}
+	}
+
+	private void scheduleContentZoomRelease()
+	{
+		// The remote input consumer can see a per-wheel Ctrl pulse entirely between dispatches.
+		handler.removeCallbacks(contentZoomTail);
+		handler.postDelayed(contentZoomTail, CONTENT_ZOOM_CTRL_TAIL_MS);
+	}
+
+	private void cancelContentZoom(boolean sendKeyUp)
+	{
+		if (!contentZoomControlHeld)
+			return;
+		contentZoomControlHeld = false;
+		contentZoomLeadPending = false;
+		handler.removeCallbacks(contentZoomLead);
+		handler.removeCallbacks(contentZoomTail);
+		pendingContentZoom.clear();
+		keyboardMapper.endContentZoomControl(sendKeyUp && instance != 0);
 	}
 
 	@Override public void onSessionViewHScroll(boolean right)
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		LibFreeRDP.sendCursorEvent(instance, 0, 0, Mouse.getHScrollEvent(context, right));
 	}
 
@@ -1015,6 +1111,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		Point p = mapScreenCoordToSessionCoord(x, y);
 		LibFreeRDP.sendCursorEvent(instance, p.x, p.y, Mouse.getLeftButtonEvent(context, down));
 	}
@@ -1023,6 +1120,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		Point p = mapScreenCoordToSessionCoord(x, y);
 		LibFreeRDP.sendCursorEvent(instance, p.x, p.y, Mouse.getRightButtonEvent(context, down));
 	}
@@ -1031,6 +1129,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		Point p = mapScreenCoordToSessionCoord(x, y);
 		LibFreeRDP.sendCursorEvent(instance, p.x, p.y, Mouse.getMiddleButtonEvent(down));
 	}
@@ -1058,6 +1157,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		LibFreeRDP.sendCursorEvent(instance, 0, 0, Mouse.getScrollEvent(context, amount));
 	}
 
@@ -1065,6 +1165,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		LibFreeRDP.sendCursorEvent(instance, 0, 0, Mouse.getHScrollEvent(context, amount));
 	}
 
@@ -1093,6 +1194,7 @@ public class SessionInputManager
 	{
 		if (instance == 0)
 			return;
+		cancelContentZoom(true);
 		if (LibFreeRDP.isUnicodeInputSupported(instance))
 		{
 			LibFreeRDP.sendUnicodeKeyEvent(instance, unicodeKey, true);
@@ -1129,11 +1231,13 @@ public class SessionInputManager
 
 	@Override public void onKey(int keycode)
 	{
+		cancelContentZoom(true);
 		keyboardMapper.processCustomKeyEvent(keycode);
 	}
 
 	@Override public void onKeyLock(int keycode)
 	{
+		cancelContentZoom(true);
 		keyboardMapper.processCustomKeyLock(keycode);
 	}
 

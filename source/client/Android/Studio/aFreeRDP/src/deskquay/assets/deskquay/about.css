@@ -1,0 +1,21 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+:root {
+    color-scheme: light dark;
+    font-family: system-ui, sans-serif;
+}
+body {
+    margin: 0;
+    padding: 1.25rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+main {
+    max-width: 42rem;
+    margin: auto;
+}
+h1 {
+    line-height: 1.2;
+}
+li + li {
+    margin-top: 0.5rem;
+}

@@ -1,32 +1,32 @@
 {
   "format": "really-decent-portal-release-artifacts-v1",
   "state": "VERIFIED_ARTIFACT_PAIR",
-  "version": "0.1.0",
-  "version_code": 1,
+  "version": "0.1.7",
+  "version_code": 8,
   "package": "io.github.muen1019.reallydecentportal",
   "abi": "arm64-v8a",
   "min_sdk": 29,
   "target_sdk": 37,
   "apk": {
-    "file": "Really-Decent-Portal-0.1.0-arm64-v8a.apk",
-    "bytes": 54794051,
-    "sha256": "3106fac3a8d0af8708e0a47ef968c06546861e41de072b5fd9615be795ad78ec"
+    "file": "Really-Decent-Portal-0.1.7-arm64-v8a.apk",
+    "bytes": 24423149,
+    "sha256": "9fb9bd326c952f77e646ec3da80162bd67ec47030a28683449ffdd042c0bcda3"
   },
   "source_archive": {
-    "file": "Really-Decent-Portal-0.1.0-source.zip",
-    "bytes": 14390441,
-    "sha256": "7154ee1c8e190547ace7ca87191d884f33ddd92ef272c1de1b9687978aa0d126"
+    "file": "Really-Decent-Portal-0.1.7-source.zip",
+    "bytes": 14807587,
+    "sha256": "50fb028a77777124a75af76c17080a2413b2ac030b1d5adf8b7858c7dc97ae8d"
   },
   "signing_certificate_sha256": "51cf6d51e0f5e97c9c482a5afab7e314bf7bfbf67347bc9857f284c732621216",
   "signature_schemes": {
-    "v2": true,
-    "v3": true
+    "v3": true,
+    "v2": true
   },
-  "source_files": 3180,
-  "license_texts": 27,
+  "source_files": 3235,
+  "license_texts": 29,
   "upstream": {
     "project": "FreeRDP",
-    "version": "3.33.0",
-    "commit": "5a10d7b6b79a2fbc62e8eba77085cd356dc303a6"
+    "version": "3.33.1",
+    "commit": "65bcca1913a28cbdd7eb913599f692bd2b707991"
   }
 }

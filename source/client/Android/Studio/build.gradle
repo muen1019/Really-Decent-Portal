@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Modified for DeskQuay distribution and source-native rebuild, 2026-10-29.
+// Modified 2026-11-09: advance the Android release version.
 buildscript {
     repositories { mavenCentral(); google() }
     dependencies { classpath 'com.android.tools.build:gradle:9.2.1' }
@@ -12,8 +13,8 @@ ext {
     toolsVersion = '37.0.0'
     ndkVersion = '29.0.13113456'
     cmakeVersion = '4.1.2'
-    versionName = '0.1.0-preview.1'
-    versionCode = 1
+    versionName = '0.1.7'
+    versionCode = 8
     def selectedAbi = providers.gradleProperty('deskquayAbi').getOrElse('arm64-v8a')
     if (!(selectedAbi in ['arm64-v8a', 'x86_64'])) {
         throw new GradleException('This reviewed build supports one ARM64 or x86_64 ABI.')

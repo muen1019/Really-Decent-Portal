@@ -37,7 +37,16 @@ public class LibFreeRDP
 	private static boolean mHasH264 = false;
 	private static boolean mHasCameraRedirection = false;
 
-	private static final LongSparseArray<Boolean> mInstanceState = new LongSparseArray<>();
+	// Own each pointer from allocation until the native worker has finished and free has joined it.
+	private static final class InstanceLifecycle
+	{
+		boolean startAttempted;
+		boolean workerRunning;
+		boolean cancelRequested;
+		boolean freeing;
+	}
+
+	private static final LongSparseArray<InstanceLifecycle> mInstanceState = new LongSparseArray<>();
 
 	public static final long VERIFY_CERT_FLAG_NONE = 0x00;
 	public static final long VERIFY_CERT_FLAG_LEGACY = 0x02;
@@ -211,18 +220,28 @@ public class LibFreeRDP
 
 	public static long newInstance(Context context)
 	{
-		return freerdp_new(context);
+		long inst = freerdp_new(context);
+		if (inst != 0)
+		{
+			synchronized (mInstanceState)
+			{
+				mInstanceState.put(inst, new InstanceLifecycle());
+			}
+		}
+		return inst;
 	}
 
 	public static void freeInstance(long inst)
 	{
+		boolean interrupted = false;
 		synchronized (mInstanceState)
 		{
-			if (mInstanceState.get(inst, false))
-			{
-				freerdp_disconnect(inst);
-			}
-			while (mInstanceState.get(inst, false))
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state == null || state.freeing)
+				return;
+			state.freeing = true;
+			requestDisconnect(inst, state);
+			while (state.workerRunning)
 			{
 				try
 				{
@@ -230,45 +249,91 @@ public class LibFreeRDP
 				}
 				catch (InterruptedException e)
 				{
-					throw new RuntimeException();
+					// An interruption cannot hand a running native context to free.
+					interrupted = true;
 				}
 			}
+			mInstanceState.remove(inst);
 		}
 		freerdp_free(inst);
+		if (interrupted)
+			Thread.currentThread().interrupt();
 	}
 
 	public static boolean connect(long inst)
 	{
 		synchronized (mInstanceState)
 		{
-			if (mInstanceState.get(inst, false))
-			{
-				throw new RuntimeException("instance already connected");
-			}
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state == null || state.startAttempted || state.cancelRequested || state.freeing)
+				return false;
+			state.startAttempted = true;
+			// The worker can enter a JNI callback before CreateThread returns.
+			state.workerRunning = true;
+			if (freerdp_connect(inst))
+				return true;
+			state.workerRunning = false;
+			return false;
 		}
-		return freerdp_connect(inst);
 	}
 
 	public static boolean disconnect(long inst)
 	{
 		synchronized (mInstanceState)
 		{
-			if (mInstanceState.get(inst, false))
-			{
-				return freerdp_disconnect(inst);
-			}
-			return true;
+			InstanceLifecycle state = mInstanceState.get(inst);
+			return state == null || state.freeing || requestDisconnect(inst, state);
 		}
+	}
+
+	/** Caller holds mInstanceState while issuing the native abort. */
+	private static boolean requestDisconnect(long inst, InstanceLifecycle state)
+	{
+		if (state.cancelRequested)
+			return true;
+		if (state.workerRunning && !freerdp_disconnect(inst))
+			return false;
+		state.cancelRequested = true;
+		return true;
 	}
 
 	public static boolean cancelConnection(long inst)
 	{
-		return freerdp_disconnect(inst);
+		return disconnect(inst);
 	}
 
 	public static void setForeground(long inst, boolean foreground)
 	{
-		freerdp_set_foreground(inst, foreground);
+		synchronized (mInstanceState)
+		{
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state != null && !state.freeing)
+				freerdp_set_foreground(inst, foreground);
+		}
+	}
+
+	private static boolean parseArguments(long inst, String[] args)
+	{
+		synchronized (mInstanceState)
+		{
+			InstanceLifecycle state = mInstanceState.get(inst);
+			return state != null && !state.startAttempted && !state.cancelRequested && !state.freeing &&
+			       freerdp_parse_arguments(inst, args);
+		}
+	}
+
+	/** Configuration or worker creation failed before a native terminal callback was possible. */
+	public static void reportSetupFailure(long inst, int status)
+	{
+		synchronized (mInstanceState)
+		{
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state == null || state.workerRunning || state.freeing)
+				return;
+			state.startAttempted = true;
+			if (listener != null)
+				listener.OnConnectionEnded(inst, status, 0, 0, state.cancelRequested);
+		}
 	}
 
 	private static String addFlag(String name, boolean enabled)
@@ -517,7 +582,7 @@ public class LibFreeRDP
 		args.add("/kbd:unicode:on");
 		args.add("/log-level:" + debug.getDebugLevel());
 		String[] arrayArgs = args.toArray(new String[0]);
-		return freerdp_parse_arguments(inst, arrayArgs);
+		return parseArguments(inst, arrayArgs);
 	}
 
 	public static boolean setConnectionInfo(Context context, long inst, Uri openUri)
@@ -585,7 +650,7 @@ public class LibFreeRDP
 		}
 
 		String[] arrayArgs = args.toArray(new String[0]);
-		return freerdp_parse_arguments(inst, arrayArgs);
+		return parseArguments(inst, arrayArgs);
 	}
 
 	public static boolean updateGraphics(long inst, Bitmap bitmap, int x, int y, int width,
@@ -637,23 +702,28 @@ public class LibFreeRDP
 
 	private static void OnConnectionSuccess(long inst)
 	{
-		if (listener != null)
-			listener.OnConnectionSuccess(inst);
-		synchronized (mInstanceState)
-		{
-			mInstanceState.append(inst, true);
-			mInstanceState.notifyAll();
-		}
+		dispatchWhileRunning(inst, () -> listener.OnConnectionSuccess(inst));
 	}
 
-	private static void OnConnectionFailure(long inst)
+	private static void OnReconnectAttempt(long inst, int attempt, int freeRdpError, int serverError)
 	{
-		if (listener != null)
-			listener.OnConnectionFailure(inst);
+		dispatchWhileRunning(inst,
+		    () -> listener.OnReconnectAttempt(inst, attempt, freeRdpError, serverError));
+	}
+
+	private static void OnReconnected(long inst)
+	{
+		dispatchWhileRunning(inst, () -> listener.OnReconnected(inst));
+	}
+
+	private static void dispatchWhileRunning(long inst, Runnable callback)
+	{
 		synchronized (mInstanceState)
 		{
-			mInstanceState.remove(inst);
-			mInstanceState.notifyAll();
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state != null && state.workerRunning && !state.cancelRequested && !state.freeing &&
+			    listener != null)
+				callback.run();
 		}
 	}
 
@@ -669,14 +739,19 @@ public class LibFreeRDP
 			listener.OnDisconnecting(inst);
 	}
 
-	private static void OnDisconnected(long inst)
+	private static void OnConnectionEnded(long inst, int status, int freeRdpError, int serverError,
+	                                      boolean intentional)
 	{
-		if (listener != null)
-			listener.OnDisconnected(inst);
 		synchronized (mInstanceState)
 		{
-			mInstanceState.remove(inst);
+			InstanceLifecycle state = mInstanceState.get(inst);
+			if (state == null || !state.workerRunning)
+				return;
+			state.workerRunning = false;
 			mInstanceState.notifyAll();
+			if (listener != null)
+				listener.OnConnectionEnded(inst, status, freeRdpError, serverError,
+				                           intentional || state.cancelRequested);
 		}
 	}
 
@@ -817,16 +892,6 @@ public class LibFreeRDP
 			uiEventListener.OnPointerSetNull();
 	}
 
-	private static void OnReconnecting(long inst)
-	{
-		SessionState s = GlobalApp.getSession(inst);
-		if (s == null)
-			return;
-		UIEventListener uiEventListener = s.getUIEventListener();
-		if (uiEventListener != null)
-			uiEventListener.OnReconnecting();
-	}
-
 	private static void OnPointerSetDefault(long inst)
 	{
 		SessionState s = GlobalApp.getSession(inst);
@@ -909,18 +974,19 @@ public class LibFreeRDP
 
 		void OnConnectionSuccess(long instance);
 
-		void OnConnectionFailure(long instance);
+		void OnReconnectAttempt(long instance, int attempt, int freeRdpError, int serverError);
+
+		void OnReconnected(long instance);
 
 		void OnDisconnecting(long instance);
 
-		void OnDisconnected(long instance);
+		void OnConnectionEnded(long instance, int status, int freeRdpError, int serverError,
+		                       boolean intentional);
 	}
 
 	public interface UIEventListener
 	{
 		void OnSettingsChanged(int width, int height, int bpp);
-
-		void OnReconnecting();
 
 		boolean OnAuthenticate(StringBuilder username, StringBuilder domain,
 		                       StringBuilder password);

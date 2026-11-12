@@ -1,2 +1,2 @@
-3106fac3a8d0af8708e0a47ef968c06546861e41de072b5fd9615be795ad78ec  Really-Decent-Portal-0.1.0-arm64-v8a.apk
-7154ee1c8e190547ace7ca87191d884f33ddd92ef272c1de1b9687978aa0d126  Really-Decent-Portal-0.1.0-source.zip
+9fb9bd326c952f77e646ec3da80162bd67ec47030a28683449ffdd042c0bcda3  Really-Decent-Portal-0.1.7-arm64-v8a.apk
+50fb028a77777124a75af76c17080a2413b2ac030b1d5adf8b7858c7dc97ae8d  Really-Decent-Portal-0.1.7-source.zip

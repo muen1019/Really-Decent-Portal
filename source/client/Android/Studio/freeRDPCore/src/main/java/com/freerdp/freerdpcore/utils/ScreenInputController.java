@@ -36,6 +36,7 @@ public final class ScreenInputController {
  private float scale=1, pointerX, pointerY;
  private int width=1,height=1,device=-1;
  private ScreenInputMode mode=ScreenInputMode.TOUCHPAD;
+  private boolean tapDragEnabled = true;
  private boolean active=true,stream,ignoreRemainder;
  private float startX,startY,lastX,lastY;
  private long downTime;
@@ -56,6 +57,11 @@ public final class ScreenInputController {
   if(mode==null)throw new IllegalArgumentException("mode");
   if(this.mode!=mode){cancel();this.mode=mode;}
  }
+  public void setTapDragEnabled(boolean enabled) {
+   if (tapDragEnabled == enabled) return;
+   tapDragEnabled = enabled;
+   if (mode == ScreenInputMode.TOUCHPAD) cancel();
+  }
  public void setActive(boolean active){if(!active)cancel();this.active=active;}
  public void setGeometry(float scale,int width,int height) {
   if(!Float.isFinite(scale)||scale<=0||width<=0||height<=0)throw new IllegalArgumentException("geometry");
@@ -163,7 +169,10 @@ public final class ScreenInputController {
    }else lastTapTime=-100000;
   }
  }
- private boolean isSecondTap(int count,long time,float x,float y){return lastTapCount==count&&time-lastTapTime<=doubleTapMillis&&Math.hypot(x-lastTapX,y-lastTapY)<=slop*2;}
+  private boolean isSecondTap(int count,long time,float x,float y){
+   return tapDragEnabled && lastTapCount==count && time-lastTapTime<=doubleTapMillis &&
+       Math.hypot(x-lastTapX,y-lastTapY)<=slop*2;
+  }
  private static float span(MotionEvent e){return (float)Math.hypot(e.getX(0)-e.getX(1),e.getY(0)-e.getY(1));}
  private static float centerX(MotionEvent e){return (e.getX(0)+e.getX(1))/2;}
  private static float centerY(MotionEvent e){return (e.getY(0)+e.getY(1))/2;}

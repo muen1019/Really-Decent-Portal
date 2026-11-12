@@ -3,6 +3,7 @@
  SPDX-License-Identifier: Apache-2.0
  Modified for the DeskQuay Android client; see the versioned source and change history.
  Distribution change notice: 2026-10-29.
+ Modified 2026-11-09: add localized certificate details and clarify interface labels.
  Upstream basis: FreeRDP 3.32.2 commit 97eff6ddfbbfaa8e42a126d362686bd001ff8bdc.
  Existing copyright and attribution notices are retained.
 -->
@@ -140,7 +141,7 @@
     <string name="settings_perf_theming">Visual Styles</string>
     <string name="settings_advanced">Advanced</string>
     <string name="settings_tlsSecLevel">TLS Security Level</string>
-    <string name="settings_tlsMinLevel">Required TLS Version</string>
+    <string name="settings_tlsMinLevel">Minimum TLS version</string>
     <string name="settings_cat_gateway">Gateway</string>
     <string name="settings_enable_gateway_settings">Enable Gateway</string>
     <string name="settings_gateway_settings">Gateway Settings</string>
@@ -148,7 +149,7 @@
     <string name="settings_redirect_sound">Redirect Sound</string>
     <string-array name="tlsSecLevel_array">
         <item>Use default</item>
-        <item>everything permitted</item>
+        <item>Allow all</item>
         <item>80 bits</item>
         <item>112 bits</item>
         <item>128 bits</item>
@@ -258,6 +259,12 @@
     <!-- Dialog strings -->
     <string name="dlg_title_verify_certificate">Verify Certificate</string>
     <string name="dlg_msg_verify_certificate">The identity of the remote computer cannot be verified. Do you want to connect anyway?</string>
+    <string name="certificate_peer_server">RDP server</string>
+    <string name="certificate_peer_gateway">RDP gateway</string>
+    <string name="certificate_peer_redirect">RDP redirect</string>
+    <string name="certificate_identity_details">%1$s: %2$s:%3$s\n\nSubject: %4$s\nIssuer: %5$s</string>
+    <string name="certificate_pem_details">Certificate: %1$s</string>
+    <string name="certificate_fingerprint_details">Fingerprint: %1$s</string>
     <string name="dlg_title_credentials">Please enter your credentials</string>
     <string name="dlg_title_create_shortcut">Create Shortcut</string>
     <string name="dlg_msg_create_shortcut">Shortcut name:</string>
@@ -294,6 +301,7 @@
     <string name="preference_key_ui_ask_on_exit" translatable="false">ui.ask_on_exit</string>
     <string name="preference_key_ui_auto_scroll_touchpointer" translatable="false">ui.auto_scroll_touchpointer</string>
     <string name="preference_key_ui_invert_scrolling" translatable="false">ui.invert_scrolling</string>
+    <string name="preference_key_ui_tap_drag" translatable="false">ui.tap_drag</string>
     <string name="preference_key_ui_swap_mouse_buttons" translatable="false">ui.swap_mouse_buttons</string>
     <string name="preference_key_ui_use_back_as_altf4" translatable="false">ui.use_back_as_altf4</string>
     <string name="preference_key_ui_fit_rounded_corners" translatable="false">ui.fit_rounded_corners</string>
@@ -332,7 +340,7 @@
     </string-array>
 
     <string name="preference_key_h264" translatable="false">bookmark.perf_gfx_h264</string>
-    <string name="settings_loadBalanceInfo">LoadBalanceInfo</string>
+    <string name="settings_loadBalanceInfo">Load balancing info</string>
 
     <!-- External display -->
     <string name="select_display_title">Select Display</string>
@@ -361,4 +369,7 @@
     <string name="settings_ui_alt_touchpad_navigation_title">Alt + touchpad back and forward</string>
     <string name="settings_ui_alt_touchpad_navigation_on">Hold physical Alt, swipe horizontally with two fingers, then lift your fingers to go back or forward. Ordinary two-finger scrolling is unchanged.</string>
     <string name="settings_ui_alt_touchpad_navigation_off">Off. Ordinary two-finger scrolling is unchanged.</string>
+    <!-- Modified 2026-11-09: tap dragging preference. -->
+    <string name="settings_ui_tap_drag_title">Double-tap and drag</string>
+    <string name="settings_ui_tap_drag_summary">Applies to the screen touchpad and gestures handled by the app. Android controls native touchpad tap dragging in its touchpad settings.</string>
 </resources>

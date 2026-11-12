@@ -1,31 +1,27 @@
-# Really Decent Portal 0.1.0
+# Really Decent Portal 0.1.7 Beta
 
-package `io.github.muen1019.reallydecentportal`。正式 APK、簽章及
-來源 SHA-256 必須以 `RELEASE_ARTIFACTS.json` 的實際讀回資料為準。
+適用於 Android 10（API 29）以上的 ARM64 裝置。這是 GitHub 公開測試版。
 
-## 輸入修補
+## 本版更新
 
-- 整合 FreeRDP 3.33.0 與既有鍵盤、觸控、滑鼠、S Pen 及生命週期修改。
-- 處理觸控板手勢結束後緊接新手勢的邊界，避免新事件被當成已退休資料。
-- 調整密集雙軸滾輪佇列／時序與修飾鍵邊界。
-- 保留手指模式切換、實體滑鼠側鍵、長按重複與 Windows 原生筆懸浮路徑。
+- 原生連線核心更新至 FreeRDP 3.33.1，內附 OpenSSL 更新至 4.0.3。
+- 移除 Android 與 JNI 日誌中的剪貼簿原文。
+- 保留 0.1.6 在 Book Cover 上調校的縮放靈敏度。雙指捏合或張開會逐級調整遠端應用程式的內容倍率。
+- 連線失敗或中斷時，畫面顯示原因。按「複製錯誤訊息」可取得完整代碼和診斷資料。
 
-同一輸入實作的 Android 模擬器到 Windows RDP 對照已通過所測範圍；
-Book Cover 實體短測由使用者回報正常，未宣稱已逐筆獨立核對原始事件。
-本次正式身份／資產包裝只需必要產物比對，不重跑全部歷史功能測試。
+## 下載與回饋
 
-## 發行資料
+同版附件包含簽署的 `Really-Decent-Portal-0.1.7-arm64-v8a.apk`、`Really-Decent-Portal-0.1.7-source.zip`、`SHA256SUMS.txt` 及 `RELEASE_ARTIFACTS.json`。來源 ZIP 隨附建置配方和適用的授權原文。
 
-名稱為 Really Decent Portal；App 版本與上游 FreeRDP 版本分開。
-正式 package 與 `.lab23` 測試版分開，不覆蓋既有 RD Client／Windows App。
-上游固定 commit、實際對應來源與乾淨重建配方隨來源附件保留。
+公開測試重點包括不同 Android 裝置與遠端應用程式的輸入相容性，以及長時間連線與重連。回報問題時，可提供 App 版本、Android 版本、裝置型號和可重現步驟。
 
-目前仍保留長時間連線穩定性未充分驗收、實體短測未逐筆核對原始事件，以及
-瀏覽器導覽手勢與水平滾輪不同等限制。未宣稱所有已知安全或相容性問題均已排除。
+## English
 
-## 授權與公開
+Public beta for ARM64 devices running Android 10 or later.
 
-FreeRDP／WinPR 的主要 Apache-2.0、Android 部分 MPL-2.0 及其他元件原文
-依各檔保留；實際 runtime 依賴及靜態支援碼通知已配對，新增的兩份 NDK
-通知與原有 25 份原文一起保留。來源 ZIP 與 APK 成對交付。
-同版 APK 與完整修改來源以 Release 附件成對提供，核對資料見 `RELEASE_ARTIFACTS.json`。
+- Updates the native connection core to FreeRDP 3.33.1 and the bundled OpenSSL to 4.0.3.
+- Removes raw clipboard text from Android and JNI logs.
+- Keeps the Book Cover pinch sensitivity tuned in 0.1.6. Pinching adjusts the remote app's content zoom in steps.
+- Displays a readable reason when a connection fails or ends. **Copy error details** includes the full codes and diagnostic information.
+
+The release assets include the signed APK, corresponding source archive, SHA-256 checksums, and a release manifest. Compatibility across devices and remote applications, and stability over long sessions, are still being evaluated.

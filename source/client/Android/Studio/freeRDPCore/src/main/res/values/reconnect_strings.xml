@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<resources>
+    <string name="connection_reconnecting_title">Reconnecting</string>
+    <string name="connection_reconnect_attempt">Attempt %1$d</string>
+    <string name="connection_reconnected_message">Reconnected. %1$s</string>
+    <string name="connection_ended_title">Connection ended</string>
+    <string name="connection_failed_title">Could not connect</string>
+    <string name="connection_retry">Retry</string>
+    <string name="connection_close">Close</string>
+    <string name="connection_copy_diagnostics">Copy error details</string>
+    <string name="connection_diagnostics_copied">Error details copied.</string>
+    <string name="connection_reason_server_ended">The server ended the connection.</string>
+    <string name="connection_reason_signed_out">The remote session was signed out.</string>
+    <string name="connection_reason_idle_timeout">The remote PC ended the connection after a period of inactivity.</string>
+    <string name="connection_reason_timeout">The remote session reached its connection time limit.</string>
+    <string name="connection_reason_replaced">Another connection took over this remote session.</string>
+    <string name="connection_reason_access_denied">The remote PC denied this connection.</string>
+    <string name="connection_reason_authentication">The server rejected the sign-in.</string>
+    <string name="connection_reason_transport">The network connection to the remote PC was interrupted.</string>
+    <string name="connection_reason_server_error">The remote PC reported a connection error.</string>
+    <string name="connection_reason_unknown">The cause of the interruption could not be determined.</string>
+</resources>

@@ -28,7 +28,7 @@ TEMPLATES = {
     "winpr/include/config/buildflags.h.in": "865b8974b59b0d2780f1c872e8bd2692cc29a57743d3a61de84f4431df839329",
     "winpr/include/config/build-config.h.in": "d2bb1952704ce4af9cd4ab53254da70710731ec48bf3bceebf2c92c39b09150b"}
 OSSL_SOURCES = {"util/mkbuildinf.pl": "71449df12e0bb956cb8785bb370489a5d7fbce4b1b786980585244d6faef51a4",
-                "crypto/build.info": "02eddc9b0ba6bbddc9748b2dd0d166639eaf90ca57a4b1f34c6635bbf721e907"}
+                "crypto/build.info": "ad85eae28e89865003a3904a54c6910281ba4d1c4c6278c2744b1921e1c2b93a"}
 ABI = {"android-arm64": "arm64-v8a", "android-x86_64": "x86_64", "android-arm": "armeabi-v7a",
        "android-x86": "x86", "android-riscv64": "riscv64"}
 
@@ -159,7 +159,7 @@ def transform_windows_crypto_link(data):
     Keep flags outside the response file: MSYS must still convert their paths.
     No source, object order, archive, linker flag, algorithm, or target changes.
     """
-    if len(data) > 16777216 or b"\r" in data or b"\nVERSION=4.0.1\n" not in data:
+    if len(data) > 16777216 or b"\r" in data or b"\nVERSION=4.0.3\n" not in data:
         raise ValueError("EXACT_OPENSSL_GENERATED_MAKEFILE_REQUIRED")
     start = (b"\t$(CC) $(LIB_CFLAGS) $(LIB_LDFLAGS) -Wl,-soname=libcrypto.so \\\n"
              b"\t\t-o libcrypto.so -Wl,--version-script=libcrypto.ld \\\n")
@@ -277,7 +277,7 @@ def prepare_openssl(ctx, source):
         raise ValueError("EXACT_OPENSSL_SOURCE_LOCATION_REQUIRED")
     for name, expected in OSSL_SOURCES.items():
         if digest((source / name).read_bytes()) != expected:
-            raise ValueError("EXACT_OPENSSL_4_0_1_METADATA_GENERATOR_REQUIRED")
+            raise ValueError("EXACT_OPENSSL_METADATA_GENERATOR_REQUIRED")
     path = ordinary(ctx["binary"] / "crypto/buildinf.h")
     before = path.read_bytes()
     return save_updates(ctx, [(path, before, transform_openssl(before))], "openssl")

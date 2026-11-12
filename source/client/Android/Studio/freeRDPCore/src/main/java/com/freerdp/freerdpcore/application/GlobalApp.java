@@ -47,8 +47,10 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 	public interface SessionEventListener
 	{
 		void onConnectionSuccess();
-		void onConnectionFailure();
-		void onDisconnected();
+		void onReconnectAttempt(int attempt, int freeRdpError, int serverError, long timestampMillis);
+		void onReconnected(long timestampMillis);
+		void onConnectionEnded(int status, int freeRdpError, int serverError, boolean intentional,
+		                       long timestampMillis);
 	}
 
 	private static final Map<Long, SessionEventListener> sessionListeners =
@@ -60,9 +62,9 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 		sessionListeners.put(instance, listener);
 	}
 
-	public static void unregisterSessionListener(long instance)
+	public static void unregisterSessionListener(long instance, SessionEventListener listener)
 	{
-		sessionListeners.remove(instance);
+		sessionListeners.remove(instance, listener);
 	}
 
 	private void dispatch(long instance, Consumer<SessionEventListener> action)
@@ -70,7 +72,11 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 		final SessionEventListener listener = sessionListeners.get(instance);
 		if (listener == null)
 			return;
-		mainHandler.post(() -> action.accept(listener));
+		mainHandler.post(() -> {
+			// An old callback can be queued while its Activity retires the session.
+			if (sessionListeners.get(instance) == listener)
+				action.accept(listener);
+		});
 	}
 
 	// timer for disconnecting sessions after the screen was turned off
@@ -113,14 +119,16 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 	static public SessionState createSession(BookmarkBase bookmark, Context context)
 	{
 		SessionState session = new SessionState(LibFreeRDP.newInstance(context), bookmark);
-		sessionMap.put(session.getInstance(), session);
+		if (session.getInstance() != 0)
+			sessionMap.put(session.getInstance(), session);
 		return session;
 	}
 
 	static public SessionState createSession(Uri openUri, Context context)
 	{
 		SessionState session = new SessionState(LibFreeRDP.newInstance(context), openUri);
-		sessionMap.put(session.getInstance(), session);
+		if (session.getInstance() != 0)
+			sessionMap.put(session.getInstance(), session);
 		return session;
 	}
 
@@ -137,11 +145,8 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 
 	static public void freeSession(long instance)
 	{
-		if (GlobalApp.sessionMap.containsKey(instance))
-		{
-			GlobalApp.sessionMap.remove(instance);
+		if (GlobalApp.sessionMap.remove(instance) != null)
 			LibFreeRDP.freeInstance(instance);
-		}
 	}
 
 	@Override public void onCreate()
@@ -181,10 +186,17 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 		dispatch(instance, SessionEventListener::onConnectionSuccess);
 	}
 
-	public void OnConnectionFailure(long instance)
+	@Override public void OnReconnectAttempt(long instance, int attempt, int freeRdpError, int serverError)
 	{
-		Log.v(TAG, "OnConnectionFailure");
-		dispatch(instance, SessionEventListener::onConnectionFailure);
+		final long timestampMillis = System.currentTimeMillis();
+		dispatch(instance, listener ->
+		    listener.onReconnectAttempt(attempt, freeRdpError, serverError, timestampMillis));
+	}
+
+	@Override public void OnReconnected(long instance)
+	{
+		final long timestampMillis = System.currentTimeMillis();
+		dispatch(instance, listener -> listener.onReconnected(timestampMillis));
 	}
 
 	public void OnDisconnecting(long instance)
@@ -192,10 +204,12 @@ public class GlobalApp extends Application implements LibFreeRDP.EventListener
 		Log.v(TAG, "OnDisconnecting");
 	}
 
-	public void OnDisconnected(long instance)
+	@Override public void OnConnectionEnded(long instance, int status, int freeRdpError,
+	                                        int serverError, boolean intentional)
 	{
-		Log.v(TAG, "OnDisconnected");
-		dispatch(instance, SessionEventListener::onDisconnected);
+		final long timestampMillis = System.currentTimeMillis();
+		dispatch(instance, listener ->
+		    listener.onConnectionEnded(status, freeRdpError, serverError, intentional, timestampMillis));
 	}
 
 	// TimerTask for disconnecting sessions after screen was turned off

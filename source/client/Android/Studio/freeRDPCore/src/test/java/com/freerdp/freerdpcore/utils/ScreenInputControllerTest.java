@@ -69,6 +69,47 @@ public class ScreenInputControllerTest {
   c.cancel();c.cancel();send(c,150,1,new int[]{0},120,100);
   assertEquals("button:1:false:520,350",o.mouse.get(4));assertEquals(5,o.mouse.size());
  }
+ @Test public void disablingTapDragPreservesDoubleClickAndUnheldMovement(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  controller.setTapDragEnabled(false);
+  int[] finger = {0};
+
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 100, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 130, MotionEvent.ACTION_UP, finger, 100, 100);
+  assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
+      "button:1:true:500,350", "button:1:false:500,350"), output.mouse);
+
+  output.mouse.clear();
+  send(controller, 1000, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 1030, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 1100, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 1130, MotionEvent.ACTION_MOVE, finger, 120, 100);
+  send(controller, 1150, MotionEvent.ACTION_UP, finger, 120, 100);
+  assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
+      "move:520,350"), output.mouse);
+ }
+ @Test public void disablingTapDragReleasesAnActiveDragOnce(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 100, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 130, MotionEvent.ACTION_MOVE, finger, 120, 100);
+  assertEquals(4, output.mouse.size());
+
+  controller.setTapDragEnabled(false);
+  assertEquals(5, output.mouse.size());
+  assertEquals("button:1:false:520,350", output.mouse.get(4));
+  controller.setTapDragEnabled(false);
+  send(controller, 150, MotionEvent.ACTION_UP, finger, 120, 100);
+  assertEquals(5, output.mouse.size());
+ }
  static void twoTap(ScreenInputController c,long t){
   send(c,t,0,new int[]{0},100,100);send(c,t+10,5|(1<<8),new int[]{0,1},100,100,200,100);
   send(c,t+20,6|(1<<8),new int[]{0,1},100,100,200,100);send(c,t+30,1,new int[]{0},100,100);
