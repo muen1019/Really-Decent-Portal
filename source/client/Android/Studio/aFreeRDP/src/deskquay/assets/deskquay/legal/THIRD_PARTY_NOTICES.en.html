@@ -1,0 +1,637 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MPL-2.0
+     Applies to this project's markup and explanatory text.
+     Original attributions, license texts and third-party material retain their own terms. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Third-party notices and corresponding source</title>
+<style>:root { color-scheme: light dark; }
+body { font: 1rem/1.55 system-ui, sans-serif; max-width: 70rem; margin: auto; padding: 1.25rem; overflow-wrap: anywhere; }
+h1, h2 { line-height: 1.2; }
+a { text-underline-offset: .15em; }
+li { margin-block: .25rem; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid GrayText; padding: .4rem; text-align: start; vertical-align: top; }
+code { font: .9em monospace; }</style>
+</head>
+<body>
+<main>
+<nav><a href="index.html">License and notice texts</a></nav>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<!-- The license applies to this project's original arrangement and explanations.
+Third-party code, data, copyright notices, and license texts keep their original terms. -->
+<h1 id="third-party-notices-and-corresponding-source">Third-party notices and corresponding source</h1>
+<p>This notice covers the Really Decent Portal 0.1.7 ARM64 APK. Its FreeRDP base is 3.33.1, commit <code>65bcca1913a28cbdd7eb913599f692bd2b707991</code>. Really Decent Portal is an independent distribution derived from FreeRDP and aFreeRDP.</p>
+<p>The <a href="index.html">license and notice texts</a> contains the original texts. <a href="index.html#source-and-build-tool-notices">Source-only notices</a> cover material supplied as source or used by the build tools. The terms on each source file, library, or data file continue to apply.</p>
+<h2 id="corresponding-source">Corresponding source</h2>
+<p>Download <code>Really-Decent-Portal-0.1.7-source.zip</code> alongside the matching APK from the <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.7">0.1.7 release</a>. If someone supplies the APK separately, ask that distributor for the corresponding source. The app also provides the <a href="../source23/index.html">source offer</a>.</p>
+<p>Sections 3.1 and 3.2 of the MPL-2.0 govern distribution of the corresponding source for covered Android Java, resources, and JNI files. Recipients retain their MPL rights to that source. <a href="LICENSES/MPL-2.0.txt">MPL-2.0</a></p>
+<h2 id="freerdp-winpr-and-afreerdp">FreeRDP, WinPR, and aFreeRDP</h2>
+<p>Most FreeRDP and WinPR source uses Apache-2.0. Android Java, resources, and JNI files marked MPL-2.0 follow the MPL. The original copyright and notices in each file apply, including notices by the FreeRDP contributors, Thincast Technologies GmbH, and other named authors. <a href="LICENSES/Apache-2.0.txt">Apache-2.0</a> · <a href="LICENSES/MPL-2.0.txt">MPL-2.0</a> · <a href="https://github.com/FreeRDP/FreeRDP/tree/65bcca1913a28cbdd7eb913599f692bd2b707991">Pinned upstream source</a></p>
+<table>
+<thead>
+<tr>
+<th>Compiled component</th>
+<th>Original notices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AOSP CPU features, Copyright 2010 The Android Open Source Project</td>
+<td><a href="LICENSES/AOSP-cpufeatures-BSD-2-style.txt">BSD two-clause-style text</a> and <a href="LICENSES/AOSP-cpufeatures-NOTICE.txt">upstream NOTICE</a></td>
+</tr>
+<tr>
+<td>OpenSL input and output, Copyright 2012 Victor Lazzarini</td>
+<td><a href="LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt">BSD three-clause-style text</a>, covering the audin and rdpsnd copies</td>
+</tr>
+<tr>
+<td>MD4 and MD5, Alexander Peslyak (Solar Designer)</td>
+<td><a href="LICENSES/Openwall-MD4-public-domain-fallback.txt">MD4 public-domain and fallback notice</a> and <a href="LICENSES/Openwall-MD5-public-domain-fallback.txt">MD5 public-domain and fallback notice</a></td>
+</tr>
+<tr>
+<td>WinPR WindowsZones, generated from Unicode CLDR</td>
+<td><a href="LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt">CLDR 2025 Unicode-3.0 text</a> and <a href="LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt">data copyright notice for 1991–2013</a></td>
+</tr>
+<tr>
+<td>WinPR IANA time-zone aliases, generated from Unicode CLDR</td>
+<td><a href="LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt">CLDR 2026 Unicode-3.0 text</a> and <a href="LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt">data copyright notice for 1991–2017</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="unicode-cldr-provenance">Unicode CLDR provenance</h3>
+<p>The 500 ordered <code>(IANA type, Windows name, territory)</code> entries in the compiled WindowsZones table match the CLDR XML at commit <code>c33a1f0a23e3b676b406345fe0b42c130defc51d</code>, including its <code>otherVersion</code> and <code>typeVersion</code> values. The original generator fetched a moving branch, so the paired snapshot is the verified source equivalent. <a href="https://github.com/FreeRDP/FreeRDP/commit/9cd3ffa84342e11b148920a48b47a1013e45ca7d">FreeRDP generation change</a> · <a href="https://github.com/unicode-org/cldr/blob/c33a1f0a23e3b676b406345fe0b42c130defc51d/common/supplemental/windowsZones.xml">CLDR WindowsZones data</a></p>
+<p>All 19 WinPR IANA alias entries match the output of FreeRDP's extraction rules on CLDR commit <code>7b1090ada749eb29d85d64bfb6c1952671d4b1f5</code>. This is the last change to the XML before the upstream generation commit. <a href="https://github.com/unicode-org/cldr/blob/7b1090ada749eb29d85d64bfb6c1952671d4b1f5/common/bcp47/timezone.xml">CLDR alias data</a> · <a href="https://github.com/FreeRDP/FreeRDP/commit/1fcade45924a86e346570a286288a73c38749684">FreeRDP generation change</a></p>
+<h2 id="openssl-4.0.3">OpenSSL 4.0.3</h2>
+<p><code>libcrypto.so</code>, <code>libssl.so</code>, and <code>legacy.so</code> come from the same verified OpenSSL 4.0.3 source archive. Its main license is Apache-2.0. The compiled ARM <code>poly1305-armv9-sve2</code> source offers BSD-style or GPL terms. This distribution retains its complete notice under the BSD-style option. <a href="LICENSES/OpenSSL-4.0.3-Apache-2.0.txt">OpenSSL 4.0.3 license</a> · <a href="LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt">CRYPTOGAMS ARMv9 notice</a> · <a href="https://github.com/openssl/openssl/tree/openssl-4.0.3">Pinned source</a></p>
+<p>The OpenSSL source archive also retains the terms for other architectures and build tools, including the GPL-1.0-or-later and Artistic options for Text::Template. <a href="LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt">Text::Template license</a></p>
+<h2 id="cjson-1.7.19">cJSON 1.7.19</h2>
+<p><code>libcjson.so</code> uses the MIT license. Copyright 2009–2017 Dave Gamble and cJSON contributors. <a href="LICENSES/cJSON-1.7.19-MIT.txt">Original license</a> · <a href="https://github.com/DaveGamble/cJSON/tree/v1.7.19">Pinned source</a></p>
+<h2 id="uriparser-1.0.2">uriparser 1.0.2</h2>
+<p>The shipped library's <code>src</code> and <code>include</code> code uses BSD-3-Clause. Copyright 2007 Weijia Song and Sebastian Pipping. The source archive also contains LGPL-2.1-or-later tests and Apache-2.0 fuzzing code. The Android build disables those targets and the command-line tools. <a href="LICENSES/uriparser-1.0.2-BSD.txt">Library license</a> · <a href="LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt">Test suite notice</a> · <a href="https://github.com/uriparser/uriparser/tree/uriparser-1.0.2">Pinned source</a></p>
+<p>FreeRDP's <code>uwac/protocols/server-decoration.xml</code> retains its LGPL-2.1-or-later notice in the complete source. It is outside the compiled Android library. <a href="LICENSES/SOURCE_ONLY/LGPL-2.1.txt">LGPL-2.1</a></p>
+<h2 id="sqlcipher-for-android-4.17.0">SQLCipher for Android 4.17.0</h2>
+<p>The Maven Community AAR <code>net.zetetic:sqlcipher-android:4.17.0</code> supplies the Java bindings and <code>libsqlcipher.so</code>. Its original sources and notices are paired here.</p>
+<ul>
+<li>SQLCipher core, Copyright 2025 ZETETIC LLC. <a href="LICENSES/SQLCipher-core-v4.17.0-BSD.txt">BSD-style license</a></li>
+<li>Android Java and JNI bindings include AOSP code. <a href="LICENSES/Apache-2.0.txt">Apache-2.0</a></li>
+<li>SQLite core uses public-domain terms. SQLCipher's encryption extensions have their own terms. <a href="LICENSES/SQLite-core-public-domain-notice.txt">Original SQLite notice</a></li>
+<li>The upstream tag defaults to LibTomCrypt gitlink <code>476a9579ae94f32b9ea9e2747bfb04b302370259</code>, under public-domain or WTFPL v2 terms. <a href="LICENSES/LibTomCrypt-476a957-LICENSE.txt">Pinned license</a></li>
+</ul>
+<p>The SQLCipher core gitlink is <code>e2a6040f2ae5cfff2b3e08eb3320007d93cdf3fc</code> and its SQLite version is 3.53.1. The reviewed evidence pairs the vendor AAR and upstream source declarations. OpenSSL 4.0.3 is a separate dependency of the app's RDP implementation. <a href="https://github.com/sqlcipher/sqlcipher-android/tree/v4.17.0">Vendor source</a> · <a href="https://github.com/sqlcipher/sqlcipher-android/blob/v4.17.0/sqlcipher/src/main/jni/sqlcipher/Android.mk">Crypto provider configuration</a></p>
+<h2 id="androidx-kotlin-and-other-jvm-dependencies">AndroidX, Kotlin, and other JVM dependencies</h2>
+<p>The <a href="CURRENT_RUNTIME_LICENSE_MAP.json">runtime license map</a> records 63 external components, including their AAR, JAR, and POM evidence and the hashes of embedded notices. Most declared terms are Apache-2.0. Guava ListenableFuture inherits the Apache declaration from <code>guava-parent:26.0-android</code>. The supplied Kotlin 2.2.10 stdlib includes <a href="LICENSES/Kotlin-ThreeTen-BSD.txt">ThreeTen BSD</a>, <a href="LICENSES/Kotlin-Math-Boost-1.0.txt">Boost-licensed JVM math</a>, <a href="LICENSES/Kotlin-GWT-Apache-2.0.txt">GWT</a>, and <a href="LICENSES/Kotlin-Guava-Apache-2.0.txt">Guava</a> material alongside <a href="LICENSES/Kotlin-2.2.10-Apache-2.0.txt">Kotlin's Apache-2.0 text</a>. <a href="https://github.com/JetBrains/kotlin/blob/v2.2.10/license/README.md">Kotlin upstream license breakdown</a></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Declared terms and known exceptions</th>
+<th style="text-align: right;">Embedded notice entries</th>
+<th>Notice location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>androidx.activity:activity-ktx:1.8.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.activity:activity:1.8.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.annotation:annotation-experimental:1.5.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.annotation:annotation-jvm:1.10.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.appcompat:appcompat-resources:1.7.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.appcompat:appcompat:1.7.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.arch.core:core-common:2.2.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.arch.core:core-runtime:2.2.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.collection:collection-jvm:1.5.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.collection:collection-ktx:1.5.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.concurrent:concurrent-futures:1.1.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.core:core-ktx:1.19.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.core:core-viewtree:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.core:core:1.19.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.cursoradapter:cursoradapter:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.customview:customview-poolingcontainer:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.customview:customview:1.1.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.databinding:viewbinding:9.2.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.drawerlayout:drawerlayout:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.emoji2:emoji2-views-helper:1.3.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.emoji2:emoji2:1.3.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.fragment:fragment-ktx:1.3.6</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.fragment:fragment:1.5.4</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.interpolator:interpolator:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-common-jvm:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-livedata-core-ktx:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-livedata-core:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-livedata:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-process:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-runtime-android:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-runtime-ktx-android:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-viewmodel-android:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.lifecycle:lifecycle-viewmodel:2.11.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.loader:loader:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.preference:preference:1.2.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.profileinstaller:profileinstaller:1.4.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.recyclerview:recyclerview:1.4.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.resourceinspection:resourceinspection-annotation:1.0.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.room:room-common-jvm:2.8.4</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.room:room-runtime-android:2.8.4</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.savedstate:savedstate-android:1.4.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.savedstate:savedstate-ktx:1.4.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.slidingpanelayout:slidingpanelayout:1.2.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.sqlite:sqlite-android:2.7.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.sqlite:sqlite-framework-android:2.7.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">1</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.startup:startup-runtime:1.1.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.tracing:tracing:1.2.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.transition:transition:1.4.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.vectordrawable:vectordrawable-animated:1.1.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.vectordrawable:vectordrawable:1.1.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.versionedparcelable:versionedparcelable:1.1.1</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.viewpager:viewpager:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>androidx.window:window:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>com.google.guava:listenablefuture:1.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>net.zetetic:sqlcipher-android:4.17.0</code></td>
+<td>BSD-style core; Apache-2.0 bindings; SQLite / LibTomCrypt terms above</td>
+<td style="text-align: right;">0</td>
+<td>SQLCipher section</td>
+</tr>
+<tr>
+<td><code>org.jetbrains.kotlin:kotlin-stdlib:2.2.10</code></td>
+<td>Apache-2.0 with embedded BSD and Boost material</td>
+<td style="text-align: right;">0</td>
+<td>Kotlin section</td>
+</tr>
+<tr>
+<td><code>org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>org.jetbrains:annotations:23.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+<tr>
+<td><code>org.jspecify:jspecify:1.0.0</code></td>
+<td>Apache-2.0</td>
+<td style="text-align: right;">0</td>
+<td>Apache-2.0 / embedded mapping</td>
+</tr>
+</tbody>
+</table>
+<h2 id="original-license-texts-and-hashes">Original license texts and hashes</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th style="text-align: right;">Bytes</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="LICENSES/Android-NDK29-NOTICE.txt">Android-NDK29-NOTICE.txt</a></td>
+<td style="text-align: right;">516438</td>
+<td><code>faf0dc52cf6ce9ab09a04b0c074a378dd2565ee1ed9bc1179d83793bcdba012e</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/AOSP-cpufeatures-BSD-2-style.txt">AOSP-cpufeatures-BSD-2-style.txt</a></td>
+<td style="text-align: right;">1398</td>
+<td><code>4102cd5ae35cbdeb0638c350966185e028ea9da863859f70e231c3cb273118d1</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/AOSP-cpufeatures-NOTICE.txt">AOSP-cpufeatures-NOTICE.txt</a></td>
+<td style="text-align: right;">577</td>
+<td><code>c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Apache-2.0.txt">Apache-2.0.txt</a></td>
+<td style="text-align: right;">11358</td>
+<td><code>cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/cJSON-1.7.19-MIT.txt">cJSON-1.7.19-MIT.txt</a></td>
+<td style="text-align: right;">1084</td>
+<td><code>a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt">809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt</a></td>
+<td style="text-align: right;">10175</td>
+<td><code>809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Kotlin-2.2.10-Apache-2.0.txt">Kotlin-2.2.10-Apache-2.0.txt</a></td>
+<td style="text-align: right;">11358</td>
+<td><code>cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Kotlin-Guava-Apache-2.0.txt">Kotlin-Guava-Apache-2.0.txt</a></td>
+<td style="text-align: right;">11358</td>
+<td><code>cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Kotlin-GWT-Apache-2.0.txt">Kotlin-GWT-Apache-2.0.txt</a></td>
+<td style="text-align: right;">11358</td>
+<td><code>cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Kotlin-Math-Boost-1.0.txt">Kotlin-Math-Boost-1.0.txt</a></td>
+<td style="text-align: right;">1337</td>
+<td><code>8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Kotlin-ThreeTen-BSD.txt">Kotlin-ThreeTen-BSD.txt</a></td>
+<td style="text-align: right;">1520</td>
+<td><code>d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/LibTomCrypt-476a957-LICENSE.txt">LibTomCrypt-476a957-LICENSE.txt</a></td>
+<td style="text-align: right;">719</td>
+<td><code>8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/LLVM-NDK29-runtime-NOTICE.txt">LLVM-NDK29-runtime-NOTICE.txt</a></td>
+<td style="text-align: right;">130424</td>
+<td><code>f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/MPL-2.0.txt">MPL-2.0.txt</a></td>
+<td style="text-align: right;">16726</td>
+<td><code>3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/OpenSSL-4.0.3-Apache-2.0.txt">OpenSSL-4.0.3-Apache-2.0.txt</a></td>
+<td style="text-align: right;">10175</td>
+<td><code>7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/OpenSSL-CRYPTOGAMS-armv9-notice.txt">OpenSSL-CRYPTOGAMS-armv9-notice.txt</a></td>
+<td style="text-align: right;">2569</td>
+<td><code>ac2e966f556cd7b8642df186e25998189df76872680858df2d9999e012d3cd08</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Openwall-MD4-public-domain-fallback.txt">Openwall-MD4-public-domain-fallback.txt</a></td>
+<td style="text-align: right;">1626</td>
+<td><code>fee6b8995c471425e4e3780c8f100545adb7f1a2f08e222901ee177254093a24</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Openwall-MD5-public-domain-fallback.txt">Openwall-MD5-public-domain-fallback.txt</a></td>
+<td style="text-align: right;">1626</td>
+<td><code>c7cf010490872c2fc0de69a68dcd729a4659aec4eef96a92be9d6b0098baa434</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/SOURCE_ONLY/LGPL-2.1.txt">LGPL-2.1.txt</a></td>
+<td style="text-align: right;">26435</td>
+<td><code>278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/SOURCE_ONLY/OpenSSL-Text-Template-1.56-LICENSE.txt">OpenSSL-Text-Template-1.56-LICENSE.txt</a></td>
+<td style="text-align: right;">18412</td>
+<td><code>9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt">uriparser-test-COPYING.txt</a></td>
+<td style="text-align: right;">26435</td>
+<td><code>278c725b20339da63f93314ba6204e72cdab93501aaff6f909471fd1ffe26053</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/SQLCipher-core-v4.17.0-BSD.txt">SQLCipher-core-v4.17.0-BSD.txt</a></td>
+<td style="text-align: right;">1463</td>
+<td><code>2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/SQLite-core-public-domain-notice.txt">SQLite-core-public-domain-notice.txt</a></td>
+<td style="text-align: right;">610</td>
+<td><code>71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt">Unicode-CLDR-c33a1f0-LICENSE.txt</a></td>
+<td style="text-align: right;">2033</td>
+<td><code>b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt">Unicode-CLDR-windowsZones-NOTICE.txt</a></td>
+<td style="text-align: right;">209</td>
+<td><code>9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt">Unicode-CLDR-timezone-aliases-NOTICE.txt</a></td>
+<td style="text-align: right;">209</td>
+<td><code>65e902a6879f7816de81af2428933be59bf97404c483c5d11a2b760f831888f4</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt">Unicode-CLDR-7b1090a-LICENSE.txt</a></td>
+<td style="text-align: right;">3193</td>
+<td><code>65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/uriparser-1.0.2-BSD.txt">uriparser-1.0.2-BSD.txt</a></td>
+<td style="text-align: right;">1734</td>
+<td><code>287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3</code></td>
+</tr>
+<tr>
+<td><a href="LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt">Victor-Lazzarini-OpenSL-BSD-style.txt</a></td>
+<td style="text-align: right;">1557</td>
+<td><code>24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="arm64-runtime-inputs">ARM64 runtime inputs</h2>
+<p>The <a href="CURRENT_RUNTIME_LICENSE_MAP.json">runtime license map</a> pairs the 0.1.7 native compile and link inputs with their shipped libraries and notices. It covers the rebuilt FreeRDP, WinPR, Android JNI wrapper, OpenSSL, cJSON, and uriparser, plus the separately supplied SQLCipher AAR.</p>
+<p>The Android NDK 29 compiler support archives are paired with <a href="LICENSES/LLVM-NDK29-runtime-NOTICE.txt">LLVM's runtime notice</a>, including the LLVM Exceptions. The actual CRT objects are paired with the <a href="LICENSES/Android-NDK29-NOTICE.txt">Android NDK notice</a>. These original notices cover the broader toolchain as well. System shared libraries are supplied by Android. Files without a clear per-file header are recorded as <code>PER-FILE-ORIGINAL-UNCLASSIFIED</code> and distributed with their original contents and root notices.</p>
+</main>
+</body>
+</html>

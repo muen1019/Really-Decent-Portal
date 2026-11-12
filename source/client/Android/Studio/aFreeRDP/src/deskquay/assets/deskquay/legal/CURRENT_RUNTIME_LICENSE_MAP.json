@@ -18023,6 +18023,67 @@
       "changed_from_upstream": true
     },
     {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.html",
+      "sha256": "83e31a5055f1e82bd3002933b23e892817720c2ddc6e6ca7333a4a8cec3b8651",
+      "bytes": 29091,
+      "license_evidence": [
+        "MPL-2.0",
+        "Apache-2.0",
+        "WTFPL-PER-ORIGINAL"
+      ],
+      "license_assets": [
+        "assets/deskquay/legal/LICENSES/MPL-2.0.txt"
+      ],
+      "author_and_modification_header_lines": [
+        "<!-- SPDX-License-Identifier: MPL-2.0",
+        "<!-- SPDX-License-Identifier: MPL-2.0 -->",
+        "Third-party code, data, copyright notices, and license texts keep their original terms. -->",
+        "<p>Most FreeRDP and WinPR source uses Apache-2.0. Android Java, resources, and JNI files marked MPL-2.0 follow the MPL. The original copyright and notices in each file apply, including notices by the FreeRDP contributors, Thincast Technologies GmbH, and other named authors. <a href=\"LICENSES/Apache-2.0.txt\">Apache-2.0</a> · <a href=\"LICENSES/MPL-2.0.txt\">MPL-2.0</a> · <a href=\"https://github.com/FreeRDP/FreeRDP/tree/65bcca1913a28cbdd7eb913599f692bd2b707991\">Pinned upstream source</a></p>",
+        "<td>AOSP CPU features, Copyright 2010 The Android Open Source Project</td>",
+        "<td>OpenSL input and output, Copyright 2012 Victor Lazzarini</td>",
+        "<td><a href=\"LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt\">CLDR 2025 Unicode-3.0 text</a> and <a href=\"LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt\">data copyright notice for 1991–2013</a></td>",
+        "<td><a href=\"LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt\">CLDR 2026 Unicode-3.0 text</a> and <a href=\"LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt\">data copyright notice for 1991–2017</a></td>",
+        "<p><code>libcjson.so</code> uses the MIT license. Copyright 2009–2017 Dave Gamble and cJSON contributors. <a href=\"LICENSES/cJSON-1.7.19-MIT.txt\">Original license</a> · <a href=\"https://github.com/DaveGamble/cJSON/tree/v1.7.19\">Pinned source</a></p>",
+        "<p>The shipped library's <code>src</code> and <code>include</code> code uses BSD-3-Clause. Copyright 2007 Weijia Song and Sebastian Pipping. The source archive also contains LGPL-2.1-or-later tests and Apache-2.0 fuzzing code. The Android build disables those targets and the command-line tools. <a href=\"LICENSES/uriparser-1.0.2-BSD.txt\">Library license</a> · <a href=\"LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt\">Test suite notice</a> · <a href=\"https://github.com/uriparser/uriparser/tree/uriparser-1.0.2\">Pinned source</a></p>",
+        "<li>SQLCipher core, Copyright 2025 ZETETIC LLC. <a href=\"LICENSES/SQLCipher-core-v4.17.0-BSD.txt\">BSD-style license</a></li>"
+      ],
+      "whole_file_retained": true,
+      "classification_scope": "LEXICAL_HEADER_AND_KNOWN_NOTICE_INDEX_NOT_LICENSE_REDETERMINATION",
+      "unclassified_policy": "KEEP_ORIGINAL_FILE_AND_ROOT_LICENSE_NO_ASSUMED_APACHE_RELICENSING",
+      "upstream_sha256": null,
+      "changed_from_upstream": true
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.md",
+      "sha256": "91773ea1cad0f71547777afd26a63ac7f0e2c0fb590f84c90e8a334d23e14d52",
+      "bytes": 19507,
+      "license_evidence": [
+        "MPL-2.0",
+        "Apache-2.0",
+        "WTFPL-PER-ORIGINAL"
+      ],
+      "license_assets": [
+        "assets/deskquay/legal/LICENSES/MPL-2.0.txt"
+      ],
+      "author_and_modification_header_lines": [
+        "<!-- SPDX-License-Identifier: MPL-2.0 -->",
+        "Third-party code, data, copyright notices, and license texts keep their original terms. -->",
+        "Most FreeRDP and WinPR source uses Apache-2.0. Android Java, resources, and JNI files marked MPL-2.0 follow the MPL. The original copyright and notices in each file apply, including notices by the FreeRDP contributors, Thincast Technologies GmbH, and other named authors. [Apache-2.0](LICENSES/Apache-2.0.txt) · [MPL-2.0](LICENSES/MPL-2.0.txt) · [Pinned upstream source](https://github.com/FreeRDP/FreeRDP/tree/65bcca1913a28cbdd7eb913599f692bd2b707991)",
+        "| AOSP CPU features, Copyright 2010 The Android Open Source Project | [BSD two-clause-style text](LICENSES/AOSP-cpufeatures-BSD-2-style.txt) and [upstream NOTICE](LICENSES/AOSP-cpufeatures-NOTICE.txt) |",
+        "| OpenSL input and output, Copyright 2012 Victor Lazzarini | [BSD three-clause-style text](LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt), covering the audin and rdpsnd copies |",
+        "| WinPR WindowsZones, generated from Unicode CLDR | [CLDR 2025 Unicode-3.0 text](LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt) and [data copyright notice for 1991–2013](LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt) |",
+        "| WinPR IANA time-zone aliases, generated from Unicode CLDR | [CLDR 2026 Unicode-3.0 text](LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt) and [data copyright notice for 1991–2017](LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt) |",
+        "`libcjson.so` uses the MIT license. Copyright 2009–2017 Dave Gamble and cJSON contributors. [Original license](LICENSES/cJSON-1.7.19-MIT.txt) · [Pinned source](https://github.com/DaveGamble/cJSON/tree/v1.7.19)",
+        "The shipped library's `src` and `include` code uses BSD-3-Clause. Copyright 2007 Weijia Song and Sebastian Pipping. The source archive also contains LGPL-2.1-or-later tests and Apache-2.0 fuzzing code. The Android build disables those targets and the command-line tools. [Library license](LICENSES/uriparser-1.0.2-BSD.txt) · [Test suite notice](LICENSES/SOURCE_ONLY/uriparser-test-COPYING.txt) · [Pinned source](https://github.com/uriparser/uriparser/tree/uriparser-1.0.2)",
+        "- SQLCipher core, Copyright 2025 ZETETIC LLC. [BSD-style license](LICENSES/SQLCipher-core-v4.17.0-BSD.txt)"
+      ],
+      "whole_file_retained": true,
+      "classification_scope": "LEXICAL_HEADER_AND_KNOWN_NOTICE_INDEX_NOT_LICENSE_REDETERMINATION",
+      "unclassified_policy": "KEEP_ORIGINAL_FILE_AND_ROOT_LICENSE_NO_ASSUMED_APACHE_RELICENSING",
+      "upstream_sha256": null,
+      "changed_from_upstream": true
+    },
+    {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.html",
       "sha256": "f40139858f0a8c7770e8f35d19b5a2392c47bacd0eae65569881feeec5586906",
       "bytes": 29307,
@@ -18151,8 +18212,8 @@
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/index.html",
-      "sha256": "ab0cecdbfc1e40a2b45edd977f52db358d711eb24728279b9b858d27eac449cb",
-      "bytes": 4509,
+      "sha256": "527741752fdd10e0626b9404840edc2f2fe1a9c4f528a536346b1fb44bcbd9a8",
+      "bytes": 4520,
       "license_evidence": [
         "MPL-2.0",
         "Apache-2.0"

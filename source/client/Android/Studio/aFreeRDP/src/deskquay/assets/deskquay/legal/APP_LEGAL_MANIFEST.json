@@ -3,12 +3,6 @@
   "reviewed_bundle_sha256": "d7b6ea476d56dbbf2a6e5a4711b191c7c524c6c90e13be512d65e6ead8a1924f",
   "files": [
     {
-      "path": "LICENSES/Android-NDK29-NOTICE.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 516438,
-      "sha256": "faf0dc52cf6ce9ab09a04b0c074a378dd2565ee1ed9bc1179d83793bcdba012e"
-    },
-    {
       "path": "LICENSES/AOSP-cpufeatures-BSD-2-style.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 1398,
@@ -21,16 +15,16 @@
       "sha256": "c870d52f42a8f93023b99a85fe68d02637d6b04e5f35bbcd7f98759adb4e4d49"
     },
     {
+      "path": "LICENSES/Android-NDK29-NOTICE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 516438,
+      "sha256": "faf0dc52cf6ce9ab09a04b0c074a378dd2565ee1ed9bc1179d83793bcdba012e"
+    },
+    {
       "path": "LICENSES/Apache-2.0.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 11358,
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-    },
-    {
-      "path": "LICENSES/cJSON-1.7.19-MIT.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 1084,
-      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
     },
     {
       "path": "LICENSES/EMBEDDED/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
@@ -45,13 +39,13 @@
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     {
-      "path": "LICENSES/Kotlin-Guava-Apache-2.0.txt",
+      "path": "LICENSES/Kotlin-GWT-Apache-2.0.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 11358,
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     {
-      "path": "LICENSES/Kotlin-GWT-Apache-2.0.txt",
+      "path": "LICENSES/Kotlin-Guava-Apache-2.0.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 11358,
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
@@ -69,16 +63,16 @@
       "sha256": "d1bc53b493a3ab387b42717ed5c4b1976a5048996f81154278100bff86d39331"
     },
     {
-      "path": "LICENSES/LibTomCrypt-476a957-LICENSE.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 719,
-      "sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
-    },
-    {
       "path": "LICENSES/LLVM-NDK29-runtime-NOTICE.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 130424,
       "sha256": "f96f763beb66a7ba7a667647fc64c0226ace875e590c831fdd9579ec1c1d91e1"
+    },
+    {
+      "path": "LICENSES/LibTomCrypt-476a957-LICENSE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 719,
+      "sha256": "8f196cb13afd271f5e267fd29543fc454596382ad580e7592709492843996ac8"
     },
     {
       "path": "LICENSES/MPL-2.0.txt",
@@ -141,10 +135,22 @@
       "sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
     },
     {
+      "path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 3193,
+      "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804"
+    },
+    {
       "path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 2033,
       "sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 209,
+      "sha256": "65e902a6879f7816de81af2428933be59bf97404c483c5d11a2b760f831888f4"
     },
     {
       "path": "LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt",
@@ -153,34 +159,34 @@
       "sha256": "9ebad17a0b5a891c2c004c44f6de2479e2a374ce6275828519be9fbc460efc8c"
     },
     {
-      "path": "LICENSES/uriparser-1.0.2-BSD.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 1734,
-      "sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
-    },
-    {
       "path": "LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt",
       "role": "APP_LEGAL_ASSET",
       "bytes": 1557,
       "sha256": "24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412"
     },
     {
+      "path": "LICENSES/cJSON-1.7.19-MIT.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1084,
+      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+    },
+    {
+      "path": "LICENSES/uriparser-1.0.2-BSD.txt",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 1734,
+      "sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.en.md",
+      "role": "APP_LEGAL_ASSET",
+      "bytes": 19507,
+      "sha256": "91773ea1cad0f71547777afd26a63ac7f0e2c0fb590f84c90e8a334d23e14d52"
+    },
+    {
       "path": "THIRD_PARTY_NOTICES.md",
       "role": "APP_LEGAL_ASSET",
       "bytes": 22954,
       "sha256": "31ee344ea7eb6fb7d0167e25a5129a2be873aa5ee49dbf3a70742007c52b7af6"
-    },
-    {
-      "path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 3193,
-      "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804"
-    },
-    {
-      "path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt",
-      "role": "APP_LEGAL_ASSET",
-      "bytes": 209,
-      "sha256": "65e902a6879f7816de81af2428933be59bf97404c483c5d11a2b760f831888f4"
     }
   ],
   "engineering_files_included": false,
@@ -349,12 +355,28 @@
       "original_text_sha256": "71c9d370765c4e00aaf89d43bdb57cef6d2404aa3121a1f29931778c0e599b46"
     },
     {
+      "path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "original_text_path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt",
+      "bytes": 3644,
+      "sha256": "2e575f4042a7b17555d9a098c32480c56d204b6536305b7162c9c0e38f5bef85",
+      "original_text_sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804"
+    },
+    {
       "path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
       "bytes": 2478,
       "sha256": "7b0ca390e8e99dab674f8a4459b0686a867daf3458f729b75fb3699248c6c8b4",
       "original_text_path": "LICENSES/Unicode-CLDR-c33a1f0-LICENSE.txt",
       "original_text_sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
+    },
+    {
+      "path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "original_text_path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt",
+      "bytes": 638,
+      "sha256": "5e522d907d6ac269548083612e4b3a4363fbca900f3b33d2d7644e0a014b8319",
+      "original_text_sha256": "65e902a6879f7816de81af2428933be59bf97404c483c5d11a2b760f831888f4"
     },
     {
       "path": "LICENSES/Unicode-CLDR-windowsZones-NOTICE.txt.html",
@@ -389,28 +411,20 @@
       "original_text_sha256": "287f09e6546a9610f949f89e8fb937cacfeabd7bfaa8c8a0c18312193bf04ad3"
     },
     {
+      "path": "THIRD_PARTY_NOTICES.en.html",
+      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
+      "bytes": 29091,
+      "sha256": "83e31a5055f1e82bd3002933b23e892817720c2ddc6e6ca7333a4a8cec3b8651",
+      "original_text_path": "THIRD_PARTY_NOTICES.en.md",
+      "original_text_sha256": "91773ea1cad0f71547777afd26a63ac7f0e2c0fb590f84c90e8a334d23e14d52"
+    },
+    {
       "path": "THIRD_PARTY_NOTICES.md.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
       "bytes": 29307,
       "sha256": "f40139858f0a8c7770e8f35d19b5a2392c47bacd0eae65569881feeec5586906",
       "original_text_path": "THIRD_PARTY_NOTICES.md",
       "original_text_sha256": "31ee344ea7eb6fb7d0167e25a5129a2be873aa5ee49dbf3a70742007c52b7af6"
-    },
-    {
-      "path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt.html",
-      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "original_text_path": "LICENSES/Unicode-CLDR-7b1090a-LICENSE.txt",
-      "bytes": 3644,
-      "sha256": "2e575f4042a7b17555d9a098c32480c56d204b6536305b7162c9c0e38f5bef85",
-      "original_text_sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804"
-    },
-    {
-      "path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt.html",
-      "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "original_text_path": "LICENSES/Unicode-CLDR-timezone-aliases-NOTICE.txt",
-      "bytes": 638,
-      "sha256": "5e522d907d6ac269548083612e4b3a4363fbca900f3b33d2d7644e0a014b8319",
-      "original_text_sha256": "65e902a6879f7816de81af2428933be59bf97404c483c5d11a2b760f831888f4"
     }
   ],
   "self_digest_policy": "This JSON is hashed by the outer source plan and source provenance, not recursively by itself.",
@@ -419,8 +433,8 @@
     {
       "path": "index.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 4509,
-      "sha256": "ab0cecdbfc1e40a2b45edd977f52db358d711eb24728279b9b858d27eac449cb"
+      "bytes": 4520,
+      "sha256": "527741752fdd10e0626b9404840edc2f2fe1a9c4f528a536346b1fb44bcbd9a8"
     },
     {
       "path": "index-zh-Hant.html",
@@ -437,7 +451,7 @@
   ],
   "runtime_license_map": {
     "file": "CURRENT_RUNTIME_LICENSE_MAP.json",
-    "bytes": 2950545,
-    "sha256": "8a1a14f75ac3e5186162c8c39eaabbb24b42ef034dd5db01e2809417d36283f1"
+    "bytes": 2956689,
+    "sha256": "d8b58acd5fda6d7d2e0adc7721fc461d8b3f0430b04ae95abeda54a9ea800bff"
   }
 }
