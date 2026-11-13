@@ -21,7 +21,6 @@ Based on FreeRDP and aFreeRDP, Really Decent Portal supports physical trackpads,
 
 - **Physical trackpads.** Use primary and secondary clicks, smooth vertical and horizontal two-finger scrolling, diagonal scrolling when the device reports both axes, and double-tap-and-hold to drag. These controls work in both touchscreen modes.
 - **S Pen.** The app forwards hover, tip contact, pressure, and the barrel button through RDP pen input. Hover tracking, pen contact, and the side button were tested on a Samsung tablet in both touchscreen modes. Pen behavior depends on the remote Windows session and application.
-- **Screen trackpad.** In pointer mode, double-tap with one or two fingers and move on the second touch to drag with the left or right button. Two-finger swipes scroll remote content, and pinching scales the desktop view on the tablet.
 - **Touch, keyboard, and mouse.** Switch the screen between direct touch and an on-screen trackpad. Physical keyboards support modifiers, key repeat, and shortcuts. The optional Android shortcut service forwards supported system-level shortcuts. Physical mice support scrolling, dragging, and side buttons that can navigate browser history in supported browsers.
 
 New connections default to full-screen resolution, 200% remote desktop scaling, and hidden Android system bars. If a connection ends, the dialog displays the reason. **Copy error details** includes the full error codes and diagnostic information.
