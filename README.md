@@ -1,13 +1,25 @@
-# Really Decent Portal
+<h1 align="center"><img src="assets/app-icon.png" width="48" height="48" alt="" /> Really Decent Portal</h1>
 
-[繁體中文](README.zh-Hant.md)
+<p align="center"><strong>Remote desktop for Android tablets</strong></p>
 
-Really Decent Portal is an Android Remote Desktop client for tablet setups that use a physical trackpad, keyboard, mouse, or S Pen. It is based on FreeRDP and aFreeRDP.
+<p align="center">
+  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.7"><img src="https://img.shields.io/badge/Beta-v0.1.7-167D75?style=flat-square" alt="Beta v0.1.7" /></a>
+  <img src="https://img.shields.io/badge/Android-10%2B-287E3A?style=flat-square&amp;logo=android&amp;logoColor=white" alt="Android 10 or later" />
+  <a href="https://github.com/FreeRDP/FreeRDP/releases/tag/3.33.1"><img src="https://img.shields.io/badge/FreeRDP-3.33.1-276589?style=flat-square" alt="FreeRDP 3.33.1" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.7">Download</a> ·
+  <a href="#install-and-connect">Quick start</a> ·
+  <a href="RELEASE_NOTES.md">Release notes</a> ·
+  <a href="README.zh-Hant.md">繁體中文</a>
+</p>
+
+Based on FreeRDP and aFreeRDP, Really Decent Portal supports physical trackpads, keyboards, mice, and the S Pen.
 
 ## Input features
 
 - **Physical trackpads.** Use primary and secondary clicks, smooth vertical and horizontal two-finger scrolling, diagonal scrolling when the device reports both axes, and double-tap-and-hold to drag. These controls work in both touchscreen modes.
-- **Pinch to zoom.** On Android 14 or later, compatible trackpads can pinch to zoom remote content in steps. The app sends Ctrl and mouse-wheel input, so the remote application determines the zoom levels and may reflow the page.
 - **S Pen.** The app forwards hover, tip contact, pressure, and the barrel button through RDP pen input. Hover tracking, pen contact, and the side button were tested on a Samsung tablet in both touchscreen modes. Pen behavior depends on the remote Windows session and application.
 - **Touch, keyboard, and mouse.** Switch the screen between direct touch and an on-screen trackpad. Physical keyboards support modifiers, key repeat, and shortcuts. The optional Android shortcut service forwards supported system-level shortcuts. Physical mice support scrolling, dragging, and side buttons that can navigate browser history in supported browsers.
 
@@ -15,7 +27,7 @@ New connections default to full-screen resolution, 200% remote desktop scaling, 
 
 ## Install and connect
 
-The **0.1.7 beta** targets ARM64 devices running Android 10 (API 29) or later. The app is available in English and Traditional Chinese. [Download 0.1.7 beta](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.7) · [Release notes](RELEASE_NOTES.md)
+The **0.1.7 beta** targets ARM64 devices running Android 10 (API 29) or later. The app is available in English and Traditional Chinese. [Download 0.1.7 beta](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.7)
 
 1. Download and install `Really-Decent-Portal-0.1.7-arm64-v8a.apk`. Compare its SHA-256 against the matching `SHA256SUMS.txt`.
 2. Add a remote PC and enter its address, port, and sign-in details.
