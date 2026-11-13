@@ -1,4 +1,4 @@
-<h1 align="center"><img src="assets/app-icon.png" width="48" height="48" alt="" /> Really Decent Portal</h1>
+<h1 align="center"><img align="middle" src="assets/app-icon.png" width="48" height="48" alt="" /> Really Decent Portal</h1>
 
 <p align="center"><strong>適用於 Android 平板的遠端桌面</strong></p>
 
