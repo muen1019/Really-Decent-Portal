@@ -3,13 +3,13 @@
 <p align="center"><strong>Remote desktop for Android tablets</strong></p>
 
 <p align="center">
-  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.8"><img src="https://img.shields.io/badge/Beta-v0.1.8-167D75?style=flat-square" alt="Beta v0.1.8" /></a>
+  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.9"><img src="https://img.shields.io/badge/Beta-v0.1.9-167D75?style=flat-square" alt="Beta v0.1.9" /></a>
   <img src="https://img.shields.io/badge/Android-10%2B-287E3A?style=flat-square&amp;logo=android&amp;logoColor=white" alt="Android 10 or later" />
   <a href="https://github.com/FreeRDP/FreeRDP/releases/tag/3.33.1"><img src="https://img.shields.io/badge/FreeRDP-3.33.1-276589?style=flat-square" alt="FreeRDP 3.33.1" /></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.8">Download</a> ·
+  <a href="https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.9">Download</a> ·
   <a href="#install-and-connect">Quick start</a> ·
   <a href="RELEASE_NOTES.md">Release notes</a> ·
   <a href="README.zh-Hant.md">繁體中文</a>
@@ -27,15 +27,15 @@ New connections default to full-screen resolution, 200% remote desktop scaling, 
 
 ## Install and connect
 
-The **0.1.8 beta** targets ARM64 devices running Android 10 (API 29) or later. The app is available in English and Traditional Chinese. [Download 0.1.8 beta](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.8)
+The **0.1.9 beta** targets ARM64 devices running Android 10 (API 29) or later. The app is available in English and Traditional Chinese. [Download 0.1.9 beta](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.9)
 
-1. Download and install `Really-Decent-Portal-0.1.8-arm64-v8a.apk`. Compare its SHA-256 against the matching `SHA256SUMS.txt`.
+1. Download and install `Really-Decent-Portal-0.1.9-arm64-v8a.apk`. Compare its SHA-256 against the matching `SHA256SUMS.txt`.
 2. Add a remote PC and enter its address, port, and sign-in details.
 
 The app uses the package name `io.github.muen1019.reallydecentportal`. An existing build signed with the same release key can be upgraded in place. Input compatibility across devices and remote apps, and stability in long sessions, are focus areas for the beta.
 
 ## Source and licenses
 
-The modified source is in [`source/`](source/). The native core is based on [FreeRDP 3.33.1](https://github.com/FreeRDP/FreeRDP/releases/tag/3.33.1). The matching `Really-Decent-Portal-0.1.8-source.zip` includes the source, dependency versions, and build instructions. To build from this repository, point `-SourceRoot` to `source/`. [Build instructions](SOURCE_OFFER/build/BUILD.md) · [Corresponding source](SOURCE_OFFER/SOURCE_LOCATION.md)
+The modified source is in [`source/`](source/). The native core is based on [FreeRDP 3.33.1](https://github.com/FreeRDP/FreeRDP/releases/tag/3.33.1). The matching `Really-Decent-Portal-0.1.9-source.zip` includes the source, dependency versions, and build instructions. To build from this repository, point `-SourceRoot` to `source/`. [Build instructions](SOURCE_OFFER/build/BUILD.md) · [Corresponding source](SOURCE_OFFER/SOURCE_LOCATION.md)
 
 Licenses apply by file and component. [License scope](LICENSE.md) · [Third-party notices](THIRD_PARTY_NOTICES.en.md) · [Original license texts](LICENSES/) · [Runtime component and source map](CURRENT_RUNTIME_LICENSE_MAP.json)
