@@ -1,0 +1,77 @@
+name: Verify Android release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing Git tag (for example v0.1.8)
+        required: true
+        type: string
+      release_id:
+        description: GitHub Release database ID
+        required: true
+        type: string
+      source_commit:
+        description: Full commit SHA of the matching source
+        required: true
+        type: string
+      tested_apk_sha256:
+        description: SHA-256 of the signed APK tested on the tablet
+        required: true
+        type: string
+      publish:
+        description: Publish the draft after verification
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.ref == 'refs/heads/main' && !inputs.publish }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          COMMIT: ${{ inputs.source_commit }}
+          APK_SHA256: ${{ inputs.tested_apk_sha256 }}
+        run: |
+          python3 SOURCE_OFFER/build/verify-release.py \
+            --tag "$TAG" --release-id "$RELEASE_ID" --commit "$COMMIT" \
+            --tested-apk-sha256 "$APK_SHA256" --build-tools "$ANDROID_HOME/build-tools/37.0.0"
+
+  publish:
+    if: ${{ github.ref == 'refs/heads/main' && inputs.publish }}
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify and publish draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          COMMIT: ${{ inputs.source_commit }}
+          APK_SHA256: ${{ inputs.tested_apk_sha256 }}
+        run: |
+          python3 SOURCE_OFFER/build/verify-release.py \
+            --tag "$TAG" --release-id "$RELEASE_ID" --commit "$COMMIT" \
+            --tested-apk-sha256 "$APK_SHA256" --build-tools "$ANDROID_HOME/build-tools/37.0.0" --publish
