@@ -134,6 +134,9 @@ function Test-LauncherImage($Crop, $Reference) {
     if ($width -lt 24 -or $height -lt 24 -or [Math]::Abs($width - $height) -gt 0.12 * $width) {
         return $false
     }
+    # One UI resamples the vector when drawing the icon. Allow a small local
+    # offset so thin strokes still match, while testing each color's layout.
+    $radius = [Math]::Max(1, [int][Math]::Round(0.01 * $width))
     $colors = @(
         @{ R = 244; G = 248; B = 249 }
         @{ R = 82; G = 182; B = 173 }
@@ -147,10 +150,16 @@ function Test-LauncherImage($Crop, $Reference) {
                 if ($ref.A -ne 255 -or $ref.R -ne $color.R -or $ref.G -ne $color.G -or $ref.B -ne $color.B) { continue }
                 $targetX = $left + [int][Math]::Floor(($x + 0.5) * $width / $Reference.Width)
                 $targetY = $top + [int][Math]::Floor(($y + 0.5) * $height / $Reference.Height)
-                $actual = $Crop.GetPixel($targetX, $targetY)
                 $samples++
-                $difference = [Math]::Abs($actual.R - $ref.R) + [Math]::Abs($actual.G - $ref.G) + [Math]::Abs($actual.B - $ref.B)
-                if ($difference -lt 95) { $matches++ }
+                $matched = $false
+                for ($dy = -$radius; $dy -le $radius -and -not $matched; $dy++) {
+                    for ($dx = -$radius; $dx -le $radius; $dx++) {
+                        $actual = $Crop.GetPixel($targetX + $dx, $targetY + $dy)
+                        $difference = [Math]::Abs($actual.R - $ref.R) + [Math]::Abs($actual.G - $ref.G) + [Math]::Abs($actual.B - $ref.B)
+                        if ($difference -lt 95) { $matched = $true; break }
+                    }
+                }
+                if ($matched) { $matches++ }
             }
         }
         if ($samples -lt 5 -or $matches / $samples -lt 0.55) { return $false }
