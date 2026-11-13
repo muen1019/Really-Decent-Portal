@@ -23,6 +23,10 @@ on:
         description: Publish the draft after verification
         default: false
         type: boolean
+      acceptance:
+        description: Acceptance results from run-release-acceptance.ps1 (required to publish)
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -71,7 +75,23 @@ jobs:
           RELEASE_ID: ${{ inputs.release_id }}
           COMMIT: ${{ inputs.source_commit }}
           APK_SHA256: ${{ inputs.tested_apk_sha256 }}
+          ACCEPTANCE: ${{ inputs.acceptance }}
         run: |
+          python3 - <<'PY'
+          import json
+          import os
+
+          try:
+              proof = json.loads(os.environ["ACCEPTANCE"])
+          except ValueError:
+              raise SystemExit("Run the local release acceptance script before publishing.")
+          checks = ("upgrade", "icon", "connection", "click", "drag", "scroll_vertical", "scroll_horizontal")
+          if (not isinstance(proof, dict)
+                  or proof.get("version") != os.environ["TAG"].removeprefix("v")
+                  or proof.get("apk_sha256") != os.environ["APK_SHA256"]
+                  or any(proof.get(check) is not True for check in checks)):
+              raise SystemExit("Acceptance checks must pass for this version and APK.")
+          PY
           python3 SOURCE_OFFER/build/verify-release.py \
             --tag "$TAG" --release-id "$RELEASE_ID" --commit "$COMMIT" \
             --tested-apk-sha256 "$APK_SHA256" --build-tools "$ANDROID_HOME/build-tools/37.0.0" --publish
