@@ -13,8 +13,8 @@ ext {
     toolsVersion = '37.0.0'
     ndkVersion = '29.0.13113456'
     cmakeVersion = '4.1.2'
-    versionName = '0.1.9'
-    versionCode = 10
+    versionName = '0.1.10'
+    versionCode = 11
     def selectedAbi = providers.gradleProperty('deskquayAbi').getOrElse('arm64-v8a')
     if (!(selectedAbi in ['arm64-v8a', 'x86_64'])) {
         throw new GradleException('This reviewed build supports one ARM64 or x86_64 ABI.')

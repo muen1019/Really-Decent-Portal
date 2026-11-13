@@ -40,7 +40,7 @@ final class MouseButtonOwnership
 		return before & ~heldButtons();
 	}
 
-	private int heldButtons()
+	int heldButtons()
 	{
 		int held = buttons[HARDWARE] | buttons[SCREEN];
 		for (int deviceButtons : hardwareDevices.values())

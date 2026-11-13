@@ -41,6 +41,7 @@ import android.view.MotionEvent;
 import android.view.PointerIcon;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.ViewConfiguration;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
@@ -137,6 +138,8 @@ public class SessionView extends View
 	private long penHoverTime;
 	private boolean localPinchZoom;
 	private final Paint screenPointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final int[] screenFingerOrigin = new int[2];
+	private boolean screenFingerDispatch;
 	private enum RemoteCursorState { UNRECEIVED, CUSTOM, DEFAULT, HIDDEN }
 	private RemoteCursorState remoteCursorState = RemoteCursorState.UNRECEIVED;
 	private PointerIcon remoteCursorIcon;
@@ -242,7 +245,16 @@ public class SessionView extends View
 		screenInputController = new ScreenInputController(new ScreenInputController.Sink() {
 			public boolean isDirectTouchAvailable() { return sink.isDirectTouchAvailable(); }
 			public boolean onTouchFrame(ScreenInputController.TouchFrame frame) { return sink.onTouchFrame(frame); }
-			public void onMouseMove(int x, int y) { showScreenPointer = true; sink.onMouseMove(x,y); invalidate(); }
+			public boolean canCoastPointer() { return sink.canCoastPointer(); }
+			public void onMouseMove(int x, int y) {
+				showScreenPointer = true;
+				sink.onMouseMove(x,y);
+				if (screenFingerDispatch)
+					postRevealScreenCursor();
+				else
+					revealScreenCursor();
+				invalidate();
+			}
 			public void onMouseButton(int button, boolean down, int x, int y) { showScreenPointer = true; sink.onMouseButton(button,down,x,y); invalidate(); }
 			public void onScroll(boolean horizontal, boolean positive) { sink.onScroll(horizontal,positive); }
 			public void onLocalZoom(float factor, float focusX, float focusY) {
@@ -251,7 +263,7 @@ public class SessionView extends View
 				finally { localPinchZoom = false; }
 			}
 		}, vc.getScaledTouchSlop(), Math.max(notchPxX, notchPxY), ViewConfiguration.getDoubleTapTimeout(),
-		   vc.getScaledDoubleTapSlop());
+		   vc.getScaledDoubleTapSlop(), getResources().getDisplayMetrics().density);
 		screenInputController.setMode(screenInputMode);
 		screenInputController.setTapDragEnabled(tapDragEnabled);
 		screenInputController.setActive(screenInputActive);
@@ -296,7 +308,27 @@ public class SessionView extends View
 			screenFingerDownTime = event.getDownTime();
 			updateParentInputCapture();
 		}
-		boolean handled = screenInputController.onTouchEvent(event);
+		boolean handled;
+		if (screenInputMode == ScreenInputMode.TOUCHPAD)
+		{
+			// View-local coordinates shift when the desktop pans beneath the finger.
+			// Keep the entire relative gesture (including historical samples) in screen space.
+			getLocationOnScreen(screenFingerOrigin);
+			MotionEvent screenEvent = MotionEvent.obtain(event);
+			try
+			{
+				screenEvent.offsetLocation(screenFingerOrigin[0], screenFingerOrigin[1]);
+				screenFingerDispatch = true;
+				handled = screenInputController.onTouchEvent(screenEvent);
+			}
+			finally
+			{
+				screenFingerDispatch = false;
+				screenEvent.recycle();
+			}
+		}
+		else
+			handled = screenInputController.onTouchEvent(event);
 		if ((action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) &&
 		    screenFingerDevice == event.getDeviceId() && screenFingerDownTime == event.getDownTime())
 		{
@@ -320,6 +352,8 @@ public class SessionView extends View
 		}
 		if (!handled && !hasPen)
 			return false;
+		if (hasPen && screenInputController != null)
+			screenInputController.stopPointerCoast();
 		int action = event.getActionMasked();
 		int index = event.getActionIndex();
 		int tool = event.getToolType(index);
@@ -524,6 +558,7 @@ public class SessionView extends View
 	}
 	public ScreenInputMode getScreenInputMode() { return screenInputMode; }
 	public void cancelScreenInput() {
+		removeCallbacks(revealCursor);
 		if (sessionViewListener != null) sessionViewListener.onSessionViewContentZoomCancel();
 		resetTouchpadPinch();
 		cancelTouchpadWheelInput();
@@ -556,12 +591,44 @@ public class SessionView extends View
 		updateParentInputCapture();
 	}
 	public void updateScreenPointer(int x, int y) {
+		removeCallbacks(revealCursor);
 		if (screenInputController != null) screenInputController.setPointerPosition(x,y);
 		showScreenPointer = false;
 		invalidate();
 	}
 	public int getScreenPointerX() { return screenInputController == null ? 0 : screenInputController.getPointerX(); }
 	public int getScreenPointerY() { return screenInputController == null ? 0 : screenInputController.getPointerY(); }
+
+	private final Runnable revealCursor = this::revealScreenCursor;
+
+	private void postRevealScreenCursor()
+	{
+		// Don't alter the ancestor's scroll offsets while it dispatches this event.
+		removeCallbacks(revealCursor);
+		postOnAnimation(revealCursor);
+	}
+
+	boolean canRevealScreenCursor()
+	{
+		return screenInputActive && showScreenPointer && !railMode &&
+		       !penHoverInRange && penCaptureDevice < 0 &&
+		       screenInputMode == ScreenInputMode.TOUCHPAD && width > 0 && height > 0;
+	}
+
+	void revealScreenCursor()
+	{
+		if (!canRevealScreenCursor())
+			return;
+		for (ViewParent parent = getParent(); parent instanceof View; parent = parent.getParent())
+		{
+			if (parent instanceof ScrollView2D)
+			{
+				((ScrollView2D)parent).revealCursor(this, Math.round(getScreenPointerX() * scaleFactor),
+				                                  Math.round(getScreenPointerY() * scaleFactor));
+				return;
+			}
+		}
+	}
 	@Override public void onWindowFocusChanged(boolean hasWindowFocus) {
 		super.onWindowFocusChanged(hasWindowFocus);
 		if (!hasWindowFocus) cancelLegacyPointerInput();
@@ -1340,8 +1407,11 @@ public class SessionView extends View
 
 	private void sendTouchpadWheelBatch(WheelBatch batch)
 	{
-		if (sessionViewListener != null && batch.count != 0)
+		if (sessionViewListener != null && batch.count != 0) {
+			if (screenInputController != null)
+				screenInputController.stopPointerCoast();
 			sessionViewListener.onSessionViewWheelBatch(batch.horizontal, batch.vertical, batch.count);
+		}
 	}
 
 	// Handle all physical mouse buttons here; finger taps come via onSingleTapUp.

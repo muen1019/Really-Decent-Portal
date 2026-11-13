@@ -70,6 +70,7 @@ public class ScrollView2D extends FrameLayout
 	static final int ANIMATED_SCROLL_GAP = 250;
 	static final float MAX_SCROLL_FACTOR = 0.5f;
 	private final Rect mTempRect = new Rect();
+	private final Rect cursorRect = new Rect();
 	private ScrollView2DListener scrollView2DListener = null;
 	private long mLastScroll;
 	private Scroller mScroller;
@@ -1127,6 +1128,35 @@ public class ScrollView2D extends FrameLayout
 
 	private int lastCenterContentH = -1;
 	private int lastCenterTop = 0;
+	private int lastViewportWidth = -1;
+	private int lastViewportHeight = -1;
+
+	/** Keeps the cursor inside the padded viewport with a small edge margin. */
+	void revealCursor(View desktop, int x, int y)
+	{
+		int viewportWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+		int viewportHeight = getHeight() - getPaddingTop() - getPaddingBottom();
+		if (mIsLayoutDirty || viewportWidth <= 0 || viewportHeight <= 0 ||
+		    getChildCount() == 0 || !isViewDescendantOf(desktop, this))
+			return;
+
+		cursorRect.set(x, y, x + 1, y + 1);
+		offsetDescendantRectToMyCoords(desktop, cursorRect);
+		int margin = Math.round(24 * getResources().getDisplayMetrics().density);
+		int targetX = revealAxis(cursorRect.left - getPaddingLeft(), getScrollX(), viewportWidth, margin);
+		int targetY = revealAxis(cursorRect.top - getPaddingTop(), getScrollY(), viewportHeight, margin);
+		if (targetX != getScrollX() || targetY != getScrollY())
+		{
+			mScroller.forceFinished(true);
+			scrollTo(targetX, targetY);
+		}
+	}
+
+	private static int revealAxis(int cursor, int offset, int viewport, int margin)
+	{
+		int inset = Math.min(margin, (viewport - 1) / 2);
+		return Math.max(cursor - (viewport - 1 - inset), Math.min(offset, cursor - inset));
+	}
 
 	@Override protected void onLayout(boolean changed, int l, int t, int r, int b)
 	{
@@ -1170,11 +1200,27 @@ public class ScrollView2D extends FrameLayout
 
 		// Calling this with the present values causes it to re-clamp them
 		scrollTo(getScrollX(), getScrollY());
+		int viewportWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+		int viewportHeight = getHeight() - getPaddingTop() - getPaddingBottom();
+		if ((lastViewportWidth > viewportWidth || lastViewportHeight > viewportHeight) && getChildCount() > 0)
+		{
+			SessionView desktop = findViewById(R.id.sessionView);
+			if (desktop != null)
+				desktop.revealScreenCursor();
+		}
+		lastViewportWidth = viewportWidth;
+		lastViewportHeight = viewportHeight;
 	}
 
 	@Override protected void onSizeChanged(int w, int h, int oldw, int oldh)
 	{
 		super.onSizeChanged(w, h, oldw, oldh);
+
+		// The final layout will keep the cursor visible when the keyboard shrinks
+		// this viewport. Scrolling to the entire focused desktop competes with it.
+		SessionView desktop = findViewById(R.id.sessionView);
+		if (desktop != null && desktop.canRevealScreenCursor())
+			return;
 
 		View currentFocused = findFocus();
 		if (null == currentFocused || this == currentFocused)
@@ -1256,8 +1302,8 @@ public class ScrollView2D extends FrameLayout
 		if (getChildCount() > 0)
 		{
 			View child = getChildAt(0);
-			x = clamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth());
-			y = clamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight());
+			x = clamp(x, getWidth() - getPaddingRight(), child.getRight());
+			y = clamp(y, getHeight() - getPaddingBottom(), child.getBottom());
 			if (x != getScrollX() || y != getScrollY())
 			{
 				super.scrollTo(x, y);

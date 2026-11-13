@@ -1,11 +1,11 @@
-# Really Decent Portal 0.1.9 source
+# Really Decent Portal 0.1.10 source
 
 This archive is supplied alongside the matching APK.
-Keep `Really-Decent-Portal-0.1.9-source.zip` available at the same location
+Keep `Really-Decent-Portal-0.1.10-source.zip` available at the same location
 where recipients get the matching APK. The external release manifest identifies
 both files by SHA-256.
 
-The top-level `Really-Decent-Portal-0.1.9/` directory contains the complete
+The top-level `Really-Decent-Portal-0.1.10/` directory contains the complete
 modified FreeRDP source. See `SOURCE_OFFER/build/BUILD.md` for the build steps
 and the accompanying third-party notices for component licenses.
 

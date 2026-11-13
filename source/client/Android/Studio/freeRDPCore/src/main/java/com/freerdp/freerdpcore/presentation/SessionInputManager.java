@@ -691,6 +691,11 @@ public class SessionInputManager
 
 	// ScreenInputController.Sink
 
+	@Override public boolean canCoastPointer()
+	{
+		return keyboardInputActive && instance != 0 && mouseButtons.heldButtons() == 0;
+	}
+
 	@Override public boolean isDirectTouchAvailable()
 	{
 		return keyboardInputActive && instance != 0 && getScreenInputNativeState() == 1;

@@ -2,6 +2,14 @@
 
 [繁體中文](RELEASE_NOTES.zh-Hant.md)
 
+## 0.1.10
+
+- On the screen trackpad, slow swipes move the pointer more precisely. A quick swipe carries the pointer briefly in the same direction after you lift your finger and gradually slows to a stop. Touch the screen again to stop it immediately.
+- When the desktop is zoomed in or the on-screen keyboard covers part of it, the view follows the screen-trackpad pointer near the edge of the visible area.
+- Added more padding around the artwork in the launcher and README icons.
+
+[Download 0.1.10](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.10)
+
 ## 0.1.9
 
 Updated the Android launcher icon with a teal tablet in front of a desktop monitor and gold remote connection arrows. The icon matches the project README.

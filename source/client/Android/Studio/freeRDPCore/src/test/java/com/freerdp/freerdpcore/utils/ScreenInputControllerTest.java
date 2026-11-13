@@ -13,10 +13,13 @@ import android.view.MotionEvent;
 import android.view.InputDevice;
 import android.view.ViewConfiguration;
 import com.freerdp.freerdpcore.presentation.ScreenInputMode;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowChoreographer;
+import org.robolectric.shadows.ShadowSystemClock;
 import java.util.*;
 import java.time.Duration;
 import static org.junit.Assert.*;
@@ -33,9 +36,13 @@ public class ScreenInputControllerTest {
   public void onLocalZoom(float f,float x,float y){mouse.add("zoom:"+f);}
  }
  static MotionEvent event(long time,int action,int[] ids,float... xy) {
+  return fingerEvent(7, time, action, ids, xy);
+ }
+
+ private static MotionEvent fingerEvent(int deviceId,long time,int action,int[] ids,float... xy) {
   MotionEvent.PointerProperties[] pp=new MotionEvent.PointerProperties[ids.length]; MotionEvent.PointerCoords[] pc=new MotionEvent.PointerCoords[ids.length];
   for(int i=0;i<ids.length;i++){pp[i]=new MotionEvent.PointerProperties();pp[i].id=ids[i];pp[i].toolType=MotionEvent.TOOL_TYPE_FINGER;pc[i]=new MotionEvent.PointerCoords();pc[i].x=xy[i*2];pc[i].y=xy[i*2+1];pc[i].pressure=1;pc[i].size=1;}
-  return MotionEvent.obtain(1,time,action,ids.length,pp,pc,0,0,1,1,7,0,InputDevice.SOURCE_TOUCHSCREEN,0);
+  return MotionEvent.obtain(1,time,action,ids.length,pp,pc,0,0,1,1,deviceId,0,InputDevice.SOURCE_TOUCHSCREEN,0);
  }
  static void send(ScreenInputController c,long time,int action,int[] ids,float... xy){MotionEvent e=event(time,action,ids,xy);try{assertTrue(c.onTouchEvent(e));}finally{e.recycle();}}
  @Test public void directTouchMapsAbsoluteCoordinatesWithoutMouseFallback(){
@@ -68,6 +75,194 @@ public class ScreenInputControllerTest {
   shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(350));
   assertEquals(Arrays.asList("move:520,360","button:1:true:520,360","button:1:false:520,360"),o.mouse);assertTrue(o.frames.isEmpty());
  }
+
+ private static void advance(long milliseconds) {
+  // Step the clock one simulated display refresh at a time to deliver paused VSYNCs.
+  while (milliseconds > 0) {
+   long step = Math.min(milliseconds, 16);
+   ShadowSystemClock.advanceBy(Duration.ofMillis(step));
+   shadowOf(Looper.getMainLooper()).idle();
+   milliseconds -= step;
+  }
+ }
+
+ @Before public void configureDisplayFrames() {
+  ShadowChoreographer.setPaused(true);
+  ShadowChoreographer.setFrameDelay(Duration.ofMillis(16));
+ }
+
+ private static void swipeFingerAndLift(ScreenInputController controller) {
+  int[] finger = {0};
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, finger, 500, 300);
+  for (int step = 1; step <= 4; step++) {
+   advance(16);
+   send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, finger,
+       500 - step * 32, 300 + step * 16);
+  }
+  advance(8);
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, finger, 372, 364);
+ }
+
+ @Test public void fastFingerSwipeCoastsInItsDirectionAndDecelerates() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(2, 4000, 3000);
+  swipeFingerAndLift(controller);
+  int releasedX = controller.getPointerX();
+  int releasedY = controller.getPointerY();
+  int movesBeforeCoast = output.mouse.size();
+
+  advance(64);
+  int firstX = controller.getPointerX();
+  assertTrue(firstX < releasedX);
+  assertTrue(controller.getPointerY() > releasedY);
+  advance(64);
+  int secondX = controller.getPointerX();
+  assertTrue(secondX < firstX);
+  assertTrue(firstX - secondX < releasedX - firstX);
+  advance(172);
+  int lateX = controller.getPointerX();
+  advance(100);
+  int laterX = controller.getPointerX();
+  assertTrue("A fast release should still be easing after 300 ms", laterX < lateX);
+  assertTrue(lateX - laterX < firstX - secondX);
+  advance(2000);
+  int settled = output.mouse.size();
+  advance(500);
+  assertEquals(settled, output.mouse.size());
+  assertTrue(output.mouse.size() > movesBeforeCoast);
+  assertTrue(output.mouse.stream().allMatch(event -> event.startsWith("move:")));
+ }
+
+ @Test public void coastingContinuesAlongAnUnblockedAxisAtTheDesktopEdge() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  controller.setPointerPosition(130, 1500);
+  swipeFingerAndLift(controller);
+  int releasedY = controller.getPointerY();
+  advance(80);
+  assertEquals(0, controller.getPointerX());
+  assertTrue(controller.getPointerY() > releasedY);
+  int edgeY = controller.getPointerY();
+  advance(100);
+  assertEquals(0, controller.getPointerX());
+  assertTrue(controller.getPointerY() > edgeY);
+ }
+
+ @Test public void touchingTheScreenStopsCursorCoastingImmediately() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  swipeFingerAndLift(controller);
+  int releasedX = controller.getPointerX();
+  advance(48);
+  int interruptedX = controller.getPointerX();
+  assertTrue(interruptedX < releasedX);
+  int movesBeforeTouch = output.mouse.size();
+
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, new int[]{0}, 372, 364);
+  advance(250);
+  assertEquals(interruptedX, controller.getPointerX());
+  assertEquals(movesBeforeTouch, output.mouse.size());
+ }
+
+ @Test public void virtualTouchscreenCanCoastAndBeCancelledByDevice() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  int[] finger = {0};
+  int[] actions = {MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_MOVE,
+      MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP};
+  int[] positions = {400, 440, 480, 520, 520};
+  for (int i = 0; i < actions.length; i++) {
+   advance(16);
+   MotionEvent event = fingerEvent(-1, SystemClock.uptimeMillis(), actions[i], finger, positions[i], 300);
+   try { assertTrue(controller.onTouchEvent(event)); }
+   finally { event.recycle(); }
+  }
+  int releasedX = controller.getPointerX();
+  advance(64);
+  int stoppedX = controller.getPointerX();
+  assertTrue(stoppedX > releasedX);
+  controller.cancelDevice(-1);
+  advance(350);
+  assertEquals(stoppedX, controller.getPointerX());
+ }
+
+ @Test public void liftingAfterPausingDoesNotCoastFromStaleMovement() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  int[] finger = {0};
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, finger, 500, 300);
+  advance(16);
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, finger, 550, 300);
+  advance(16);
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, finger, 600, 300);
+  advance(250);
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, finger, 600, 300);
+
+  advance(1000);
+  assertEquals(Arrays.asList("move:2050,1500", "move:2100,1500"), output.mouse);
+ }
+
+ @Test public void slowFingerMovementUsesPrecisionGainAndStopsOnRelease() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  int[] finger = {0};
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, finger, 500, 300);
+  for (int step = 1; step <= 10; step++) {
+   advance(20);
+   send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, finger, 500 + step * 2, 300);
+  }
+  advance(8);
+  send(controller, SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, finger, 520, 300);
+  int movesBeforeRelease = output.mouse.size();
+  assertTrue(movesBeforeRelease > 0);
+
+  advance(1000);
+  assertEquals(2017, controller.getPointerX());
+  assertEquals(movesBeforeRelease, output.mouse.size());
+ }
+
+ @Test public void theSameFingerTravelMovesTheCursorFartherAtHigherSpeed() {
+  int slow = cursorTravelBeforeRelease(105);
+  int medium = cursorTravelBeforeRelease(30);
+  int fast = cursorTravelBeforeRelease(12);
+  assertTrue(slow < medium);
+  assertTrue(medium < fast);
+  assertTrue(fast <= 240);
+ }
+
+ private static int cursorTravelBeforeRelease(int intervalMillis) {
+  ScreenInputController controller = new ScreenInputController(new Output(), 8, 40, 300, 16, 2);
+  controller.setGeometry(1, 4000, 3000);
+  int[] finger = {0};
+  long start = SystemClock.uptimeMillis();
+  send(controller, start, MotionEvent.ACTION_DOWN, finger, 500, 300);
+  for (int step = 1; step <= 6; step++) {
+   send(controller, start + step * intervalMillis, MotionEvent.ACTION_MOVE, finger,
+       500 + step * 40, 300);
+  }
+  return controller.getPointerX() - 2000;
+ }
+
+ @Test public void disconnectingStopsCursorCoastingImmediately() {
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 4000, 3000);
+  swipeFingerAndLift(controller);
+  int releasedX = controller.getPointerX();
+  advance(48);
+  assertTrue(controller.getPointerX() < releasedX);
+  int movesBeforeDisconnect = output.mouse.size();
+
+  controller.setActive(false);
+  advance(250);
+  assertEquals(movesBeforeDisconnect, output.mouse.size());
+ }
  @Test public void secondTapDragKeepsLeftDownUntilReleaseAndCancelEndsOnlyItsDrag(){
   Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
   send(c,10,0,new int[]{0},100,100);send(c,30,1,new int[]{0},100,100);
@@ -90,6 +285,7 @@ public class ScreenInputControllerTest {
   send(controller, 120, MotionEvent.ACTION_MOVE, finger, 140, 100);
   send(controller, 130, MotionEvent.ACTION_UP, finger, 140, 100);
 
+  advance(1000);
   assertEquals(Arrays.asList("button:1:true:500,350", "move:520,350", "move:540,350",
       "button:1:false:540,350"), output.mouse);
  }
@@ -124,7 +320,7 @@ public class ScreenInputControllerTest {
   send(controller, 110, MotionEvent.ACTION_UP, finger, 220, 100);
 
   assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
-      "move:515,350"), output.mouse);
+      "move:513,350"), output.mouse);
  }
 
  @Test public void quickDoubleClickIsSentAfterTheSecondFingerLifts(){
@@ -196,7 +392,7 @@ public class ScreenInputControllerTest {
   send(controller, 1130, MotionEvent.ACTION_MOVE, finger, 120, 100);
   send(controller, 1150, MotionEvent.ACTION_UP, finger, 120, 100);
   assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
-      "move:520,350"), output.mouse);
+      "move:517,350"), output.mouse);
  }
  @Test public void disablingTapDragReleasesAnActiveDragOnce(){
   Output output = new Output();
@@ -254,7 +450,7 @@ public class ScreenInputControllerTest {
   send(controller, tap + hold, MotionEvent.ACTION_MOVE, new int[]{0}, 120, 100);
   send(controller, tap + hold + 10, MotionEvent.ACTION_UP, new int[]{0}, 120, 100);
 
-  assertEquals(Collections.singletonList("move:520,350"), output.mouse);
+  assertEquals(Collections.singletonList("move:517,350"), output.mouse);
  }
 
  @Test public void quickMovementDeliveredOnLiftIsNotMistakenForDoubleClick(){
@@ -292,6 +488,7 @@ public class ScreenInputControllerTest {
   send(c,10,0,new int[]{0},100,200);send(c,20,5|(1<<8),new int[]{0,1},100,200,200,200);
   send(c,30,2,new int[]{0,1},100,150,200,150);
   send(c,40,6|(1<<8),new int[]{0,1},100,150,200,150);send(c,50,1,new int[]{0},100,150);
+  advance(1000);
   assertEquals(Collections.singletonList("wheel:false:true"),o.mouse);
  }
  @Test public void secondTwoFingerTapDragEndsWhenFingersLift(){

@@ -5,18 +5,21 @@
     android:width="48dp" android:height="48dp" android:viewportWidth="1254" android:viewportHeight="1254">
     <path android:fillColor="#123F4A"
         android:pathData="M276,0H978A276,276 0,0 1,1254,276V978A276,276 0,0 1,978,1254H276A276,276 0,0 1,0,978V276A276,276 0,0 1,276,0Z" />
-    <path android:fillColor="#F4F8F9"
-        android:pathData="M260,297H1064A44,44 0,0 1,1108,341V782A44,44 0,0 1,1064,826H260A44,44 0,0 1,216,782V341A44,44 0,0 1,260,297Z" />
-    <path android:fillColor="#123F4A"
-        android:pathData="M268,345H1056A4,4 0,0 1,1060,349V774A4,4 0,0 1,1056,778H268A4,4 0,0 1,264,774V349A4,4 0,0 1,268,345Z" />
-    <!-- The monitor, stem and foot share the centerline at x=662. -->
-    <path android:fillColor="#F4F8F9"
-        android:pathData="M632,814H692V916H632Z M562,892H762A20,20 0,0 1,782,912V922A20,20 0,0 1,762,942H562A20,20 0,0 1,542,922V912A20,20 0,0 1,562,892Z" />
-    <path android:strokeColor="#EEB85F" android:strokeWidth="49"
-        android:strokeLineCap="round" android:strokeLineJoin="round"
-        android:pathData="M763,429l63,61l-63,61 M939,510l-64,64l64,63" />
-    <path android:fillColor="#52B6AD"
-        android:pathData="M114,613H568A48,48 0,0 1,616,661V940A48,48 0,0 1,568,988H114A48,48 0,0 1,66,940V661A48,48 0,0 1,114,613Z" />
-    <path android:fillColor="#123F4A"
-        android:pathData="M117,652H565A11,11 0,0 1,576,663V915A11,11 0,0 1,565,926H117A11,11 0,0 1,106,915V663A11,11 0,0 1,117,652Z M293.5,947H388.5A9.5,9.5 0,0 1,388.5,966H293.5A9.5,9.5 0,0 1,293.5,947Z" />
+    <group android:pivotX="627" android:pivotY="627"
+        android:scaleX="0.88" android:scaleY="0.88">
+        <path android:fillColor="#F4F8F9"
+            android:pathData="M260,297H1064A44,44 0,0 1,1108,341V782A44,44 0,0 1,1064,826H260A44,44 0,0 1,216,782V341A44,44 0,0 1,260,297Z" />
+        <path android:fillColor="#123F4A"
+            android:pathData="M268,345H1056A4,4 0,0 1,1060,349V774A4,4 0,0 1,1056,778H268A4,4 0,0 1,264,774V349A4,4 0,0 1,268,345Z" />
+        <!-- The monitor, stem and foot share the same centerline. -->
+        <path android:fillColor="#F4F8F9"
+            android:pathData="M632,814H692V916H632Z M562,892H762A20,20 0,0 1,782,912V922A20,20 0,0 1,762,942H562A20,20 0,0 1,542,922V912A20,20 0,0 1,562,892Z" />
+        <path android:strokeColor="#EEB85F" android:strokeWidth="49"
+            android:strokeLineCap="round" android:strokeLineJoin="round"
+            android:pathData="M763,429l63,61l-63,61 M939,510l-64,64l64,63" />
+        <path android:fillColor="#52B6AD"
+            android:pathData="M114,613H568A48,48 0,0 1,616,661V940A48,48 0,0 1,568,988H114A48,48 0,0 1,66,940V661A48,48 0,0 1,114,613Z" />
+        <path android:fillColor="#123F4A"
+            android:pathData="M117,652H565A11,11 0,0 1,576,663V915A11,11 0,0 1,565,926H117A11,11 0,0 1,106,915V663A11,11 0,0 1,117,652Z M293.5,947H388.5A9.5,9.5 0,0 1,388.5,966H293.5A9.5,9.5 0,0 1,293.5,947Z" />
+    </group>
 </vector>

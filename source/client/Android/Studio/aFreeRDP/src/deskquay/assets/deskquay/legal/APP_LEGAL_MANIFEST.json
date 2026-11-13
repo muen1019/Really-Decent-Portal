@@ -179,14 +179,14 @@
     {
       "path": "THIRD_PARTY_NOTICES.en.md",
       "role": "APP_LEGAL_ASSET",
-      "bytes": 19507,
-      "sha256": "94ddae1734abd3c51836b37824620a2b3af3390cf18b83a66305473cfb6874b5"
+      "bytes": 19512,
+      "sha256": "5ab371d8270337a8f629aaf0cbfeac7190793c6378030f6032b6e0ff31d4b0e4"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
       "role": "APP_LEGAL_ASSET",
-      "bytes": 22954,
-      "sha256": "a1447086becb624bf8a4591816ebe845dbc30651ee47adbe9fd8e2584f4f9119"
+      "bytes": 22957,
+      "sha256": "830b808c8350bbc2d12e7f5e006f8d1b9277a5144172053275caf92aae903a4a"
     }
   ],
   "engineering_files_included": false,
@@ -413,45 +413,45 @@
     {
       "path": "THIRD_PARTY_NOTICES.en.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 29091,
-      "sha256": "d194bf40f7f9a00dafe4dd1baabcf03c951898536c05338cf91e0c80e93155f1",
+      "bytes": 29096,
+      "sha256": "c0183607744acef4dc1e99d8612c53b369b5c532826f696d9f7cc53d75eda382",
       "original_text_path": "THIRD_PARTY_NOTICES.en.md",
       "original_text_sha256": "fa4c260793d1467684a7ba194246d1bfb0bb7e04ea7ddcf64f00029d3e9cb17f"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 29307,
-      "sha256": "b6cba3ba1ff574f3175eabd624f2413242234e2a91abc460660cdc3d27d8873e",
+      "bytes": 29310,
+      "sha256": "8bbc13650f01ac7eb4d5cbb782754bd5a36f54c9be88b6d4132dc41f5d43db43",
       "original_text_path": "THIRD_PARTY_NOTICES.md",
       "original_text_sha256": "cae8ce22d1928f854f8b7b0beacb8dcb20dd18a983dbc08f1814261480071488"
     }
   ],
   "self_digest_policy": "This JSON is hashed by the outer source plan and source provenance, not recursively by itself.",
-  "release_version": "0.1.9",
+  "release_version": "0.1.10",
   "distribution_pages": [
     {
       "path": "index.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 4520,
-      "sha256": "57dd65521406cc402ae5ded9ed73ec80841e8ba9d097cb33aa4ef4114a0173e3"
+      "bytes": 4522,
+      "sha256": "adea317bef1558e76dff1f81c0f2d3b05615d6f797b1e00cc2d63332df714cbf"
     },
     {
       "path": "index-zh-Hant.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 4406,
-      "sha256": "0fe688e4d212c176a5c7de5444dfb85e1d45f1037cb10110b802d6cca961b4b2"
+      "bytes": 4408,
+      "sha256": "5a666e9b39c502787e6204e456598df3fa6f7e20381f8599e35bd2f0fc988f52"
     },
     {
       "path": "THIRD_PARTY_NOTICES.html",
       "role": "PROJECT_MPL_MARKUP_WITH_ORIGINAL_TEXT_TERMS",
-      "bytes": 29307,
-      "sha256": "fb6cc846677ce1985b3dcafb475542be2a54d53303e1f0b24c8d724bbfc087f1"
+      "bytes": 29310,
+      "sha256": "8bbc13650f01ac7eb4d5cbb782754bd5a36f54c9be88b6d4132dc41f5d43db43"
     }
   ],
   "runtime_license_map": {
     "file": "CURRENT_RUNTIME_LICENSE_MAP.json",
-    "bytes": 2956689,
-    "sha256": "e9bd5ef13fb406843064a89e051776c944ff558b11e36ad995f60640dfd60535"
+    "bytes": 2957431,
+    "sha256": "8b330b40e995aa51f4ee6303212ec35c254dd07b12cddd73bb9da55cc7940ed5"
   }
 }

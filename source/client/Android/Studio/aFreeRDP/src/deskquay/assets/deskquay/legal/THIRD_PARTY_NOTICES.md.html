@@ -21,11 +21,11 @@ code { font: .9em monospace; }</style>
 <main>
 <nav><a href="index-zh-Hant.html">授權原文</a> · <a href="index.html" lang="en">English</a></nav>
 <h1>第三方授權與來源告知</h1>
-<p>本文件說明 Really Decent Portal 0.1.9 ARM64 的第三方元件、授權與對應來源。FreeRDP 基底為 3.33.1，固定 commit 為 <code>65bcca1913a28cbdd7eb913599f692bd2b707991</code>。</p>
+<p>本文件說明 Really Decent Portal 0.1.10 ARM64 的第三方元件、授權與對應來源。FreeRDP 基底為 3.33.1，固定 commit 為 <code>65bcca1913a28cbdd7eb913599f692bd2b707991</code>。</p>
 <p>本產品衍生自 FreeRDP／aFreeRDP，包含下列分別授權的程式碼與資料。它不是 FreeRDP 官方發行，也不代表各上游作者、Microsoft、Google、Mozilla、Zetetic 或其他權利人背書。保留的版權與授權文字不因 App 改名而消失。</p>
 <p>各授權全文收錄於 <a href="index-zh-Hant.html">授權原文</a>。<code>SOURCE_ONLY/</code> 收錄僅適用於隨附來源或建置工具的條款。各檔案、程式庫與資料依其原有授權提供。</p>
 <h2>對應修改來源的取得方式</h2>
-<p>與 APK 同版的完整修改來源封存檔名為 <code>Really-Decent-Portal-0.1.9-source.zip</code>。請從 APK 的提供處一併取得，或向提供 APK 的人索取。App「關於」中的「對應原始碼」頁也提供取得說明。</p>
+<p>與 APK 同版的完整修改來源封存檔名為 <code>Really-Decent-Portal-0.1.10-source.zip</code>。請從 APK 的提供處一併取得，或向提供 APK 的人索取。App「關於」中的「對應原始碼」頁也提供取得說明。</p>
 <p>對 MPL-2.0 Covered Software，包含修改的 Android Java、資源及 JNI 檔案，散布者須依 MPL 3.1／3.2 提供對應來源及告知取得方式。該來源的 MPL 權利不受 App 二進位的其他使用條款限制。<a href="LICENSES/MPL-2.0.txt">MPL-2.0 全文</a></p>
 <h2>FreeRDP、WinPR 與 aFreeRDP</h2>
 <p>FreeRDP／WinPR 的主要來源使用 Apache License 2.0。aFreeRDP 的多個 Android GUI、XML 與 JNI 檔案另標示 Mozilla Public License 2.0；適用範圍依個別檔案與保留通知。版權屬 FreeRDP contributors、Thincast Technologies GmbH 及各來源檔案所列作者；修改檔案仍須保留適用的原通知。</p>
@@ -176,7 +176,7 @@ code { font: .9em monospace; }</style>
 <tr><td><a href="LICENSES/Victor-Lazzarini-OpenSL-BSD-style.txt">Victor-Lazzarini-OpenSL-BSD-style.txt</a></td><td>1557</td><td><code>24439ab6f79f3c0265e5da6877ca4442d41e47aef9548e56590764afb4259412</code></td></tr>
 </tbody></table>
 <h2>ARM64 執行階段元件的查核基準</h2>
-<p>隨附的 <a href="CURRENT_RUNTIME_LICENSE_MAP.json">執行階段元件配對</a> 記錄 0.1.9 發行版的原生編譯來源、打包元件和適用授權。Java 相依套件沿用既有盤點，包含 63 個外部元件、各 classes.jar／原 AAR、JAR、POM 與內嵌原文。</p>
+<p>隨附的 <a href="CURRENT_RUNTIME_LICENSE_MAP.json">執行階段元件配對</a> 記錄 0.1.10 發行版的原生編譯來源、打包元件和適用授權。Java 相依套件沿用既有盤點，包含 63 個外部元件、各 classes.jar／原 AAR、JAR、POM 與內嵌原文。</p>
 <p>本版重建 FreeRDP 3.33.1（commit 65bcca1913a28cbdd7eb913599f692bd2b707991）、WinPR 與 Android JNI，並使用 OpenSSL 4.0.3、cJSON 1.7.19 和 uriparser 1.0.2 的固定來源封存。執行階段元件配對保留實際編譯與連結來源的適用通知及雜湊。SQLCipher 使用供應商 AAR，對應來源與授權見上節。</p>
 <p>NDK29 compiler support／linker alias另保留 <a href="LICENSES/LLVM-NDK29-runtime-NOTICE.txt">LLVM原NOTICE</a>，包含 Apache-2.0 with LLVM Exceptions及所含原通知；實際 LLD dependency 中的 CRT objects 另配 <a href="LICENSES/Android-NDK29-NOTICE.txt">Android NDK原NOTICE</a>。這兩份原文可能涵蓋較廣toolchain內容，不表示所有toolchain元件均進App；Android系統提供的shared libraries沒有隨APK散布。未命中明確header的來源保留 PER-FILE-ORIGINAL-UNCLASSIFIED，並保留其完整來源與根授權，不擅自改列Apache。本表是具體輸入／原文配對，非法律保證、全類別可達性或安全驗收。</p>
 </main>

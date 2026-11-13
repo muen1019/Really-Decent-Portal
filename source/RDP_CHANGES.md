@@ -40,6 +40,14 @@ this naming source layer has not yet produced or validated a new APK. This sourc
 by the preparation tool. Public source URL/archive identity must be finalized
 before the corresponding release can be distributed.
 
+## Android 0.1.10
+
+The screen trackpad uses lower gain for slow pointer movement and smoothly
+decelerates after a fast swipe. A new touch interrupts the glide. The Android
+viewport follows the trackpad pointer near the edge of the visible desktop
+when zoomed in or when the on-screen keyboard reduces the viewport. The
+launcher icon leaves more space around the monitor and tablet artwork.
+
 
 ## ABI evaluation and native public-path producer
 
