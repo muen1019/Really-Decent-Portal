@@ -5,7 +5,7 @@ original terms. Distribution modification: 2026-11-12. -->
 
 # 第三方授權與來源告知
 
-本文件說明 Really Decent Portal 0.1.8 ARM64 的第三方元件、授權與對應來源。FreeRDP 基底為 3.33.1，固定 commit 為 `65bcca1913a28cbdd7eb913599f692bd2b707991`。
+本文件說明 Really Decent Portal 0.1.9 ARM64 的第三方元件、授權與對應來源。FreeRDP 基底為 3.33.1，固定 commit 為 `65bcca1913a28cbdd7eb913599f692bd2b707991`。
 
 本產品衍生自 FreeRDP／aFreeRDP，包含下列分別授權的程式碼與資料。它不是 FreeRDP 官方發行，也不代表各上游作者、Microsoft、Google、Mozilla、Zetetic 或其他權利人背書。保留的版權與授權文字不因 App 改名而消失。
 
@@ -13,7 +13,7 @@ original terms. Distribution modification: 2026-11-12. -->
 
 ## 對應修改來源的取得方式
 
-與 APK 同版的完整修改來源封存檔名為 `Really-Decent-Portal-0.1.8-source.zip`。請從 APK 的提供處一併取得，或向提供 APK 的人索取。App「關於」中的「對應原始碼」頁也提供取得說明。
+與 APK 同版的完整修改來源封存檔名為 `Really-Decent-Portal-0.1.9-source.zip`。請從 APK 的提供處一併取得，或向提供 APK 的人索取。App「關於」中的「對應原始碼」頁也提供取得說明。
 
 對 MPL-2.0 Covered Software，包含修改的 Android Java、資源及 JNI 檔案，散布者須依 MPL 3.1／3.2 提供對應來源及告知取得方式。該來源的 MPL 權利不受 App 二進位的其他使用條款限制。[MPL-2.0 全文](LICENSES/MPL-2.0.txt)
 
@@ -196,7 +196,7 @@ SQLCipher source gitlink 為 `e2a6040f2ae5cfff2b3e08eb3320007d93cdf3fc`；其 `V
 
 ## ARM64 執行階段元件的查核基準
 
-隨附的 [執行階段元件配對](CURRENT_RUNTIME_LICENSE_MAP.json) 記錄 0.1.8 發行版的原生編譯來源、打包元件和適用授權。Java 相依套件沿用既有盤點，包含 63 個外部元件、各 classes.jar／原 AAR、JAR、POM 與內嵌原文。
+隨附的 [執行階段元件配對](CURRENT_RUNTIME_LICENSE_MAP.json) 記錄 0.1.9 發行版的原生編譯來源、打包元件和適用授權。Java 相依套件沿用既有盤點，包含 63 個外部元件、各 classes.jar／原 AAR、JAR、POM 與內嵌原文。
 
 本版重建 FreeRDP 3.33.1（commit 65bcca1913a28cbdd7eb913599f692bd2b707991）、WinPR 與 Android JNI，並使用 OpenSSL 4.0.3、cJSON 1.7.19 和 uriparser 1.0.2 的固定來源封存。執行階段元件配對保留實際編譯與連結來源的適用通知及雜湊。SQLCipher 使用供應商 AAR，對應來源與授權見上節。
 

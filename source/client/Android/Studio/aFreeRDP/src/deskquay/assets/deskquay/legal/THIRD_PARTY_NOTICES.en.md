@@ -4,13 +4,13 @@ Third-party code, data, copyright notices, and license texts keep their original
 
 # Third-party notices and corresponding source
 
-This notice covers the Really Decent Portal 0.1.8 ARM64 APK. Its FreeRDP base is 3.33.1, commit `65bcca1913a28cbdd7eb913599f692bd2b707991`. Really Decent Portal is an independent distribution derived from FreeRDP and aFreeRDP.
+This notice covers the Really Decent Portal 0.1.9 ARM64 APK. Its FreeRDP base is 3.33.1, commit `65bcca1913a28cbdd7eb913599f692bd2b707991`. Really Decent Portal is an independent distribution derived from FreeRDP and aFreeRDP.
 
 The [license and notice texts](index.html) contains the original texts. [Source-only notices](index.html#source-and-build-tool-notices) cover material supplied as source or used by the build tools. The terms on each source file, library, or data file continue to apply.
 
 ## Corresponding source
 
-Download `Really-Decent-Portal-0.1.8-source.zip` alongside the matching APK from the [0.1.8 release](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.8). If someone supplies the APK separately, ask that distributor for the corresponding source. The app also provides the [source offer](../source23/index.html).
+Download `Really-Decent-Portal-0.1.9-source.zip` alongside the matching APK from the [0.1.9 release](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.9). If someone supplies the APK separately, ask that distributor for the corresponding source. The app also provides the [source offer](../source23/index.html).
 
 Sections 3.1 and 3.2 of the MPL-2.0 govern distribution of the corresponding source for covered Android Java, resources, and JNI files. Recipients retain their MPL rights to that source. [MPL-2.0](LICENSES/MPL-2.0.txt)
 
@@ -165,6 +165,6 @@ The [runtime license map](CURRENT_RUNTIME_LICENSE_MAP.json) records 63 external 
 
 ## ARM64 runtime inputs
 
-The [runtime license map](CURRENT_RUNTIME_LICENSE_MAP.json) pairs the 0.1.8 native compile and link inputs with their shipped libraries and notices. It covers the rebuilt FreeRDP, WinPR, Android JNI wrapper, OpenSSL, cJSON, and uriparser, plus the separately supplied SQLCipher AAR.
+The [runtime license map](CURRENT_RUNTIME_LICENSE_MAP.json) pairs the 0.1.9 native compile and link inputs with their shipped libraries and notices. It covers the rebuilt FreeRDP, WinPR, Android JNI wrapper, OpenSSL, cJSON, and uriparser, plus the separately supplied SQLCipher AAR.
 
 The Android NDK 29 compiler support archives are paired with [LLVM's runtime notice](LICENSES/LLVM-NDK29-runtime-NOTICE.txt), including the LLVM Exceptions. The actual CRT objects are paired with the [Android NDK notice](LICENSES/Android-NDK29-NOTICE.txt). These original notices cover the broader toolchain as well. System shared libraries are supplied by Android. Files without a clear per-file header are recorded as `PER-FILE-ORIGINAL-UNCLASSIFIED` and distributed with their original contents and root notices.
