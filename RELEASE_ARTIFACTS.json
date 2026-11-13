@@ -9,20 +9,20 @@
   "target_sdk": 37,
   "apk": {
     "file": "Really-Decent-Portal-0.1.7-arm64-v8a.apk",
-    "bytes": 24423149,
-    "sha256": "9fb9bd326c952f77e646ec3da80162bd67ec47030a28683449ffdd042c0bcda3"
+    "bytes": 24439721,
+    "sha256": "3d6b301e376a4748765571f2cbeed878d5eb34ead5e1728da382143b7baa4de4"
   },
   "source_archive": {
     "file": "Really-Decent-Portal-0.1.7-source.zip",
-    "bytes": 14807587,
-    "sha256": "50fb028a77777124a75af76c17080a2413b2ac030b1d5adf8b7858c7dc97ae8d"
+    "bytes": 14822853,
+    "sha256": "c82f2769d0b59c75e3b018b3cb2d08b0dada391159f3c985f7083d98a8289d69"
   },
   "signing_certificate_sha256": "51cf6d51e0f5e97c9c482a5afab7e314bf7bfbf67347bc9857f284c732621216",
   "signature_schemes": {
     "v3": true,
     "v2": true
   },
-  "source_files": 3235,
+  "source_files": 3237,
   "license_texts": 29,
   "upstream": {
     "project": "FreeRDP",

@@ -67,6 +67,8 @@
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/cJSON-1.7.19-MIT.txt.html",
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/uriparser-1.0.2-BSD.txt",
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/LICENSES/uriparser-1.0.2-BSD.txt.html",
+    "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.html",
+    "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.md",
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.html",
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md",
     "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md.html",
@@ -231,15 +233,15 @@
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/APP_LEGAL_MANIFEST.json",
-      "bytes": 19404,
-      "sha256": "fe1bc5a70dfa52a25ec5407170537e50430b0a4ed30532947cae8e799866ad3b",
+      "bytes": 19977,
+      "sha256": "e644bea99305ca502da8279f52e2ac07bbbfa735c9a16cb8e222ecbc54921fa7",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/CURRENT_RUNTIME_LICENSE_MAP.json",
-      "bytes": 2950545,
-      "sha256": "8a1a14f75ac3e5186162c8c39eaabbb24b42ef034dd5db01e2809417d36283f1",
+      "bytes": 2956689,
+      "sha256": "d8b58acd5fda6d7d2e0adc7721fc461d8b3f0430b04ae95abeda54a9ea800bff",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -636,6 +638,20 @@
       "upstream_sha256": null
     },
     {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.html",
+      "bytes": 29091,
+      "sha256": "83e31a5055f1e82bd3002933b23e892817720c2ddc6e6ca7333a4a8cec3b8651",
+      "mode": "100644",
+      "upstream_sha256": null
+    },
+    {
+      "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.md",
+      "bytes": 19507,
+      "sha256": "91773ea1cad0f71547777afd26a63ac7f0e2c0fb590f84c90e8a334d23e14d52",
+      "mode": "100644",
+      "upstream_sha256": null
+    },
+    {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.html",
       "bytes": 29307,
       "sha256": "f40139858f0a8c7770e8f35d19b5a2392c47bacd0eae65569881feeec5586906",
@@ -665,8 +681,8 @@
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/index.html",
-      "bytes": 4509,
-      "sha256": "ab0cecdbfc1e40a2b45edd977f52db358d711eb24728279b9b858d27eac449cb",
+      "bytes": 4520,
+      "sha256": "527741752fdd10e0626b9404840edc2f2fe1a9c4f528a536346b1fb44bcbd9a8",
       "mode": "100644",
       "upstream_sha256": null
     },
