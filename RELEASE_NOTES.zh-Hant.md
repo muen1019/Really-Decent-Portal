@@ -1,22 +1,17 @@
-# Really Decent Portal 0.1.7 測試版
+# Really Decent Portal 0.1.8
 
 [English](RELEASE_NOTES.md)
 
-GitHub 測試版，適用於 Android 10（API 29）以上的 ARM64 裝置。
+## 螢幕觸控板
 
-## 輸入特色
+- 在螢幕觸控板模式下，單指輕觸兩下，第二下按住並移動即可用左鍵拖曳。第二下的落點容許些微偏移。快速點兩下並抬手仍可雙擊。
+- 雙指輕點，或單指靜止長按後抬手，可送出右鍵。雙指輕觸兩下，第二下按住並移動即可用右鍵拖曳。
+- 雙指平移可水平或垂直捲動遠端內容。雙指捏合或張開會調整 Android 畫面上整個遠端桌面的顯示大小。
 
-- 實體觸控板支援左鍵與右鍵點按、平順雙軸捲動和輕點兩下後按住拖曳。Android 14 以上的相容觸控板沿用 0.1.6 調校的捏合靈敏度，可逐級縮放遠端內容。
-- S Pen 透過 RDP 筆輸入轉送懸浮、筆尖接觸、筆壓與側鍵。筆的行為取決於遠端工作階段與應用程式。
-
-## 0.1.7 更新
-
-- 原生連線核心更新至 FreeRDP 3.33.1，內附 OpenSSL 更新至 4.0.3。
-- 移除 Android 與 JNI 日誌中的剪貼簿原文。
-- 連線失敗或中斷時，顯示易讀的原因。按「複製錯誤訊息」可取得完整代碼和診斷資料。
+開啟「輕觸兩下拖曳」時，單次輕點可能會等到 Android 的雙擊判定時間結束才送出。關閉設定可在抬手時立即送出點擊。
 
 ## 下載
 
-此版本提供配對的簽署檔 `Really-Decent-Portal-0.1.7-arm64-v8a.apk`、`Really-Decent-Portal-0.1.7-source.zip`、`SHA256SUMS.txt` 及 `RELEASE_ARTIFACTS.json`。來源 ZIP 包含建置說明和適用的授權原文。
+簽署版 `Really-Decent-Portal-0.1.8-arm64-v8a.apk` 適用於 Android 10（API 29）以上的 ARM64 裝置。請用 `SHA256SUMS.txt` 或 `RELEASE_ARTIFACTS.json` 核對 APK 及同版的 `Really-Decent-Portal-0.1.8-source.zip`。配對的來源 ZIP 內含建置說明與授權告知。GitHub 自動產生的 **Source code** 下載取自 `v0.1.8` 標籤。
 
-已在搭配 Book Cover Keyboard 的 Samsung 平板實測捏合縮放、普通捲動與 Ctrl 快捷鍵。Wi‑Fi 短暫中斷後也能自動回到同一個遠端工作階段。不同裝置、遠端應用程式與長時間連線仍是測試重點。
+[0.1.8 發行頁](https://github.com/muen1019/Really-Decent-Portal/releases/tag/v0.1.8)

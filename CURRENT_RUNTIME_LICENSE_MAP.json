@@ -67043,7 +67043,7 @@
     }
   ],
   "scope": "ACTUAL_SOURCE_AND_PACKAGING_INPUT_LICENSE_PAIRING_NOT_LEGAL_WARRANTY",
-  "release_version": "0.1.7",
+  "release_version": "0.1.8",
   "source23_manifest_role": "HISTORICAL_BASELINE",
   "self_referential_metadata": "The release source manifest hashes the generated map and app asset manifest."
 }

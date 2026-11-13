@@ -4,8 +4,11 @@
  */
 package com.freerdp.freerdpcore.utils;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.InputDevice;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import com.freerdp.freerdpcore.presentation.ScreenInputMode;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,8 +33,29 @@ public final class ScreenInputController {
   /** Relative local-view zoom factor, focus in unscaled SessionView coordinates. */
   void onLocalZoom(float factor,float focusX,float focusY);
  }
+ private static final long TWO_FINGER_TAP_MAX_DURATION_MS = 500;
+
+ private static final class PendingTap {
+  final long upTime;
+  final int button, deviceId, cursorX, cursorY;
+  final float touchX, touchY;
+
+  PendingTap(int button, long upTime, int deviceId, int cursorX, int cursorY, float touchX, float touchY) {
+   this.button = button;
+   this.upTime = upTime;
+   this.deviceId = deviceId;
+   this.cursorX = cursorX;
+   this.cursorY = cursorY;
+   this.touchX = touchX;
+   this.touchY = touchY;
+  }
+ }
+
  private final Sink sink;
- private final float slop,wheelPixels;
+ private final Handler tapHandler = new Handler(Looper.getMainLooper());
+ private final Runnable sendPendingClick = this::flushPendingClick;
+ private PendingTap pendingTap;
+ private final float slop,wheelPixels,doubleTapSlop;
  private final long doubleTapMillis;
  private float scale=1, pointerX, pointerY;
  private int width=1,height=1,device=-1;
@@ -40,17 +64,24 @@ public final class ScreenInputController {
  private boolean active=true,stream,ignoreRemainder;
  private float startX,startY,lastX,lastY;
  private long downTime;
- private boolean moved,secondTap,multiTail;
- private int maxPointers,lastTapCount;
+ private boolean moved,multiTail;
+ private int maxPointers;
  private float wheelX,wheelY,startSpan,lastSpan;
  private int multiKind;
  private int heldButton;
- private long lastTapTime=-100000;
- private float lastTapX,lastTapY;
  private final Map<Integer,int[]> contacts=new LinkedHashMap<>();
  public ScreenInputController(Sink sink,float slop,float wheelPixels,long doubleTapMillis) {
-  if(sink==null)throw new IllegalArgumentException("sink");
-  this.sink=sink;this.slop=Math.max(1,slop);this.wheelPixels=Math.max(1,wheelPixels);this.doubleTapMillis=Math.max(1,doubleTapMillis);
+  this(sink, slop, wheelPixels, doubleTapMillis, Math.max(1, slop) * 2);
+ }
+
+ public ScreenInputController(Sink sink, float slop, float wheelPixels, long doubleTapMillis,
+                              float doubleTapSlop) {
+  if (sink == null) throw new IllegalArgumentException("sink");
+  this.sink = sink;
+  this.slop = Math.max(1, slop);
+  this.wheelPixels = Math.max(1, wheelPixels);
+  this.doubleTapMillis = Math.max(1, doubleTapMillis);
+  this.doubleTapSlop = Math.max(this.slop, doubleTapSlop);
  }
  public ScreenInputMode getMode(){return mode;}
  public void setMode(ScreenInputMode mode) {
@@ -69,10 +100,13 @@ public final class ScreenInputController {
   boolean first=this.width==1&&this.height==1;
   this.scale=scale;this.width=width;this.height=height;
   if(first){pointerX=width/2f;pointerY=height/2f;}
-  setPointerPosition(getPointerX(),getPointerY());
+  pointerX=clamp(pointerX,width);pointerY=clamp(pointerY,height);
  }
  public void setLocalZoom(float scale){if(Float.isFinite(scale)&&scale>0)this.scale=scale;}
- public void setPointerPosition(int x,int y){pointerX=clamp(x,width);pointerY=clamp(y,height);}
+ public void setPointerPosition(int x,int y){
+  flushPendingClick();
+  pointerX=clamp(x,width);pointerY=clamp(y,height);
+ }
  public int getPointerX(){return Math.round(pointerX);}
  public int getPointerY(){return Math.round(pointerY);}
  private static int clamp(float x,int limit){return Math.max(0,Math.min(limit-1,Math.round(x)));}
@@ -90,15 +124,17 @@ public final class ScreenInputController {
   }
   return true;
  }
- public void cancelDevice(int id){if(stream&&device==id)cancel();}
+ public void cancelDevice(int id){
+  if ((stream && device == id) || (pendingTap != null && pendingTap.deviceId == id)) cancel();
+ }
  public void cancel(){
+  clearPendingClick();
   if(!contacts.isEmpty()){
    int n=contacts.size(),i=0;int[] ids=new int[n],x=new int[n],y=new int[n],actions=new int[n];
    for(Map.Entry<Integer,int[]> c:contacts.entrySet()){ids[i]=c.getKey();x[i]=c.getValue()[0];y[i]=c.getValue()[1];actions[i++]=CANCEL;}
    sink.onTouchFrame(new TouchFrame(ids,x,y,actions));contacts.clear();
   }
   releaseButton();
-  lastTapTime=-100000;
   if(stream)ignoreRemainder=true;
   stream=false;device=-1;
  }
@@ -128,51 +164,163 @@ public final class ScreenInputController {
   if(!sink.onTouchFrame(new TouchFrame(ids,x,y,actions))){cancel();ignoreRemainder=true;return;}
   if(action==MotionEvent.ACTION_UP||action==MotionEvent.ACTION_POINTER_UP)contacts.remove(event.getPointerId(index));
  }
- private void touchpad(MotionEvent e){
-  int action=e.getActionMasked();
-  if(action==MotionEvent.ACTION_DOWN){
-   startX=lastX=e.getX();startY=lastY=e.getY();downTime=e.getEventTime();moved=false;multiTail=false;maxPointers=1;wheelX=wheelY=0;
-   secondTap=isSecondTap(1,downTime,startX,startY);
-  }
-  else if(action==MotionEvent.ACTION_POINTER_DOWN){
-   if(e.getPointerCount()!=2){moved=true;multiTail=true;releaseButton();return;}
-   releaseButton();maxPointers=2;startX=lastX=centerX(e);startY=lastY=centerY(e);startSpan=lastSpan=span(e);multiKind=0;
-   secondTap=isSecondTap(2,e.getEventTime(),startX,startY);
-  }
-  else if(action==MotionEvent.ACTION_POINTER_UP){multiTail=true;releaseButton();}
-  else if(action==MotionEvent.ACTION_MOVE&&!multiTail&&maxPointers==2&&e.getPointerCount()==2){
-   float x=centerX(e),y=centerY(e),currentSpan=span(e);
-   float travel=(float)Math.hypot(x-startX,y-startY);
-   if(secondTap){
-    if(travel>slop)moved=true;
-    if(moved){if(heldButton==0){heldButton=BUTTON_RIGHT;sink.onMouseButton(heldButton,true,getPointerX(),getPointerY());}movePointer(x-lastX,y-lastY);lastX=x;lastY=y;}
-   }else{
-    if(multiKind==0){
-     if(Math.abs(currentSpan-startSpan)>slop*2&&Math.abs(currentSpan-startSpan)>travel*1.2f)multiKind=2;
-     else if(travel>slop)multiKind=1;
-    }
-    if(multiKind==2){moved=true;if(lastSpan>0&&currentSpan>0)sink.onLocalZoom(currentSpan/lastSpan,x,y);lastSpan=currentSpan;}
-    else if(multiKind==1){moved=true;wheelX-=x-lastX;wheelY-=y-lastY;emitWheel();lastX=x;lastY=y;}
+ private void touchpad(MotionEvent event) {
+  int action = event.getActionMasked();
+  if (action == MotionEvent.ACTION_DOWN) {
+   startX = lastX = event.getX();
+   startY = lastY = event.getY();
+   downTime = event.getEventTime();
+   moved = multiTail = false;
+   maxPointers = 1;
+   wheelX = wheelY = 0;
+   if (hasPendingTap(BUTTON_LEFT)) matchPendingTap(event.getEventTime(), startX, startY);
+  } else if (action == MotionEvent.ACTION_POINTER_DOWN) {
+   if (event.getPointerCount() != 2) {
+    flushPendingClick();
+    moved = multiTail = true;
+    releaseButton();
+    return;
    }
-  }
-  else if(action==MotionEvent.ACTION_MOVE&&!multiTail&&maxPointers==1){
-   if(Math.hypot(e.getX()-startX,e.getY()-startY)>slop)moved=true;
-   if(moved){if(secondTap&&heldButton==0){heldButton=BUTTON_LEFT;sink.onMouseButton(heldButton,true,getPointerX(),getPointerY());}movePointer(e.getX()-lastX,e.getY()-lastY);lastX=e.getX();lastY=e.getY();}
-  }
-  else if(action==MotionEvent.ACTION_UP){
-   if(heldButton!=0)releaseButton();
-   else if(!moved&&e.getEventTime()-downTime<=500){
-    int button=maxPointers==2?BUTTON_RIGHT:BUTTON_LEFT;
-    sink.onMouseButton(button,true,getPointerX(),getPointerY());sink.onMouseButton(button,false,getPointerX(),getPointerY());
-    if(!secondTap){lastTapTime=e.getEventTime();lastTapX=startX;lastTapY=startY;lastTapCount=maxPointers;}
-    else lastTapTime=-100000;
-   }else lastTapTime=-100000;
+   releaseButton();
+   maxPointers = 2;
+   startX = lastX = centerX(event);
+   startY = lastY = centerY(event);
+   startSpan = lastSpan = span(event);
+   multiKind = 0;
+   if (!moved && hasPendingTap(BUTTON_RIGHT)) {
+    matchPendingTap(event.getEventTime(), startX, startY);
+   } else {
+    flushPendingClick();
+   }
+  } else if (action == MotionEvent.ACTION_POINTER_UP) {
+   multiTail = true;
+   releaseButton();
+  } else if (action == MotionEvent.ACTION_MOVE && !multiTail) {
+   if (maxPointers == 1) moveSingleFinger(event);
+   else if (event.getPointerCount() == 2) moveTwoFingers(event);
+  } else if (action == MotionEvent.ACTION_UP) {
+   if (maxPointers == 1) moveSingleFinger(event);
+   finishTouchpadGesture(event.getEventTime());
   }
  }
-  private boolean isSecondTap(int count,long time,float x,float y){
-   return tapDragEnabled && lastTapCount==count && time-lastTapTime<=doubleTapMillis &&
-       Math.hypot(x-lastTapX,y-lastTapY)<=slop*2;
+
+ private boolean hasPendingTap(int button) {
+  return pendingTap != null && pendingTap.button == button;
+ }
+
+ private void matchPendingTap(long time, float x, float y) {
+  long gap = time - pendingTap.upTime;
+  float tapRadius = pendingTap.button == BUTTON_LEFT ? doubleTapSlop : slop * 2;
+  if (pendingTap.deviceId == device && gap >= 0 && gap < doubleTapMillis &&
+      Math.hypot(x - pendingTap.touchX, y - pendingTap.touchY) <= tapRadius) {
+   tapHandler.removeCallbacks(sendPendingClick);
+  } else {
+   flushPendingClick();
   }
+ }
+
+ private void moveSingleFinger(MotionEvent event) {
+  float x = event.getX(), y = event.getY();
+  if (Math.hypot(x - startX, y - startY) > slop) moved = true;
+  if (!moved) return;
+  if (hasPendingTap(BUTTON_LEFT)) beginDrag(BUTTON_LEFT);
+  else flushPendingClick();
+  moveTouchpadPointer(x, y);
+ }
+
+ private void moveTwoFingers(MotionEvent event) {
+  float x = centerX(event), y = centerY(event), currentSpan = span(event);
+  double travel = Math.hypot(x - startX, y - startY);
+  if (heldButton == BUTTON_RIGHT) {
+   moveTouchpadPointer(x, y);
+   return;
+  }
+
+  if (multiKind == 0) {
+   float spanChange = Math.abs(currentSpan - startSpan);
+   if (spanChange > slop * 2 && spanChange > travel * 1.2f) {
+    flushPendingClick();
+    multiKind = 2;
+   } else if (travel > slop) {
+    if (hasPendingTap(BUTTON_RIGHT)) {
+     moved = true;
+     beginDrag(BUTTON_RIGHT);
+     moveTouchpadPointer(x, y);
+     return;
+    }
+    multiKind = 1;
+   }
+  }
+  if (multiKind == 2) {
+   moved = true;
+   if (lastSpan > 0 && currentSpan > 0) sink.onLocalZoom(currentSpan / lastSpan, x, y);
+   lastSpan = currentSpan;
+  } else if (multiKind == 1) {
+   moved = true;
+   wheelX -= x - lastX;
+   wheelY -= y - lastY;
+   emitWheel();
+   lastX = x;
+   lastY = y;
+  }
+ }
+
+ private void beginDrag(int button) {
+  clearPendingClick();
+  heldButton = button;
+  sink.onMouseButton(button, true, getPointerX(), getPointerY());
+ }
+
+ private void moveTouchpadPointer(float x, float y) {
+  if (x != lastX || y != lastY) movePointer(x - lastX, y - lastY);
+  lastX = x;
+  lastY = y;
+ }
+
+ private void finishTouchpadGesture(long upTime) {
+  if (heldButton != 0) {
+   releaseButton();
+   return;
+  }
+  if (moved) return;
+
+  boolean singleFinger = maxPointers == 1;
+  int button = singleFinger ? BUTTON_LEFT : BUTTON_RIGHT;
+  long duration = upTime - downTime;
+  boolean longContact = singleFinger ? duration >= ViewConfiguration.getLongPressTimeout()
+      : duration > TWO_FINGER_TAP_MAX_DURATION_MS;
+  boolean matchedTap = hasPendingTap(button);
+  flushPendingClick();
+  if (longContact) {
+   // Resolve a stationary hold at lift so pausing before a pointer move never clicks.
+   if (singleFinger && !matchedTap) click(BUTTON_RIGHT, getPointerX(), getPointerY());
+  } else if (tapDragEnabled && !matchedTap) {
+   // The remote OS can see a double click on the second button-down. Keep the
+   // first tap local until another tap completes or the user starts a drag.
+   pendingTap = new PendingTap(button, upTime, device, getPointerX(), getPointerY(), startX, startY);
+   tapHandler.postAtTime(sendPendingClick, upTime + doubleTapMillis);
+  } else {
+   click(button, getPointerX(), getPointerY());
+  }
+ }
+
+ private void flushPendingClick() {
+  PendingTap tap = pendingTap;
+  if (tap == null) return;
+  clearPendingClick();
+  click(tap.button, tap.cursorX, tap.cursorY);
+ }
+
+ private void clearPendingClick() {
+  if (pendingTap == null) return;
+  tapHandler.removeCallbacks(sendPendingClick);
+  pendingTap = null;
+ }
+
+ private void click(int button, int x, int y) {
+  sink.onMouseButton(button, true, x, y);
+  sink.onMouseButton(button, false, x, y);
+ }
  private static float span(MotionEvent e){return (float)Math.hypot(e.getX(0)-e.getX(1),e.getY(0)-e.getY(1));}
  private static float centerX(MotionEvent e){return (e.getX(0)+e.getX(1))/2;}
  private static float centerY(MotionEvent e){return (e.getY(0)+e.getY(1))/2;}

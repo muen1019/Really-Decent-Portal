@@ -7,15 +7,20 @@
  */
 
 package com.freerdp.freerdpcore.utils;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.InputDevice;
+import android.view.ViewConfiguration;
 import com.freerdp.freerdpcore.presentation.ScreenInputMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import java.util.*;
+import java.time.Duration;
 import static org.junit.Assert.*;
+import static org.robolectric.Shadows.shadowOf;
 @RunWith(RobolectricTestRunner.class) @Config(manifest=Config.NONE,sdk=37)
 public class ScreenInputControllerTest {
  static class Output implements ScreenInputController.Sink {
@@ -57,18 +62,119 @@ public class ScreenInputControllerTest {
   send(c,10,MotionEvent.ACTION_DOWN,new int[]{0},100,100);
   send(c,20,MotionEvent.ACTION_MOVE,new int[]{0},140,120);
   send(c,30,MotionEvent.ACTION_UP,new int[]{0},140,120);
-  send(c,500,MotionEvent.ACTION_DOWN,new int[]{0},800,900);
-  send(c,550,MotionEvent.ACTION_UP,new int[]{0},800,900);
+  long tap = SystemClock.uptimeMillis();
+  send(c,tap,MotionEvent.ACTION_DOWN,new int[]{0},800,900);
+  send(c,tap+50,MotionEvent.ACTION_UP,new int[]{0},800,900);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(350));
   assertEquals(Arrays.asList("move:520,360","button:1:true:520,360","button:1:false:520,360"),o.mouse);assertTrue(o.frames.isEmpty());
  }
  @Test public void secondTapDragKeepsLeftDownUntilReleaseAndCancelEndsOnlyItsDrag(){
   Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
   send(c,10,0,new int[]{0},100,100);send(c,30,1,new int[]{0},100,100);
   send(c,100,0,new int[]{0},100,100);send(c,130,2,new int[]{0},120,100);
-  assertEquals(Arrays.asList("button:1:true:500,350","button:1:false:500,350","button:1:true:500,350","move:520,350"),o.mouse);
+  assertEquals(Arrays.asList("button:1:true:500,350","move:520,350"),o.mouse);
   c.cancel();c.cancel();send(c,150,1,new int[]{0},120,100);
-  assertEquals("button:1:false:520,350",o.mouse.get(4));assertEquals(5,o.mouse.size());
+  assertEquals(Arrays.asList("button:1:true:500,350","move:520,350","button:1:false:520,350"),o.mouse);
  }
+ @Test public void quickSecondTapDragSendsOnlyOneRemotePress(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 90, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 100, MotionEvent.ACTION_MOVE, finger, 103, 100);
+  send(controller, 110, MotionEvent.ACTION_MOVE, finger, 120, 100);
+  send(controller, 120, MotionEvent.ACTION_MOVE, finger, 140, 100);
+  send(controller, 130, MotionEvent.ACTION_UP, finger, 140, 100);
+
+  assertEquals(Arrays.asList("button:1:true:500,350", "move:520,350", "move:540,350",
+      "button:1:false:540,350"), output.mouse);
+ }
+ @Test public void shiftedSecondTapUsesTheDoubleTapRadiusAndStartsDraggingWithoutDwell(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300, 100);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 90, MotionEvent.ACTION_DOWN, finger, 140, 100);
+  send(controller, 95, MotionEvent.ACTION_MOVE, finger, 145, 100);
+  assertTrue(output.mouse.isEmpty());
+  send(controller, 100, MotionEvent.ACTION_MOVE, finger, 150, 100);
+  send(controller, 110, MotionEvent.ACTION_UP, finger, 150, 100);
+
+  assertEquals(Arrays.asList("button:1:true:500,350", "move:510,350",
+      "button:1:false:510,350"), output.mouse);
+ }
+
+ @Test public void secondTouchOutsideTheDoubleTapRadiusMovesWithoutDragging(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300, 100);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 90, MotionEvent.ACTION_DOWN, finger, 205, 100);
+  send(controller, 100, MotionEvent.ACTION_MOVE, finger, 220, 100);
+  send(controller, 110, MotionEvent.ACTION_UP, finger, 220, 100);
+
+  assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
+      "move:515,350"), output.mouse);
+ }
+
+ @Test public void quickDoubleClickIsSentAfterTheSecondFingerLifts(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+  long tap = SystemClock.uptimeMillis();
+
+  send(controller, tap, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, tap + 20, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, tap + 70, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(350));
+  assertTrue(output.mouse.isEmpty());
+
+  send(controller, tap + 350, MotionEvent.ACTION_UP, finger, 100, 100);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(300));
+  assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350",
+      "button:1:true:500,350", "button:1:false:500,350"), output.mouse);
+ }
+
+ @Test public void singleTapIsSentExactlyOnceWhenNoSecondTapArrives(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  long tap = SystemClock.uptimeMillis();
+
+  send(controller, tap, MotionEvent.ACTION_DOWN, new int[]{0}, 100, 100);
+  send(controller, tap + 20, MotionEvent.ACTION_UP, new int[]{0}, 100, 100);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(319));
+  assertTrue(output.mouse.isEmpty());
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(1));
+  assertEquals(Arrays.asList("button:1:true:500,350", "button:1:false:500,350"), output.mouse);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(500));
+  assertEquals(2, output.mouse.size());
+ }
+
+ @Test public void leavingTouchpadModeDropsAnUnresolvedTap(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  long tap = SystemClock.uptimeMillis();
+
+  send(controller, tap, MotionEvent.ACTION_DOWN, new int[]{0}, 100, 100);
+  send(controller, tap + 20, MotionEvent.ACTION_UP, new int[]{0}, 100, 100);
+  controller.setMode(ScreenInputMode.DIRECT_TOUCH);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(500));
+
+  assertTrue(output.mouse.isEmpty());
+ }
+
  @Test public void disablingTapDragPreservesDoubleClickAndUnheldMovement(){
   Output output = new Output();
   ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
@@ -101,14 +207,14 @@ public class ScreenInputControllerTest {
   send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
   send(controller, 100, MotionEvent.ACTION_DOWN, finger, 100, 100);
   send(controller, 130, MotionEvent.ACTION_MOVE, finger, 120, 100);
-  assertEquals(4, output.mouse.size());
+  assertEquals(2, output.mouse.size());
 
   controller.setTapDragEnabled(false);
-  assertEquals(5, output.mouse.size());
-  assertEquals("button:1:false:520,350", output.mouse.get(4));
+  assertEquals(3, output.mouse.size());
+  assertEquals("button:1:false:520,350", output.mouse.get(2));
   controller.setTapDragEnabled(false);
   send(controller, 150, MotionEvent.ACTION_UP, finger, 120, 100);
-  assertEquals(5, output.mouse.size());
+  assertEquals(3, output.mouse.size());
  }
  static void twoTap(ScreenInputController c,long t){
   send(c,t,0,new int[]{0},100,100);send(c,t+10,5|(1<<8),new int[]{0,1},100,100,200,100);
@@ -116,9 +222,71 @@ public class ScreenInputControllerTest {
  }
  @Test public void twoFingerTapClicksRightWithoutLeftClick(){
   Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setPointerPosition(500,350);
-  twoTap(c,10);
+  long tap = SystemClock.uptimeMillis();
+  twoTap(c,tap);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(330));
   assertEquals(Arrays.asList("button:2:true:500,350","button:2:false:500,350"),o.mouse);assertTrue(o.frames.isEmpty());
  }
+ @Test public void stationarySingleFingerHoldRightClicksOnRelease(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  long tap = SystemClock.uptimeMillis();
+  long hold = ViewConfiguration.getLongPressTimeout();
+
+  send(controller, tap, MotionEvent.ACTION_DOWN, new int[]{0}, 100, 100);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(hold));
+  assertTrue(output.mouse.isEmpty());
+  send(controller, tap + hold, MotionEvent.ACTION_UP, new int[]{0}, 100, 100);
+
+  assertEquals(Arrays.asList("button:2:true:500,350", "button:2:false:500,350"), output.mouse);
+ }
+
+ @Test public void pausingBeforeMovingThePointerDoesNotClick(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  long tap = SystemClock.uptimeMillis();
+  long hold = ViewConfiguration.getLongPressTimeout() + 20;
+
+  send(controller, tap, MotionEvent.ACTION_DOWN, new int[]{0}, 100, 100);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(hold));
+  send(controller, tap + hold, MotionEvent.ACTION_MOVE, new int[]{0}, 120, 100);
+  send(controller, tap + hold + 10, MotionEvent.ACTION_UP, new int[]{0}, 120, 100);
+
+  assertEquals(Collections.singletonList("move:520,350"), output.mouse);
+ }
+
+ @Test public void quickMovementDeliveredOnLiftIsNotMistakenForDoubleClick(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+  int[] finger = {0};
+
+  send(controller, 10, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 30, MotionEvent.ACTION_UP, finger, 100, 100);
+  send(controller, 90, MotionEvent.ACTION_DOWN, finger, 100, 100);
+  send(controller, 110, MotionEvent.ACTION_UP, finger, 120, 100);
+
+  assertEquals(Arrays.asList("button:1:true:500,350", "move:520,350",
+      "button:1:false:520,350"), output.mouse);
+ }
+
+ @Test public void pinchAfterTwoFingerTapStillZoomsLocally(){
+  Output output = new Output();
+  ScreenInputController controller = new ScreenInputController(output, 8, 40, 300);
+  controller.setGeometry(1, 1000, 700);
+
+  twoTap(controller, 10);
+  send(controller, 100, MotionEvent.ACTION_DOWN, new int[]{0}, 100, 100);
+  send(controller, 110, MotionEvent.ACTION_POINTER_DOWN | (1 << 8), new int[]{0, 1}, 100, 100, 200, 100);
+  send(controller, 130, MotionEvent.ACTION_MOVE, new int[]{0, 1}, 50, 100, 250, 100);
+  send(controller, 150, MotionEvent.ACTION_POINTER_UP | (1 << 8), new int[]{0, 1}, 50, 100, 250, 100);
+  send(controller, 160, MotionEvent.ACTION_UP, new int[]{0}, 50, 100);
+
+  assertEquals(Arrays.asList("button:2:true:500,350", "button:2:false:500,350", "zoom:2.0"), output.mouse);
+ }
+
  @Test public void twoFingerSlideSendsWheelNotPointerOrButtons(){
   Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);
   send(c,10,0,new int[]{0},100,200);send(c,20,5|(1<<8),new int[]{0,1},100,200,200,200);
@@ -131,7 +299,7 @@ public class ScreenInputControllerTest {
   twoTap(c,10);
   send(c,100,0,new int[]{0},100,100);send(c,110,5|(1<<8),new int[]{0,1},100,100,200,100);
   send(c,130,2,new int[]{0,1},120,100,220,100);send(c,150,6|(1<<8),new int[]{0,1},120,100,220,100);send(c,160,1,new int[]{0},120,100);
-  assertEquals(Arrays.asList("button:2:true:500,350","button:2:false:500,350","button:2:true:500,350","move:520,350","button:2:false:520,350"),o.mouse);
+  assertEquals(Arrays.asList("button:2:true:500,350","move:520,350","button:2:false:520,350"),o.mouse);
  }
  @Test public void pinchZoomsLocallyWithoutMouseOrNativeTouch(){
   Output o=new Output();ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);
@@ -145,7 +313,10 @@ public class ScreenInputControllerTest {
   send(c,10,0,new int[]{0},100,100);c.setMode(ScreenInputMode.TOUCHPAD);
   send(c,20,2,new int[]{0},200,200);send(c,30,1,new int[]{0},200,200);
   assertEquals(2,o.frames.size());assertArrayEquals(new int[]{3},o.frames.get(1).actions);assertTrue(o.mouse.isEmpty());
-  send(c,40,0,new int[]{0},800,600);send(c,50,1,new int[]{0},800,600);assertEquals(2,o.mouse.size());
+  long tap = SystemClock.uptimeMillis();
+  send(c,tap,0,new int[]{0},800,600);send(c,tap+10,1,new int[]{0},800,600);
+  shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(310));
+  assertEquals(2,o.mouse.size());
  }
  @Test public void unavailableOrSuspendedNativeTouchNeverSilentlyBecomesMouse(){
   Output o=new Output();o.available=false;ScreenInputController c=new ScreenInputController(o,8,40,300);c.setGeometry(1,1000,700);c.setMode(ScreenInputMode.DIRECT_TOUCH);

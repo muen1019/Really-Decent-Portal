@@ -250,7 +250,8 @@ public class SessionView extends View
 				try { setZoom(Math.max(MIN_SCALE_FACTOR, Math.min(MAX_SCALE_FACTOR, scaleFactor * factor))); }
 				finally { localPinchZoom = false; }
 			}
-		}, vc.getScaledTouchSlop(), Math.max(notchPxX, notchPxY), ViewConfiguration.getDoubleTapTimeout());
+		}, vc.getScaledTouchSlop(), Math.max(notchPxX, notchPxY), ViewConfiguration.getDoubleTapTimeout(),
+		   vc.getScaledDoubleTapSlop());
 		screenInputController.setMode(screenInputMode);
 		screenInputController.setTapDragEnabled(tapDragEnabled);
 		screenInputController.setActive(screenInputActive);

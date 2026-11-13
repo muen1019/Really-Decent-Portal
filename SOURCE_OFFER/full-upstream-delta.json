@@ -234,14 +234,14 @@
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/APP_LEGAL_MANIFEST.json",
       "bytes": 19977,
-      "sha256": "e644bea99305ca502da8279f52e2ac07bbbfa735c9a16cb8e222ecbc54921fa7",
+      "sha256": "b060d414840ac2fe22e77ff4496af14038f689c341349de6385ed69536e461c3",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/CURRENT_RUNTIME_LICENSE_MAP.json",
       "bytes": 2956689,
-      "sha256": "d8b58acd5fda6d7d2e0adc7721fc461d8b3f0430b04ae95abeda54a9ea800bff",
+      "sha256": "35ac8aaf1bdaf3e9759c28751f1c8e689e30e8568a9525495330469548ec0375",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -640,49 +640,49 @@
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.html",
       "bytes": 29091,
-      "sha256": "83e31a5055f1e82bd3002933b23e892817720c2ddc6e6ca7333a4a8cec3b8651",
+      "sha256": "d194bf40f7f9a00dafe4dd1baabcf03c951898536c05338cf91e0c80e93155f1",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.en.md",
       "bytes": 19507,
-      "sha256": "91773ea1cad0f71547777afd26a63ac7f0e2c0fb590f84c90e8a334d23e14d52",
+      "sha256": "fa4c260793d1467684a7ba194246d1bfb0bb7e04ea7ddcf64f00029d3e9cb17f",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.html",
       "bytes": 29307,
-      "sha256": "f40139858f0a8c7770e8f35d19b5a2392c47bacd0eae65569881feeec5586906",
+      "sha256": "b6cba3ba1ff574f3175eabd624f2413242234e2a91abc460660cdc3d27d8873e",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md",
       "bytes": 22954,
-      "sha256": "31ee344ea7eb6fb7d0167e25a5129a2be873aa5ee49dbf3a70742007c52b7af6",
+      "sha256": "cae8ce22d1928f854f8b7b0beacb8dcb20dd18a983dbc08f1814261480071488",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/THIRD_PARTY_NOTICES.md.html",
       "bytes": 29307,
-      "sha256": "f40139858f0a8c7770e8f35d19b5a2392c47bacd0eae65569881feeec5586906",
+      "sha256": "b6cba3ba1ff574f3175eabd624f2413242234e2a91abc460660cdc3d27d8873e",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/index-zh-Hant.html",
       "bytes": 4406,
-      "sha256": "714640728aede72d51523650cb3e54f6a14b6d1b2dbe7f2db9291761567326df",
+      "sha256": "62f3007a805a332958f14c8e72df3aab75cbe4e4e1d51f1e85cae201d226764e",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/legal/index.html",
       "bytes": 4520,
-      "sha256": "527741752fdd10e0626b9404840edc2f2fe1a9c4f528a536346b1fb44bcbd9a8",
+      "sha256": "c8858fc981db8683fcd61dcf583a64dd21643592a29402a05cd0699ae14cfbc7",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -759,21 +759,21 @@
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/source23/index-zh-Hant.html",
       "bytes": 1131,
-      "sha256": "c794cb36e851ad1b60591e0c5e5a6cf0a42e78a1b81bdc6f05aaa329c0a2ad73",
+      "sha256": "9c11d1a9e583aea692437e6e171274d75abf7c3e04c191d72c532fdda94f1981",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/source23/index.html",
       "bytes": 1176,
-      "sha256": "52f42e838ec2b01daa2fc7114a573f98b1d1a9a7e62ca3e1ece4575530256962",
+      "sha256": "abf2a581ce6307ed0bcbbb9af33744c7f2911c30745b04636e509cc78f8ea303",
       "mode": "100644",
       "upstream_sha256": null
     },
     {
       "path": "client/Android/Studio/aFreeRDP/src/deskquay/assets/deskquay/source23/provenance.json",
       "bytes": 607,
-      "sha256": "9a0c976bc4d353b071aa24b2a9043e94830b54f88a24f7bb7bbce4e7aa232f4c",
+      "sha256": "5ff87f8bc2356f507c7924bb378636acbace76b321dfce882d388bb236838b38",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -891,8 +891,8 @@
     },
     {
       "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/utils/ScreenInputController.java",
-      "bytes": 10165,
-      "sha256": "331cfefdcf63f7b2ff2c48a2fe84cdb1e41f4769466bdb8017a46b42090587a5",
+      "bytes": 13680,
+      "sha256": "edb46f0b277c76772c3ca8ec85b1fab99b18f03f7e14b5baff2b3d2410e42b6c",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -1017,8 +1017,8 @@
     },
     {
       "path": "client/Android/Studio/freeRDPCore/src/test/java/com/freerdp/freerdpcore/utils/ScreenInputControllerTest.java",
-      "bytes": 14431,
-      "sha256": "1e6d9a150bc45b25c09da9d9c5bd67e2076f94c54ce1029ee97c8a26412fbcd8",
+      "bytes": 22337,
+      "sha256": "6cd39bfa4e978fa7fc50979583ce03646a4043874d7f9442cf9a52d93c06a509",
       "mode": "100644",
       "upstream_sha256": null
     },
@@ -1074,7 +1074,7 @@
     {
       "path": "client/Android/Studio/build.gradle",
       "bytes": 2089,
-      "sha256": "98641c855a65ee17a0a4b788dd3ce130ffbf37f8054c31be38b901de336f5b44",
+      "sha256": "395227b4308713faea784a3555413e9b33a31cad2f0b946292593ac894d42588",
       "mode": "100644",
       "upstream_sha256": "335f51d838204185d0c7bfd6fc9cb078c64f8e0836bd6889d254ffc693bf1701"
     },
@@ -1249,14 +1249,14 @@
     {
       "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionInputManager.java",
       "bytes": 43881,
-      "sha256": "b19f093eb239ae6e2ae465e12b2df24424f1765efe9d827f04176df06327c195",
+      "sha256": "bb8c3e509e193739abfdf0b47ab787d8c2406499fe76ef15062831ab6efce84f",
       "mode": "100644",
       "upstream_sha256": "fc3584df504fabefed903c6a061cc654cbf771d30000096432f73db93e22aff4"
     },
     {
       "path": "client/Android/Studio/freeRDPCore/src/main/java/com/freerdp/freerdpcore/presentation/SessionView.java",
-      "bytes": 64677,
-      "sha256": "b9a3d3332793e0f2513352a84f5b25357143b01c09e66610963e2ebb69925c7a",
+      "bytes": 64711,
+      "sha256": "8f93adffc7a2a4ccdfaf2324a27d12bd29992a03f64b859a846a6f0f10b6d6c7",
       "mode": "100644",
       "upstream_sha256": "24fbf8da08c8c2cc516c1866132fb8e2ab94ef6f0377caf7ab8d50d255af6d60"
     },

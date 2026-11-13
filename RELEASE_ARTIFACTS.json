@@ -1,21 +1,21 @@
 {
   "format": "really-decent-portal-release-artifacts-v1",
   "state": "VERIFIED_ARTIFACT_PAIR",
-  "version": "0.1.7",
-  "version_code": 8,
+  "version": "0.1.8",
+  "version_code": 9,
   "package": "io.github.muen1019.reallydecentportal",
   "abi": "arm64-v8a",
   "min_sdk": 29,
   "target_sdk": 37,
   "apk": {
-    "file": "Really-Decent-Portal-0.1.7-arm64-v8a.apk",
-    "bytes": 24439721,
-    "sha256": "3d6b301e376a4748765571f2cbeed878d5eb34ead5e1728da382143b7baa4de4"
+    "file": "Really-Decent-Portal-0.1.8-arm64-v8a.apk",
+    "bytes": 24456105,
+    "sha256": "6e9e33e5b5a0dbd5023da4fc0dd264306f05f351f84298e08aaaff51615b9120"
   },
   "source_archive": {
-    "file": "Really-Decent-Portal-0.1.7-source.zip",
-    "bytes": 14822853,
-    "sha256": "c82f2769d0b59c75e3b018b3cb2d08b0dada391159f3c985f7083d98a8289d69"
+    "file": "Really-Decent-Portal-0.1.8-source.zip",
+    "bytes": 14833508,
+    "sha256": "3ec59f74844f6e1e4adb5c362e9b230c9b89390f50e40d738d843466b8fcdc93"
   },
   "signing_certificate_sha256": "51cf6d51e0f5e97c9c482a5afab7e314bf7bfbf67347bc9857f284c732621216",
   "signature_schemes": {

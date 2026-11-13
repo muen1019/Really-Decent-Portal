@@ -743,8 +743,8 @@ public class SessionInputManager
 
 	private void updateHardwareMousePosition(int x, int y)
 	{
-		updateMousePosition(x, y);
 		sessionView.updateScreenPointer(x, y);
+		updateMousePosition(x, y);
 	}
 
 	private boolean sendOwnedMouseButton(int owner, int button, boolean down, int x, int y)
